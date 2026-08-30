@@ -16,7 +16,7 @@ export default function FloodControlProjectsTab({
     <div className='border-b border-gray-200 mb-6 overflow-x-auto'>
       <div className='flex min-w-max'>
         <Link
-          to={`/flood-control-projects${queryString}`}
+          to={`/statistics/flood-control-projects${queryString}`}
           className={cn(
             'px-3 sm:px-4 py-2 border-b-2 font-medium flex items-center whitespace-nowrap',
             selectedTab === 'index'
