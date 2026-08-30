@@ -133,7 +133,14 @@ function App() {
 
             <Route path='/hotlines' element={<Hotlines />} />
 
-            <Route path='/overview' element={<OverviewPage />} />
+            <Route path='/statistics'>
+              <Route index element={<Navigate to='overview' replace />} />
+              <Route path='overview' element={<OverviewPage />} />
+              <Route
+                path='flood-control-projects'
+                element={<FloodControlProjects />}
+              />
+            </Route>
 
             {/* Data Routes */}
             <Route path='/data/weather' element={<WeatherPage />} />

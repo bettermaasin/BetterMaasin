@@ -29,8 +29,11 @@ export const mainNavigation: NavigationItem[] = [
     label: 'Statistics',
     href: '/statistics',
     children: [
-      { label: 'General Overview', href: '/overview' },
-      { label: 'Flood Control Projects', href: '/flood-control-projects' },
+      { label: 'General Overview', href: '/statistics/overview' },
+      {
+        label: 'Flood Control Projects',
+        href: '/statistics/flood-control-projects',
+      },
     ],
   },
   {
