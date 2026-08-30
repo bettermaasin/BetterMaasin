@@ -1,21 +1,17 @@
 # Flood Control Projects Dashboard
 
-This directory contains data and scripts for the Flood Control Projects Dashboard, which visualizes flood control infrastructure projects across the Philippines.
+This directory contains data and scripts for the Flood Control Projects Dashboard, which visualizes flood control infrastructure projects in Maasin City, Southern Leyte.
 
 ## Data Structure
 
-The main data source is a large JSON file (`flood_control.json`) containing detailed information about flood control projects. The data has been processed to extract lookup values for key fields, which are stored in the `lookups` directory.
+The main data source is a large JSON file (`flood_control.json`) containing detailed information about flood control projects across the whole Philippines. The data has been processed to extract lookup values for key fields, which are stored in the `lookups` directory. Only projects from Maasin City, Southern Leyte are retained for the dashboard.
 
 ### Lookup Data Files
 
 The following lookup files are available in the `lookups` directory:
 
 - `InfraYear.json` / `InfraYear_with_counts.json`: Infrastructure years with project counts
-- `Region.json` / `Region_with_counts.json`: Regions with project counts
-- `Province.json` / `Province_with_counts.json`: Provinces with project counts
 - `Contractor.json` / `Contractor_with_counts.json`: Contractors with project counts
-- `DistrictEngineeringOffice.json` / `DistrictEngineeringOffice_with_counts.json`: District engineering offices with project counts
-- `LegislativeDistrict.json` / `LegislativeDistrict_with_counts.json`: Legislative districts with project counts
 - `TypeofWork.json` / `TypeofWork_with_counts.json`: Types of work with project counts
 - `Projects_Cost_UniqueContractors_Summary.json`: Precomputed totals for the dashboard (total projects, total cost, unique contractors)
 
@@ -33,31 +29,24 @@ The flood control data is indexed in Meilisearch for efficient searching. The in
 
 ### Indexing Script
 
-The script `scripts/index_flood_control_arcgis.js` is used to index the flood control data in Meilisearch. It processes the large JSON file and indexes each project with appropriate attributes for searching and filtering.
+The script `scripts/index_flood_control_arcgis.js` is used to index the flood control data in Meilisearch. It processes the large JSON file and indexes each project with appropriate attributes for searching and filtering. The script filters to Maasin City (Southern Leyte) projects only, so the index contains Maasin data exclusively.
 
 ### Searchable Attributes
 
 - ProjectDescription
 - Municipality
-- Region
-- Province
 - ContractID
 - ProjectID
 - Contractor
-- LegislativeDistrict
-- DistrictEngineeringOffice
 
 ### Filterable Attributes
 
 - Municipality
-- Region
-- Province
 - StartDate
 - CompletionDateActual
 - FundingYear
 - TypeofWork
-- LegislativeDistrict
-- DistrictEngineeringOffice
+- Contractor
 - GlobalID
 
 ## Dashboard Features
@@ -66,16 +55,13 @@ The flood control projects dashboard (`/flood-control-projects`) provides:
 
 1. Interactive visualizations of project data:
    - Projects by year (bar chart)
-   - Top regions by project count (line chart)
    - Distribution by type of work (pie chart)
+   - Top contractors (bar chart)
 
 2. Filtering capabilities for:
    - Infrastructure Year
-   - Region
-   - Province
    - Type of Work
-   - District Engineering Office
-   - Legislative District
+   - Contractor
 
 3. Search functionality using Meilisearch to find specific projects
 

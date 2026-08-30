@@ -161,26 +161,12 @@ export const FilterTitle: FC<{
     activeFilters.push(`Year: ${filters.InfraYear}`);
   }
 
-  if (filters.Region) {
-    activeFilters.push(`Region: ${filters.Region}`);
-  }
-
-  if (filters.Province) {
-    activeFilters.push(`Province: ${filters.Province}`);
-  }
-
   if (filters.TypeofWork) {
     activeFilters.push(`Type of Work: ${filters.TypeofWork}`);
   }
 
-  if (filters.DistrictEngineeringOffice) {
-    activeFilters.push(
-      `District Engineering Office: ${filters.DistrictEngineeringOffice}`
-    );
-  }
-
-  if (filters.LegislativeDistrict) {
-    activeFilters.push(`Legislative District: ${filters.LegislativeDistrict}`);
+  if (filters.Contractor) {
+    activeFilters.push(`Contractor: ${filters.Contractor}`);
   }
 
   // Generate title

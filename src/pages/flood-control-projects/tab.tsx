@@ -1,4 +1,4 @@
-import { BarChart3Icon, TableIcon, MapIcon, UsersIcon } from 'lucide-react';
+import { BarChart3Icon, TableIcon, MapIcon } from 'lucide-react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { cn } from '../../lib/utils';
 
@@ -38,18 +38,6 @@ export default function FloodControlProjectsTab({
         >
           <TableIcon className='w-4 h-4 mr-1.5 sm:mr-2' />
           Table
-        </Link>
-        <Link
-          to='/flood-control-projects/contractors'
-          className={cn(
-            'px-3 sm:px-4 py-2 border-b-2 font-medium flex items-center whitespace-nowrap',
-            selectedTab === 'contractors'
-              ? 'border-blue-500'
-              : 'text-gray-800 hover:text-blue-600'
-          )}
-        >
-          <UsersIcon className='w-4 h-4 mr-1.5 sm:mr-2' />
-          Contractors
         </Link>
         <Link
           to='/flood-control-projects/map'

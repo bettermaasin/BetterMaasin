@@ -15,6 +15,10 @@ const MEILISEARCH_PORT = process.env.VITE_MEILISEARCH_PORT || '7700';
 const MEILISEARCH_API_KEY = process.env.MEILISEARCH_MASTER_KEY || ''; // Use MASTER KEY for admin operations
 const INDEX_NAME = 'bettergov_flood_control';
 
+// Scope the index to Maasin City, Southern Leyte only.
+const MAASIN_MUNICIPALITY = 'CITY OF MAASIN (CAPITAL) (SOUTHERN LEYTE)';
+const MAASIN_PROVINCE = 'SOUTHERN LEYTE';
+
 // Get the current directory path
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -56,8 +60,17 @@ function extractFeatures(arcgisData) {
     return [];
   }
 
+  // Scope to Maasin City only
+  const maasinFeatures = arcgisData.features.filter(
+    feature =>
+      (feature.attributes?.Municipality || '').trim().toUpperCase() ===
+        MAASIN_MUNICIPALITY &&
+      (feature.attributes?.Province || '').trim().toUpperCase() ===
+        MAASIN_PROVINCE
+  );
+
   // Extract just the attributes from each feature and add type field
-  return arcgisData.features.map(feature => {
+  return maasinFeatures.map(feature => {
     const attributes = feature.attributes || {};
 
     // Add type field for filtering
@@ -132,30 +145,19 @@ async function main() {
       await index.updateSettings({
         searchableAttributes: [
           'ProjectDescription',
-          'Municipality',
           'Contractor',
-          'Region',
           'ContractID',
           'ProjectID',
-          'Province',
-          'LegislativeDistrict',
-          'DistrictEngineeringOffice',
+          'TypeofWork',
         ],
         filterableAttributes: [
           'slug',
-          'Municipality',
-          'Region',
-          'Province',
-          'StartDate',
-          'CompletionDateActual',
           'Contractor',
           'type',
           'FundingYear',
           'Latitude',
           'Longitude',
           'TypeofWork',
-          'LegislativeDistrict',
-          'DistrictEngineeringOffice',
           'GlobalID',
           '_geo',
         ],

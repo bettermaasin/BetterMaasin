@@ -1,4 +1,4 @@
-import { FC, useMemo, useState } from 'react';
+import { FC, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { InstantSearch, Configure, useHits } from 'react-instantsearch';
 import { instantMeiliSearch } from '@meilisearch/instant-meilisearch';
@@ -10,6 +10,7 @@ import {
   Download,
   ArrowUpDown,
   Info,
+  MapPin,
   Search,
 } from 'lucide-react';
 import Button from '../../components/ui/Button';
@@ -18,10 +19,7 @@ import FloodControlProjectsTab from './tab';
 
 // Import lookup data
 import infraYearData from '../../data/flood_control/lookups/InfraYear_with_counts.json';
-import regionData from '../../data/flood_control/lookups/Region_with_counts.json';
-import provinceData from '../../data/flood_control/lookups/Province_with_counts.json';
-import deoData from '../../data/flood_control/lookups/DistrictEngineeringOffice_with_counts.json';
-import legislativeDistrictData from '../../data/flood_control/lookups/LegislativeDistrict_with_counts.json';
+import contractorData from '../../data/flood_control/lookups/Contractor_with_counts.json';
 import typeOfWorkData from '../../data/flood_control/lookups/TypeofWork_with_counts.json';
 import { useSearchParams } from 'react-router-dom';
 import { generateUrlParams } from './utils';
@@ -181,9 +179,6 @@ const TableRow: FC<HitProps> = ({ hit }) => {
     <tr className='border-b border-gray-200 hover:bg-gray-50'>
       <td className='px-4 py-3 text-sm'>{hit.ProjectDescription || 'N/A'}</td>
       <td className='px-4 py-3 text-sm'>{hit.InfraYear || 'N/A'}</td>
-      <td className='px-4 py-3 text-sm'>{hit.Region || 'N/A'}</td>
-      <td className='px-4 py-3 text-sm'>{hit.Province || 'N/A'}</td>
-      <td className='px-4 py-3 text-sm'>{hit.Municipality || 'N/A'}</td>
       <td className='px-4 py-3 text-sm'>{hit.TypeofWork || 'N/A'}</td>
       <td className='px-4 py-3 text-sm'>{hit.Contractor || 'N/A'}</td>
       <td className='px-4 py-3 text-sm text-right'>
@@ -212,11 +207,8 @@ type FloodControlHit = {
 // Define filters type
 type FilterState = {
   InfraYear: string;
-  Region: string;
-  Province: string;
   TypeofWork: string;
-  DistrictEngineeringOffice: string;
-  LegislativeDistrict: string;
+  Contractor: string;
   [key: string]: string;
 };
 
@@ -236,26 +228,12 @@ const FilterTitle: FC<{ filters: FilterState; searchTerm: string }> = ({
     activeFilters.push(`Year: ${filters.InfraYear}`);
   }
 
-  if (filters.Region) {
-    activeFilters.push(`Region: ${filters.Region}`);
-  }
-
-  if (filters.Province) {
-    activeFilters.push(`Province: ${filters.Province}`);
-  }
-
   if (filters.TypeofWork) {
     activeFilters.push(`Type of Work: ${filters.TypeofWork}`);
   }
 
-  if (filters.DistrictEngineeringOffice) {
-    activeFilters.push(
-      `District Engineering Office: ${filters.DistrictEngineeringOffice}`
-    );
-  }
-
-  if (filters.LegislativeDistrict) {
-    activeFilters.push(`Legislative District: ${filters.LegislativeDistrict}`);
+  if (filters.Contractor) {
+    activeFilters.push(`Contractor: ${filters.Contractor}`);
   }
 
   // Generate title
@@ -475,9 +453,6 @@ const TableHits: FC<{ filters: FilterState; searchTerm: string }> = ({
                 label='Project Description'
               />
               <SortHeader field='InfraYear' label='Year' />
-              <SortHeader field='Region' label='Region' />
-              <SortHeader field='Province' label='Province' />
-              <SortHeader field='Municipality' label='Municipality' />
               <SortHeader field='TypeofWork' label='Type of Work' />
               <SortHeader field='Contractor' label='Contractor' />
               <SortHeader field='ContractCost' label='Contract Cost' />
@@ -617,17 +592,9 @@ const FloodControlProjectsTable: FC = () => {
   const [filters, setFilters] = useState<FilterState>(() => {
     const initialFilters: FilterState = {
       InfraYear: searchParams.get('year') || '',
-      Region: searchParams.get('region') || '',
-      Province: searchParams.get('province') || '',
       TypeofWork: searchParams.get('typeOfWork') || '',
-      DistrictEngineeringOffice: searchParams.get('deo') || '',
-      LegislativeDistrict: searchParams.get('district') || '',
+      Contractor: searchParams.get('contractor') || '',
     };
-
-    // If region is defined do not set province
-    if (initialFilters.Region.length) {
-      initialFilters.Province = '';
-    }
 
     return initialFilters;
   });
@@ -641,11 +608,6 @@ const FloodControlProjectsTable: FC = () => {
       [filterName]: value,
     };
 
-    //reset province when region is changed
-    if (filterName === 'Region') {
-      newFilters.Province = '';
-    }
-
     setFilters(newFilters);
     setSearchParams(generateUrlParams(newFilters));
   };
@@ -655,10 +617,6 @@ const FloodControlProjectsTable: FC = () => {
     // Start with an empty array - we'll add filters as needed
     const filterStrings: string[] = [];
 
-    // Based on the error message, these are the only filterable attributes:
-    // CompletionDateActual, DistrictEngineeringOffice, FundingYear, GlobalID,
-    // LegislativeDistrict, Municipality, Province, Region, StartDate, TypeofWork, type
-
     // Always filter by type - format it correctly
     filterStrings.push('type = "flood_control"');
 
@@ -667,54 +625,16 @@ const FloodControlProjectsTable: FC = () => {
       filterStrings.push(`FundingYear = ${filters.InfraYear.trim()}`);
     }
 
-    if (filters.Region && filters.Region.trim()) {
-      filterStrings.push(`Region = "${filters.Region.trim()}"`);
-    }
-
-    if (filters.Province && filters.Province.trim()) {
-      filterStrings.push(`Province = "${filters.Province.trim()}"`);
-    }
-
     if (filters.TypeofWork && filters.TypeofWork.trim()) {
       filterStrings.push(`TypeofWork = "${filters.TypeofWork.trim()}"`);
     }
 
-    if (
-      filters.DistrictEngineeringOffice &&
-      filters.DistrictEngineeringOffice.trim()
-    ) {
-      filterStrings.push(
-        `DistrictEngineeringOffice = "${filters.DistrictEngineeringOffice.trim()}"`
-      );
-    }
-
-    if (filters.LegislativeDistrict && filters.LegislativeDistrict.trim()) {
-      filterStrings.push(
-        `LegislativeDistrict = "${filters.LegislativeDistrict.trim()}"`
-      );
+    if (filters.Contractor && filters.Contractor.trim()) {
+      filterStrings.push(`Contractor = "${filters.Contractor.trim()}"`);
     }
 
     return filterStrings.length > 0 ? filterStrings.join(' AND ') : '';
   };
-
-  const provinceOptions = useMemo(() => {
-    if (filters.Region === 'National Capital Region') {
-      const nationalCapitalRegion = provinceData.Province.filter(
-        item => item.regCode === '13'
-      );
-      const otherRegions = provinceData.Province.filter(item => !item.regCode);
-      return [...nationalCapitalRegion, ...otherRegions];
-    }
-
-    if (filters.Region) {
-      const regionId = regionData.Region.find(
-        item => item.value === filters.Region
-      )?.regCode;
-      return provinceData.Province.filter(item => item.regCode === regionId);
-    }
-
-    return provinceData.Province;
-  }, [filters.Region]);
 
   // Export data function
   const handleExportData = async () => {
@@ -793,7 +713,7 @@ const FloodControlProjectsTable: FC = () => {
                   <input
                     type='text'
                     className='block w-full pl-8 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-hidden focus:ring-blue-500 focus:border-blue-500 sm:text-sm'
-                    placeholder='Projects, contractors, municipality, province, region...'
+                    placeholder='Projects, contractors, municipality...'
                     value={searchTerm}
                     onChange={e => handleSearchChange(e.target.value)}
                   />
@@ -811,30 +731,11 @@ const FloodControlProjectsTable: FC = () => {
                 />
               </div>
 
-              <div>
-                <label className='block text-sm font-medium text-gray-700 mb-1'>
-                  Region
-                </label>
-                <FilterDropdown
-                  name='Region'
-                  options={regionData.Region}
-                  value={filters.Region}
-                  onChange={value => handleFilterChange('Region', value)}
-                  searchable
-                />
-              </div>
-
-              <div>
-                <label className='block text-sm font-medium text-gray-700 mb-1'>
-                  Province
-                </label>
-                <FilterDropdown
-                  name='Province'
-                  options={provinceOptions}
-                  value={filters.Province}
-                  onChange={value => handleFilterChange('Province', value)}
-                  searchable
-                />
+              <div className='pt-1'>
+                <div className='flex items-center gap-2 text-sm font-medium text-gray-500'>
+                  <MapPin className='h-4 w-4 text-blue-600' />
+                  <span>Maasin City, Southern Leyte</span>
+                </div>
               </div>
 
               <div>
@@ -852,30 +753,13 @@ const FloodControlProjectsTable: FC = () => {
 
               <div>
                 <label className='block text-sm font-medium text-gray-700 mb-1'>
-                  District Engineering Office
+                  Contractor
                 </label>
                 <FilterDropdown
-                  name='DEO'
-                  options={deoData.DistrictEngineeringOffice}
-                  value={filters.DistrictEngineeringOffice}
-                  onChange={value =>
-                    handleFilterChange('DistrictEngineeringOffice', value)
-                  }
-                  searchable
-                />
-              </div>
-
-              <div>
-                <label className='block text-sm font-medium text-gray-700 mb-1'>
-                  Legislative District
-                </label>
-                <FilterDropdown
-                  name='Legislative District'
-                  options={legislativeDistrictData.LegislativeDistrict}
-                  value={filters.LegislativeDistrict}
-                  onChange={value =>
-                    handleFilterChange('LegislativeDistrict', value)
-                  }
+                  name='Contractor'
+                  options={contractorData.Contractor}
+                  value={filters.Contractor}
+                  onChange={value => handleFilterChange('Contractor', value)}
                   searchable
                 />
               </div>
@@ -941,11 +825,11 @@ const FloodControlProjectsTable: FC = () => {
                 </h2>
               </div>
               <p className='text-gray-800 mb-4'>
-                This table displays flood control infrastructure projects across
-                the Philippines. Use the filters in the sidebar to narrow down
-                specific projects, or use the search functionality to find
-                projects by keyword. You can sort the table by clicking on any
-                column header.
+                This table displays flood control infrastructure projects in
+                Maasin City, Southern Leyte. Use the filters in the sidebar to
+                narrow down specific projects, or use the search functionality
+                to find projects by keyword. You can sort the table by clicking
+                on any column header.
               </p>
               <p className='text-sm text-gray-800'>
                 Source: https://sumbongsapangulo.ph/flood-control-map/

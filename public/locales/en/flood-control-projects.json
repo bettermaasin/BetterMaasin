@@ -1,7 +1,7 @@
 {
   "page": {
     "title": "Flood Control Projects | BetterGov.ph",
-    "description": "Explore flood control projects across the Philippines",
+    "description": "Explore flood control projects in Maasin City, Southern Leyte",
     "heading": "Flood Control Projects"
   },
   "statistics": {
@@ -11,19 +11,15 @@
   },
   "filters": {
     "title": "Filters",
-    "searchPlaceholder": "Projects, contractors, municipality, province, region...",
+    "searchPlaceholder": "Projects, contractors, municipality...",
     "searchProjects": "Search Projects",
     "infrastructureYear": "Infrastructure Year",
-    "region": "Region",
-    "province": "Province",
     "typeOfWork": "Type of Work",
-    "districtEngineeringOffice": "District Engineering Office",
-    "legislativeDistrict": "Legislative District",
+    "contractor": "Contractor",
     "showFilters": "Show Filters"
   },
   "charts": {
     "projectsByYear": "Projects by Year",
-    "topRegions": "Top Regions",
     "typesOfWork": "Types of Work",
     "topContractors": "Top Contractors"
   },
@@ -38,7 +34,7 @@
   },
   "dataSource": {
     "title": "About This Data",
-    "description": "This dashboard visualizes flood control infrastructure projects across the Philippines. The data includes information about project locations, types, implementing offices, and more. Use the filters in the sidebar to explore specific aspects of the data or use the search functionality to find specific projects.",
+    "description": "This dashboard visualizes flood control infrastructure projects in Maasin City, Southern Leyte. The data includes information about project locations, types, contractors, and more. Use the filters in the sidebar to explore specific aspects of the data or use the search functionality to find specific projects.",
     "sourceLabel": "Source:"
   },
   "tooltips": {

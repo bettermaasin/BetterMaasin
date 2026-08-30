@@ -5,13 +5,14 @@ import {
   DownloadIcon,
   FilterIcon,
   InfoIcon,
+  MapPinIcon,
   PieChart as PieChartIcon,
   SearchIcon,
   TableIcon,
   UsersIcon,
   XIcon,
 } from 'lucide-react';
-import { FC, useMemo, useState } from 'react';
+import { FC, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
 import { Configure, InstantSearch, useHits } from 'react-instantsearch';
@@ -43,11 +44,7 @@ import { buildFilterString, FilterState, generateUrlParams } from './utils';
 
 // Import lookup data
 import contractorData from '../../data/flood_control/lookups/Contractor_with_counts.json';
-import deoData from '../../data/flood_control/lookups/DistrictEngineeringOffice_with_counts.json';
 import infraYearData from '../../data/flood_control/lookups/InfraYear_with_counts.json';
-import legislativeDistrictData from '../../data/flood_control/lookups/LegislativeDistrict_with_counts.json';
-import provinceData from '../../data/flood_control/lookups/Province_with_counts.json';
-import regionData from '../../data/flood_control/lookups/Region_with_counts.json';
 import summaryData from '../../data/flood_control/lookups/Projects_Cost_UniqueContractors_Summary.json';
 import typeOfWorkData from '../../data/flood_control/lookups/TypeofWork_with_counts.json';
 import { useSearchParams } from 'react-router-dom';
@@ -201,74 +198,6 @@ const YearlyChart: FC = () => {
         <Legend wrapperStyle={{ fontSize: 10 }} />
         <Bar dataKey='Projects' fill='#0088FE' />
       </BarChart>
-    </ResponsiveContainer>
-  );
-};
-
-const RegionChart: FC = () => {
-  const { t } = useTranslation('flood-control-projects');
-  const { hits, results } = useHits();
-  const totalHits = results?.nbHits || 0;
-  const typedHits = hits as FloodControlHit[];
-
-  // Check if filters are applied
-  const isFiltered =
-    totalHits !== 0 && totalHits !== DEFAULT_STATS.totalProjects;
-
-  // Use pre-loaded data for initial render, switch to dynamic data when filtered
-  let chartData;
-
-  if (isFiltered) {
-    // Create a frequency counter for each region
-    const regionFrequency: Record<string, number> = {};
-    typedHits.forEach(hit => {
-      const region = hit.Region;
-      if (region && region.trim() !== '') {
-        regionFrequency[region] = (regionFrequency[region] || 0) + 1;
-      }
-    });
-
-    // Convert to chart data format, sort by frequency descending, and take top 10
-    chartData = Object.entries(regionFrequency)
-      .map(([name, Projects]) => ({ name, Projects }))
-      .sort((a, b) => b.Projects - a.Projects)
-      .slice(0, 10);
-  } else {
-    // Use pre-loaded data for better initial performance
-    chartData = regionData.Region.sort((a, b) => b.count - a.count)
-      .slice(0, 10)
-      .map(item => ({
-        name: item.value,
-        Projects: item.count,
-      }));
-  }
-
-  return (
-    <ResponsiveContainer width='100%' height='100%'>
-      <PieChart>
-        <Pie
-          data={chartData}
-          cx='50%'
-          cy='50%'
-          labelLine={false}
-          outerRadius={100}
-          fill='#8884d8'
-          dataKey='Projects'
-          nameKey='name'
-          label={({ name }) => name}
-        >
-          {chartData.map((_, index) => (
-            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-          ))}
-        </Pie>
-        <Tooltip
-          formatter={(value, name) => [
-            `${value} ${t('tooltips.projectsFormatter')}`,
-            name,
-          ]}
-        />
-        <Legend wrapperStyle={{ fontSize: 10 }} />
-      </PieChart>
     </ResponsiveContainer>
   );
 };
@@ -450,17 +379,9 @@ const FloodControlProjects: FC = () => {
   const [filters, setFilters] = useState<FilterState>(() => {
     const initialFilters: FilterState = {
       InfraYear: searchParams.get('year') || '',
-      Region: searchParams.get('region') || '',
-      Province: searchParams.get('province') || '',
       TypeofWork: searchParams.get('typeOfWork') || '',
-      DistrictEngineeringOffice: searchParams.get('deo') || '',
-      LegislativeDistrict: searchParams.get('district') || '',
+      Contractor: searchParams.get('contractor') || '',
     };
-
-    // If region is defined do not set province
-    if (initialFilters.Region.length) {
-      initialFilters.Province = '';
-    }
 
     return initialFilters;
   });
@@ -499,31 +420,7 @@ const FloodControlProjects: FC = () => {
     Projects: item.count,
   }));
 
-  const regionChartData = regionData.Region.sort((a, b) => b.count - a.count)
-    .slice(0, 10)
-    .map(item => ({
-      name: item.value,
-      Projects: item.count,
-    }));
-
-  const provinceOptions = useMemo(() => {
-    if (filters.Region === 'National Capital Region') {
-      const nationalCapitalRegion = provinceData.Province.filter(
-        item => item.regCode === '13'
-      );
-      const otherRegions = provinceData.Province.filter(item => !item.regCode);
-      return [...nationalCapitalRegion, ...otherRegions];
-    }
-
-    if (filters.Region) {
-      const regionId = regionData.Region.find(
-        item => item.value === filters.Region
-      )?.regCode;
-      return provinceData.Province.filter(item => item.regCode === regionId);
-    }
-
-    return provinceData.Province;
-  }, [filters.Region]);
+  const contractorOptions = contractorData.Contractor;
 
   const typeWorkPieData = typeOfWorkData.TypeofWork.sort(
     (a, b) => b.count - a.count
@@ -553,11 +450,6 @@ const FloodControlProjects: FC = () => {
       ...filters,
       [filterName]: value,
     };
-
-    //reset province when region is changed
-    if (filterName === 'Region') {
-      newFilters.Province = '';
-    }
 
     setFilters(newFilters);
     setSearchParams(generateUrlParams(newFilters));
@@ -677,34 +569,11 @@ const FloodControlProjects: FC = () => {
                   />
                 </div>
 
-                <div>
-                  <label className='block text-sm font-medium text-gray-700 mb-1'>
-                    {t('filters.region')}
-                  </label>
-                  <FilterDropdown
-                    name='Region'
-                    options={regionData.Region}
-                    value={filters.Region}
-                    onChange={value => handleFilterChange('Region', value)}
-                    searchable
-                    isOpen={openDropdown === 'Region'}
-                    onToggle={() => handleDropdownToggle('Region')}
-                  />
-                </div>
-
-                <div>
-                  <label className='block text-sm font-medium text-gray-700 mb-1'>
-                    {t('filters.province')}
-                  </label>
-                  <FilterDropdown
-                    name='Province'
-                    options={provinceOptions}
-                    value={filters.Province}
-                    onChange={value => handleFilterChange('Province', value)}
-                    searchable
-                    isOpen={openDropdown === 'Province'}
-                    onToggle={() => handleDropdownToggle('Province')}
-                  />
+                <div className='pt-1'>
+                  <div className='flex items-center gap-2 text-sm font-medium text-gray-500'>
+                    <MapPinIcon className='h-4 w-4 text-blue-600' />
+                    <span>Maasin City, Southern Leyte</span>
+                  </div>
                 </div>
 
                 <div>
@@ -724,37 +593,16 @@ const FloodControlProjects: FC = () => {
 
                 <div>
                   <label className='block text-sm font-medium text-gray-700 mb-1'>
-                    {t('filters.districtEngineeringOffice')}
+                    {t('filters.contractor')}
                   </label>
                   <FilterDropdown
-                    name='DEO'
-                    options={deoData.DistrictEngineeringOffice}
-                    value={filters.DistrictEngineeringOffice}
-                    onChange={value =>
-                      handleFilterChange('DistrictEngineeringOffice', value)
-                    }
+                    name='Contractor'
+                    options={contractorOptions}
+                    value={filters.Contractor}
+                    onChange={value => handleFilterChange('Contractor', value)}
                     searchable
-                    isOpen={openDropdown === 'DistrictEngineeringOffice'}
-                    onToggle={() =>
-                      handleDropdownToggle('DistrictEngineeringOffice')
-                    }
-                  />
-                </div>
-
-                <div>
-                  <label className='block text-sm font-medium text-gray-700 mb-1'>
-                    {t('filters.legislativeDistrict')}
-                  </label>
-                  <FilterDropdown
-                    name='Legislative District'
-                    options={legislativeDistrictData.LegislativeDistrict}
-                    value={filters.LegislativeDistrict}
-                    onChange={value =>
-                      handleFilterChange('LegislativeDistrict', value)
-                    }
-                    searchable
-                    isOpen={openDropdown === 'LegislativeDistrict'}
-                    onToggle={() => handleDropdownToggle('LegislativeDistrict')}
+                    isOpen={openDropdown === 'Contractor'}
+                    onToggle={() => handleDropdownToggle('Contractor')}
                   />
                 </div>
               </div>
@@ -912,61 +760,6 @@ const FloodControlProjects: FC = () => {
                 </div>
               </div>
 
-              {/* Top Regions - Pie Chart */}
-              <div className='bg-white rounded-lg shadow-md p-4'>
-                <div className='flex items-center mb-4'>
-                  <PieChartIcon className='w-5 h-5 text-purple-600 mr-2' />
-                  <h2 className='text-lg font-semibold text-gray-800'>
-                    {t('charts.topRegions')}
-                  </h2>
-                </div>
-                <div className='h-[300px]'>
-                  {filtersApplied ? (
-                    <InstantSearch
-                      indexName='bettergov_flood_control'
-                      searchClient={searchClient}
-                      future={{ preserveSharedStateOnUnmount: true }}
-                    >
-                      <Configure
-                        filters={buildFilterString(filters)}
-                        query={getEffectiveSearchTerm()}
-                        hitsPerPage={1000}
-                      />
-                      <RegionChart />
-                    </InstantSearch>
-                  ) : (
-                    <ResponsiveContainer width='100%' height='100%'>
-                      <PieChart>
-                        <Pie
-                          data={regionChartData}
-                          cx='50%'
-                          cy='50%'
-                          labelLine={false}
-                          outerRadius={100}
-                          fill='#8884d8'
-                          dataKey='Projects'
-                          nameKey='name'
-                          label={({ name }) => name}
-                        >
-                          {regionChartData.map((_, index) => (
-                            <Cell
-                              key={`cell-${index}`}
-                              fill={COLORS[index % COLORS.length]}
-                            />
-                          ))}
-                        </Pie>
-                        <Tooltip
-                          formatter={(value, name) => [
-                            `${value} ${t('tooltips.projectsFormatter')}`,
-                            name,
-                          ]}
-                        />
-                        <Legend wrapperStyle={{ fontSize: 10 }} />
-                      </PieChart>
-                    </ResponsiveContainer>
-                  )}
-                </div>
-              </div>
               {/* Types of Work - Pie Chart */}
               <div className='bg-white rounded-lg shadow-md p-4'>
                 <div className='flex items-center mb-4'>

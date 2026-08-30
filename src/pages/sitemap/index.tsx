@@ -303,12 +303,6 @@ const SitemapPage: FC = () => {
           description:
             'Interactive map showing flood control project locations',
         },
-        {
-          title: 'Contractors Directory',
-          url: '/flood-control-projects/contractors',
-          description:
-            'Directory of contractors working on flood control projects',
-        },
       ],
     },
   ];
