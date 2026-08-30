@@ -52,6 +52,7 @@ const ProjectMarker: FC<ProjectMarkerProps> = ({ project, icon }) => {
   const description = fallback(project.ProjectDescription);
   const typeOfWork = fallback(project.TypeofWork);
   const cost = formatCost(project.ContractCost);
+  const contractId = fallback(project.ContractID);
 
   const rows = [
     { icon: Calendar, label: 'Year', value: fallback(project.InfraYear) },
@@ -74,7 +75,7 @@ const ProjectMarker: FC<ProjectMarkerProps> = ({ project, icon }) => {
     {
       icon: FileText,
       label: 'Contract ID',
-      value: fallback(project.ContractID),
+      value: contractId,
       valueClass: 'break-all font-mono text-xs font-medium text-primary-700',
       mono: true,
     },
@@ -140,11 +141,11 @@ const ProjectMarker: FC<ProjectMarkerProps> = ({ project, icon }) => {
                 href={sumbongUrl}
                 target='_blank'
                 rel='noopener noreferrer'
-                className='mt-1.5 flex w-full items-center justify-center gap-1.5 rounded-md bg-primary-50 px-2 py-1 text-xs font-medium text-primary-700 transition-colors hover:bg-primary-100'
-                aria-label='View project on the Sumbong sa Pangulo flood control map'
+                className='mt-2 flex w-full items-center justify-center gap-1.5 rounded-md bg-primary-100 px-2 py-1.5 text-primary text-xs font-semibold transition-colors hover:bg-primary-600'
+                aria-label='Open the DPWH ArcGIS flood control map'
               >
                 <ExternalLink className='h-3.5 w-3.5' />
-                View project on the flood control map
+                Open DPWH ArcGIS flood control map
               </a>
             </div>
           </div>
