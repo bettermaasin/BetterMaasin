@@ -23,6 +23,7 @@ import PhilippinesMap from './pages/philippines/map';
 import PublicHolidays from './pages/philippines/holidays';
 import ContactUs from './pages/ContactUs';
 import Hotlines from './pages/maasin/Hotlines';
+import OverviewPage from './pages/overview';
 import VisaPage from './pages/travel/visa';
 import VisaTypesPage from './pages/travel/visa-types';
 import VisaTypeDetail from './pages/travel/visa-types/[type]';
@@ -133,6 +134,8 @@ function App() {
             </Route>
 
             <Route path='/hotlines' element={<Hotlines />} />
+
+            <Route path='/overview' element={<OverviewPage />} />
 
             {/* Data Routes */}
             <Route path='/data/weather' element={<WeatherPage />} />

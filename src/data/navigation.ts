@@ -34,14 +34,6 @@ export const mainNavigation: NavigationItem[] = [
     ],
   },
   {
-    label: 'Issuances',
-    href: '/issuances',
-    children: [
-      { label: 'Executive', href: '/executive' },
-      { label: 'Legislative', href: '/legislation' },
-    ],
-  },
-  {
     label: 'About',
     href: '/about',
   },

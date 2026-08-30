@@ -191,7 +191,7 @@ const Navbar: FC = () => {
           <div className='flex items-center shrink-0'>
             <Link to='/' className='flex items-center'>
               <img
-                src='/logos/svg/BetterGov_Icon-Primary.svg'
+                src='/logos/svg/BetterMaasin_Square-Primary.svg'
                 alt='BetterMaasin Logo'
                 className='h-12 w-12 mr-1 md:mr-3'
               />

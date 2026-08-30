@@ -1,0 +1,38 @@
+{
+  "page": {
+    "title": "Maasin City General Overview | BetterGov.ph",
+    "description": "Population and key statistics about Maasin City, Southern Leyte, sourced from official datasets.",
+    "eyebrow": "Statistics",
+    "heading": "General Overview",
+    "subtitle": "Population and key facts about Maasin City, sourced from reliable public datasets."
+  },
+  "statistics": {
+    "population": "Population",
+    "area": "Land Area",
+    "barangays": "Barangays",
+    "elevation": "Elevation",
+    "capitalOf": "Capital of",
+    "populationYearSuffix": "Population ({{year}})",
+    "climate": "Climate",
+    "founded": "Established",
+    "cityhood": "Cityhood",
+    "languages": "Spoken Languages",
+    "incomeClass": "Income Class",
+    "povertyRate": "Poverty Rate"
+  },
+  "sections": {
+    "censusHistory": "Population Through the Years",
+    "description": "About Maasin",
+    "didYouKnow": "Did You Know?"
+  },
+  "description": {
+    "loading": "Loading city description...",
+    "unavailable": "Description is currently unavailable.",
+    "learnMore": "Learn more on Wikipedia"
+  },
+  "dataSource": {
+    "title": "Data Sources",
+    "description": "Population figures, land area, and elevation are retrieved live from Wikidata (via the official Wikidata API), which in turn references the Philippine Statistics Authority census data. The description is provided by the Wikipedia REST API. The number of barangays is from the city directory.",
+    "sourceLabel": "Source:"
+  }
+}
