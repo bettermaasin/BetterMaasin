@@ -113,6 +113,22 @@ const priorityStyles: Record<string, { card: string; badge: string }> = {
     card: 'bg-purple-50 border-purple-200 border-l-4 hover:shadow-xl',
     badge: 'bg-purple-600 text-white',
   },
+  Water: {
+    card: 'bg-cyan-50 border-cyan-200 border-l-4 hover:shadow-xl',
+    badge: 'bg-cyan-600 text-white',
+  },
+  Electricity: {
+    card: 'bg-amber-50 border-amber-200 border-l-4 hover:shadow-xl',
+    badge: 'bg-amber-600 text-white',
+  },
+  Transport: {
+    card: 'bg-slate-50 border-slate-200 border-l-4 hover:shadow-xl',
+    badge: 'bg-slate-600 text-white',
+  },
+  'Coast Guard': {
+    card: 'bg-indigo-50 border-indigo-200 border-l-4 hover:shadow-xl',
+    badge: 'bg-indigo-600 text-white',
+  },
 };
 
 const defaultStyle = {
@@ -133,6 +149,10 @@ const getPriorityLabel = (hotline: Hotline): string | null => {
   if (/\b(medical|hospital)\b/.test(text)) return 'Medical';
   if (/\b(disaster)\b/.test(text)) return 'Disaster';
   if (/\b(national)\b/.test(text)) return '911';
+  if (/\b(coast guard|coastguard|maritime)\b/.test(text)) return 'Coast Guard';
+  if (/\b(water|prime)\b/.test(text)) return 'Water';
+  if (/\b(electric|soleco|power)\b/.test(text)) return 'Electricity';
+  if (/\b(transport|lto|traffic)\b/.test(text)) return 'Transport';
   return null;
 };
 
