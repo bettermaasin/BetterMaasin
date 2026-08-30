@@ -57,19 +57,22 @@ const Footer: FC = () => {
           <div className='col-span-1 md:col-span-2'>
             <div className='flex items-center mb-4'>
               <img
-                src='/logos/svg/BetterGov_Icon-White.svg'
-                alt='BetterGov Logo'
+                src='/logos/svg/BetterMaasin_Square_Textless-White.svg'
+                alt='BetterMaasin.org Logo'
                 className='h-12 w-12 mr-3'
               />
 
               <div>
-                <div className='font-bold'>Better Philippines</div>
-                <div className='text-xs text-gray-400'>BetterGov.ph Portal</div>
+                <div className='font-bold'>BetterMaasin.org</div>
+                <div className='text-xs text-gray-400'>
+                  A community-run portal for Maasin City
+                </div>
               </div>
             </div>
             <p className='text-gray-400 text-sm mb-4'>
-              A community portal providing Philippine citizens, businesses, and
-              visitors with information and services.
+              A community-run portal providing Maasin City residents, local
+              businesses, and visitors with easy access to city information,
+              digital services, and updates.
             </p>
             <div className='flex space-x-4'>
               {footerNavigation.socialLinks.map(link => (
