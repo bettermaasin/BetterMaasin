@@ -7,8 +7,6 @@ interface FloodControlProject {
   objectID?: string;
   ProjectDescription?: string;
   InfraYear?: string;
-  Region?: string;
-  Province?: string;
   Municipality?: string;
   TypeofWork?: string;
   Contractor?: string;
@@ -33,12 +31,6 @@ const ProjectMarker: FC<ProjectMarkerProps> = ({ project, icon }) => {
           <h3 className='font-bold text-gray-900'>
             {project.ProjectDescription || 'Unnamed Project'}
           </h3>
-          <p className='text-sm text-gray-800 mt-1'>
-            <strong>Region:</strong> {project.Region || 'N/A'}
-          </p>
-          <p className='text-sm text-gray-800'>
-            <strong>Province:</strong> {project.Province || 'N/A'}
-          </p>
           <p className='text-sm text-gray-800'>
             <strong>Municipality:</strong> {project.Municipality || 'N/A'}
           </p>
