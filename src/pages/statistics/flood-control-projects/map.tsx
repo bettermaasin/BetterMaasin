@@ -6,7 +6,7 @@ import 'instantsearch.css/themes/satellite.css';
 import { exportMeilisearchData } from '../../../lib/exportData';
 import { DownloadIcon, InfoIcon, ZoomInIcon, ZoomOutIcon } from 'lucide-react';
 import Button from '../../../components/ui/Button';
-import { MapContainer, TileLayer } from 'react-leaflet';
+import { MapContainer, TileLayer, GeoJSON } from 'react-leaflet';
 import MarkerClusterGroup from 'react-leaflet-cluster';
 import L, { LatLngExpression } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
@@ -14,6 +14,7 @@ import 'react-leaflet-cluster/dist/assets/MarkerCluster.css';
 import 'react-leaflet-cluster/dist/assets/MarkerCluster.Default.css';
 import FloodControlProjectsTab from './tab';
 import ProjectMarker from '../../../components/map/ProjectMarker';
+import maasinBoundary from '../../../data/flood_control/maasin_boundary.json';
 
 // Define types for our data
 interface FloodControlProject {
@@ -213,6 +214,18 @@ const FloodControlProjectsMap: FC = () => {
                   url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
                 />
 
+                {/* Maasin City boundary */}
+                <GeoJSON
+                  data={maasinBoundary}
+                  interactive={false}
+                  style={{
+                    color: '#0066eb',
+                    weight: 3,
+                    fillColor: '#0066eb',
+                    fillOpacity: 0.06,
+                  }}
+                />
+
                 {/* Show project markers */}
                 {validProjects.length > 0 &&
                   (shouldCluster ? (
@@ -280,6 +293,18 @@ const FloodControlProjectsMap: FC = () => {
             <p className='text-sm text-gray-800'>
               Source: Department of Public Works and Highways (DPWH) Flood
               Control Information System
+            </p>
+            <p className='text-xs text-gray-800 mt-1'>
+              City boundary: 2023 GADM-derived barangays via{' '}
+              <a
+                href='https://github.com/faeldon/philippines-json-maps/tree/master/2023/geojson/municities/medres'
+                target='_blank'
+                rel='noopener noreferrer'
+                className='text-blue-600 underline'
+              >
+                faeldon/philippines-json-maps
+              </a>{' '}
+              (MIT)
             </p>
           </div>
         </div>
