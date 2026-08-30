@@ -1,6 +1,21 @@
 import { FC, useState } from 'react';
 import hotlinesData from '../../data/hotlines/hotlines.json';
-import { ExternalLinkIcon, ShieldAlertIcon } from 'lucide-react';
+import {
+  ExternalLinkIcon,
+  ShieldAlertIcon,
+  PhoneIcon,
+  SearchIcon,
+  AlertCircleIcon,
+  AlertTriangleIcon,
+  CloudLightningIcon,
+  ShieldIcon,
+  BusIcon,
+  DropletIcon,
+  HeartIcon,
+  CrossIcon,
+  FlameIcon,
+  PinIcon,
+} from 'lucide-react';
 import {
   Dialog,
   DialogContent,
@@ -15,212 +30,176 @@ interface Hotline {
   numbers: string[];
   description?: string;
 }
-import {
-  PhoneIcon,
-  SearchIcon,
-  AlertCircleIcon,
-  AlertTriangleIcon,
-  CloudLightningIcon,
-  ShieldIcon,
-  BusIcon,
-  DropletIcon,
-  HeartIcon,
-  CrossIcon,
-  FlameIcon,
-  PinIcon,
-} from 'lucide-react';
+
+type CategoryKey =
+  | 'all'
+  | 'emergency'
+  | 'disaster'
+  | 'security'
+  | 'transport'
+  | 'weather'
+  | 'utility'
+  | 'social';
+
+const categories: { id: CategoryKey; name: string; icon: JSX.Element }[] = [
+  { id: 'all', name: 'All Hotlines', icon: <PhoneIcon className='w-5 h-5' /> },
+  {
+    id: 'emergency',
+    name: 'Emergency',
+    icon: <AlertCircleIcon className='w-5 h-5' />,
+  },
+  {
+    id: 'disaster',
+    name: 'Disaster',
+    icon: <AlertTriangleIcon className='w-5 h-5' />,
+  },
+  {
+    id: 'security',
+    name: 'Security',
+    icon: <ShieldIcon className='w-5 h-5' />,
+  },
+  {
+    id: 'transport',
+    name: 'Transport',
+    icon: <BusIcon className='w-5 h-5' />,
+  },
+  {
+    id: 'weather',
+    name: 'Weather',
+    icon: <CloudLightningIcon className='w-5 h-5' />,
+  },
+  {
+    id: 'utility',
+    name: 'Utilities',
+    icon: <DropletIcon className='w-5 h-5' />,
+  },
+  {
+    id: 'social',
+    name: 'Social Services',
+    icon: <HeartIcon className='w-5 h-5' />,
+  },
+];
+
+const categoryData: Record<Exclude<CategoryKey, 'all'>, Hotline[]> = {
+  emergency: hotlinesData.emergencyHotlines as Hotline[],
+  disaster: hotlinesData.disasterHotlines as Hotline[],
+  security: hotlinesData.securityHotlines as Hotline[],
+  transport: hotlinesData.transportHotlines as Hotline[],
+  weather: hotlinesData.weatherHotlines as Hotline[],
+  utility: hotlinesData.utilityHotlines as Hotline[],
+  social: hotlinesData.socialServicesHotlines as Hotline[],
+};
+
+const allHotlines: Hotline[] = Object.values(categoryData).flat();
+
+const priorityStyles: Record<string, { card: string; badge: string }> = {
+  Police: {
+    card: 'bg-blue-50 border-blue-200 border-l-4 hover:shadow-xl',
+    badge: 'bg-blue-600 text-white',
+  },
+  Fire: {
+    card: 'bg-red-50 border-red-200 border-l-4 hover:shadow-xl',
+    badge: 'bg-red-600 text-white',
+  },
+  Medical: {
+    card: 'bg-green-50 border-green-200 border-l-4 hover:shadow-xl',
+    badge: 'bg-green-600 text-white',
+  },
+  Disaster: {
+    card: 'bg-yellow-50 border-yellow-200 border-l-4 hover:shadow-xl',
+    badge: 'bg-yellow-600 text-white',
+  },
+  '911': {
+    card: 'bg-purple-50 border-purple-200 border-l-4 hover:shadow-xl',
+    badge: 'bg-purple-600 text-white',
+  },
+};
+
+const defaultStyle = {
+  card: 'bg-white border-gray-200',
+  badge: 'bg-green-600 text-white',
+};
+
+const getPriorityLabel = (hotline: Hotline): string | null => {
+  const text = (
+    hotline.name +
+    ' ' +
+    (hotline.category || '') +
+    ' ' +
+    (hotline.description || '')
+  ).toLowerCase();
+  if (/\b(police|pnp)\b/.test(text)) return 'Police';
+  if (/\b(fire|bfp)\b/.test(text)) return 'Fire';
+  if (/\b(medical|hospital)\b/.test(text)) return 'Medical';
+  if (/\b(disaster)\b/.test(text)) return 'Disaster';
+  if (/\b(national)\b/.test(text)) return '911';
+  return null;
+};
+
+const getPriorityClasses = (hotline: Hotline) => {
+  const label = getPriorityLabel(hotline);
+  if (!label) return defaultStyle;
+  return priorityStyles[label] ?? defaultStyle;
+};
+
+const findHotlineByText = (list: Hotline[], text: string) =>
+  list.find(hotline => {
+    const haystack =
+      hotline.name +
+      ' ' +
+      (hotline.description || '') +
+      ' ' +
+      hotline.numbers.join(' ');
+    return haystack.toLowerCase().includes(text);
+  });
+
+const pinnedHotlines = [
+  {
+    label: 'National',
+    icon: <AlertCircleIcon className='h-4 w-4 text-red-600' />,
+    hotline: findHotlineByText(categoryData.emergency, '911'),
+  },
+  {
+    label: 'Police',
+    icon: <ShieldIcon className='h-4 w-4 text-blue-600' />,
+    hotline: findHotlineByText(categoryData.security, 'police'),
+  },
+  {
+    label: 'Fire',
+    icon: <FlameIcon className='h-4 w-4 text-orange-600' />,
+    hotline: findHotlineByText(categoryData.disaster, 'fire'),
+  },
+  {
+    label: 'SOYMPH-ER',
+    icon: <CrossIcon className='h-4 w-4 text-emerald-600' />,
+    hotline: findHotlineByText(categoryData.emergency, 'soymph'),
+  },
+].filter(item => item.hotline) as {
+  label: string;
+  icon: JSX.Element;
+  hotline: Hotline;
+}[];
 
 const Hotlines: FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
-  const [activeCategory, setActiveCategory] = useState<string>('all');
+  const [activeCategory, setActiveCategory] = useState<CategoryKey>('all');
 
-  const categories = [
-    {
-      id: 'all',
-      name: 'All Hotlines',
-      icon: <PhoneIcon className='w-5 h-5' />,
-    },
-    {
-      id: 'emergency',
-      name: 'Emergency',
-      icon: <AlertCircleIcon className='w-5 h-5' />,
-    },
-    {
-      id: 'disaster',
-      name: 'Disaster',
-      icon: <AlertTriangleIcon className='w-5 h-5' />,
-    },
-    {
-      id: 'security',
-      name: 'Security',
-      icon: <ShieldIcon className='w-5 h-5' />,
-    },
-    {
-      id: 'transport',
-      name: 'Transport',
-      icon: <BusIcon className='w-5 h-5' />,
-    },
-    {
-      id: 'weather',
-      name: 'Weather',
-      icon: <CloudLightningIcon className='w-5 h-5' />,
-    },
-    {
-      id: 'utility',
-      name: 'Utilities',
-      icon: <DropletIcon className='w-5 h-5' />,
-    },
-    {
-      id: 'social',
-      name: 'Social Services',
-      icon: <HeartIcon className='w-5 h-5' />,
-    },
-  ];
+  const visibleTabs = categories.filter(
+    category =>
+      category.id === 'all' ||
+      categoryData[category.id as Exclude<CategoryKey, 'all'>].length > 0
+  );
 
-  const getCategoryHotlines = (category: string): Hotline[] => {
-    switch (category) {
-      case 'emergency':
-        return hotlinesData.emergencyHotlines as Hotline[];
-      case 'disaster':
-        return hotlinesData.disasterHotlines as Hotline[];
-      case 'security':
-        return hotlinesData.securityHotlines as Hotline[];
-      case 'transport':
-        return hotlinesData.transportHotlines as Hotline[];
-      case 'weather':
-        return hotlinesData.weatherHotlines as Hotline[];
-      case 'utility':
-        return hotlinesData.utilityHotlines as Hotline[];
-      case 'social':
-        return hotlinesData.socialServicesHotlines as Hotline[];
-      default:
-        return [
-          ...hotlinesData.emergencyHotlines,
-          ...hotlinesData.disasterHotlines,
-          ...hotlinesData.securityHotlines,
-          ...hotlinesData.transportHotlines,
-          ...hotlinesData.weatherHotlines,
-          ...hotlinesData.utilityHotlines,
-          ...hotlinesData.socialServicesHotlines,
-        ] as Hotline[];
-    }
-  };
+  const categoryHotlines =
+    activeCategory === 'all'
+      ? allHotlines
+      : categoryData[activeCategory as Exclude<CategoryKey, 'all'>];
 
-  const filteredHotlines = getCategoryHotlines(activeCategory).filter(
+  const filteredHotlines = categoryHotlines.filter(
     hotline =>
       hotline.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       hotline.numbers.some(number => number.includes(searchTerm))
   );
-
-  const getPriorityLabel = (hotline: Hotline) => {
-    const text = (
-      hotline.name +
-      ' ' +
-      (hotline.category || '') +
-      hotline.description
-    ).toLowerCase();
-    if (/\b(police|pnp)\b/.test(text)) return 'Police';
-    if (/\b(fire|bfp)\b/.test(text)) return 'Fire';
-    if (/\b(medical|hospital)\b/.test(text)) return 'Medical';
-    if (/\b(disaster)\b/.test(text)) return 'Disaster';
-    if (/\b(national)\b/.test(text)) return '911';
-    return null;
-  };
-
-  const getPriorityClasses = (hotline: Hotline) => {
-    const label = getPriorityLabel(hotline);
-    if (!label) return { card: 'bg-white border-gray-200', badge: '' };
-
-    if (label === 'Police') {
-      return {
-        card: 'bg-blue-50 border-blue-200 border-l-4 hover:shadow-xl',
-        badge: 'bg-blue-600 text-white',
-      };
-    }
-
-    if (label === 'Fire') {
-      return {
-        card: 'bg-red-50 border-red-200 border-l-4 hover:shadow-xl',
-        badge: 'bg-red-600 text-white',
-      };
-    }
-
-    if (label === 'Medical') {
-      return {
-        card: 'bg-green-50 border-green-200 border-l-4 hover:shadow-xl',
-        badge: 'bg-green-600 text-white',
-      };
-    }
-
-    if (label === 'Disaster') {
-      return {
-        card: 'bg-yellow-50 border-yellow-200 border-l-4 hover:shadow-xl',
-        badge: 'bg-yellow-600 text-white',
-      };
-    }
-
-    if (label === '911') {
-      return {
-        card: 'bg-purple-50 border-purple-200 border-l-4 hover:shadow-xl',
-        badge: 'bg-purple-600 text-white',
-      };
-    }
-
-    return {
-      card: 'bg-green-50 border-green-200 border-l-4 hover:shadow-xl',
-      badge: 'bg-green-600 text-white',
-    };
-  };
-
-  const findHotlineByText = (list: Hotline[], text: string) =>
-    list.find(hotline => {
-      const haystack =
-        hotline.name +
-        ' ' +
-        (hotline.description || '') +
-        ' ' +
-        hotline.numbers.join(' ');
-      return haystack.toLowerCase().includes(text);
-    });
-
-  const pinnedHotlines = [
-    {
-      label: 'National',
-      icon: <AlertCircleIcon className='h-4 w-4 text-red-600' />,
-      hotline: findHotlineByText(
-        hotlinesData.emergencyHotlines as Hotline[],
-        '911'
-      ),
-    },
-    {
-      label: 'Police',
-      icon: <ShieldIcon className='h-4 w-4 text-blue-600' />,
-      hotline: findHotlineByText(
-        hotlinesData.securityHotlines as Hotline[],
-        'police'
-      ),
-    },
-    {
-      label: 'Fire',
-      icon: <FlameIcon className='h-4 w-4 text-orange-600' />,
-      hotline: findHotlineByText(
-        hotlinesData.disasterHotlines as Hotline[],
-        'fire'
-      ),
-    },
-    {
-      label: 'SOYMPH-ER',
-      icon: <CrossIcon className='h-4 w-4 text-emerald-600' />,
-      hotline: findHotlineByText(
-        hotlinesData.emergencyHotlines as Hotline[],
-        'soymph'
-      ),
-    },
-  ].filter(item => item.hotline) as {
-    label: string;
-    icon: JSX.Element;
-    hotline: Hotline;
-  }[];
 
   return (
     <div className='container mx-auto px-4 py-8'>
@@ -247,7 +226,7 @@ const Hotlines: FC = () => {
 
       {/* Category Tabs */}
       <div className='flex flex-wrap justify-center gap-2 mb-8'>
-        {categories.map(category => (
+        {visibleTabs.map(category => (
           <button
             key={category.id}
             onClick={() => setActiveCategory(category.id)}
