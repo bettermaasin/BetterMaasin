@@ -719,7 +719,7 @@ const FloodControlProjects: FC = () => {
             </InstantSearch>
 
             {/* Visualizations Section */}
-            <div className='grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6'>
+            <div className='space-y-6 mb-6'>
               {/* Projects by Year - Bar Chart */}
               <div className='bg-white rounded-lg shadow-md p-4'>
                 <div className='flex items-center mb-4'>
