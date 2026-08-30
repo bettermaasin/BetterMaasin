@@ -29,9 +29,9 @@ import {
 import {
   fetchMaasinOverview,
   MaasinOverviewData,
-} from '../../lib/maasinOverview';
-import { cacheGet, cacheSet } from '../../lib/cache';
-import barangaysData from '../../data/lgu/barangays.json';
+} from '../../../lib/maasinOverview';
+import { cacheGet, cacheSet } from '../../../lib/cache';
+import barangaysData from '../../../data/lgu/barangays.json';
 
 interface WikipediaSummary {
   extract?: string;

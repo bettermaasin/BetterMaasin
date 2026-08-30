@@ -1,6 +1,6 @@
 import { FC, useState } from 'react';
 import { ChevronLeftIcon } from 'lucide-react';
-import { ScrollArea } from '../../components/ui/ScrollArea';
+import { ScrollArea } from '../../../components/ui/ScrollArea';
 import type { FilterState } from './utils';
 
 // Define types

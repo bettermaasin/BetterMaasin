@@ -29,8 +29,8 @@ import {
   XAxis,
   YAxis,
 } from 'recharts';
-import Button from '../../components/ui/Button';
-import { exportMeilisearchData } from '../../lib/exportData';
+import Button from '../../../components/ui/Button';
+import { exportMeilisearchData } from '../../../lib/exportData';
 
 // Import shared components
 import {
@@ -43,10 +43,10 @@ import FloodControlProjectsTab from './tab';
 import { buildFilterString, FilterState, generateUrlParams } from './utils';
 
 // Import lookup data
-import contractorData from '../../data/flood_control/lookups/Contractor_with_counts.json';
-import infraYearData from '../../data/flood_control/lookups/InfraYear_with_counts.json';
-import summaryData from '../../data/flood_control/lookups/Projects_Cost_UniqueContractors_Summary.json';
-import typeOfWorkData from '../../data/flood_control/lookups/TypeofWork_with_counts.json';
+import contractorData from '../../../data/flood_control/lookups/Contractor_with_counts.json';
+import infraYearData from '../../../data/flood_control/lookups/InfraYear_with_counts.json';
+import summaryData from '../../../data/flood_control/lookups/Projects_Cost_UniqueContractors_Summary.json';
+import typeOfWorkData from '../../../data/flood_control/lookups/TypeofWork_with_counts.json';
 import { useSearchParams } from 'react-router-dom';
 
 // Meilisearch configuration
@@ -908,7 +908,7 @@ const FloodControlProjects: FC = () => {
                   {t('guidance.needDetailedResults')}
                 </h2>
                 <a
-                  href='/flood-control-projects/table'
+                  href='/statistics/flood-control-projects/table'
                   className='inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-blue-500'
                 >
                   <TableIcon className='w-4 h-4 mr-1' />

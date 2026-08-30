@@ -23,7 +23,7 @@ import PhilippinesMap from './pages/philippines/map';
 import PublicHolidays from './pages/philippines/holidays';
 import ContactUs from './pages/ContactUs';
 import Hotlines from './pages/maasin/Hotlines';
-import OverviewPage from './pages/overview';
+import OverviewPage from './pages/statistics/overview';
 import VisaPage from './pages/travel/visa';
 import VisaTypesPage from './pages/travel/visa-types';
 import VisaTypeDetail from './pages/travel/visa-types/[type]';
@@ -80,9 +80,9 @@ import SearchPage from './pages/Search';
 // Data Pages
 import WeatherPage from './pages/data/weather';
 import ForexPage from './pages/data/forex';
-import FloodControlProjects from './pages/flood-control-projects';
-import FloodControlProjectsTable from './pages/flood-control-projects/table';
-import FloodControlProjectsMap from './pages/flood-control-projects/map';
+import FloodControlProjects from './pages/statistics/flood-control-projects';
+import FloodControlProjectsTable from './pages/statistics/flood-control-projects/table';
+import FloodControlProjectsMap from './pages/statistics/flood-control-projects/map';
 
 // Services Pages
 import WebsitesDirectory from './pages/services/websites';
@@ -146,15 +146,15 @@ function App() {
             <Route path='/data/weather' element={<WeatherPage />} />
             <Route path='/data/forex' element={<ForexPage />} />
             <Route
-              path='/flood-control-projects'
+              path='/statistics/flood-control-projects'
               element={<FloodControlProjects />}
             />
             <Route
-              path='/flood-control-projects/table'
+              path='/statistics/flood-control-projects/table'
               element={<FloodControlProjectsTable />}
             />
             <Route
-              path='/flood-control-projects/map'
+              path='/statistics/flood-control-projects/map'
               element={<FloodControlProjectsMap />}
             />
 

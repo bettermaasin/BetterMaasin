@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet-async';
 import { InstantSearch, Configure, useHits } from 'react-instantsearch';
 import { instantMeiliSearch } from '@meilisearch/instant-meilisearch';
 import 'instantsearch.css/themes/satellite.css';
-import { exportMeilisearchData } from '../../lib/exportData';
+import { exportMeilisearchData } from '../../../lib/exportData';
 import {
   Filter,
   ChevronLeft,
@@ -13,14 +13,14 @@ import {
   MapPin,
   Search,
 } from 'lucide-react';
-import Button from '../../components/ui/Button';
-import { ScrollArea } from '../../components/ui/ScrollArea';
+import Button from '../../../components/ui/Button';
+import { ScrollArea } from '../../../components/ui/ScrollArea';
 import FloodControlProjectsTab from './tab';
 
 // Import lookup data
-import infraYearData from '../../data/flood_control/lookups/InfraYear_with_counts.json';
-import contractorData from '../../data/flood_control/lookups/Contractor_with_counts.json';
-import typeOfWorkData from '../../data/flood_control/lookups/TypeofWork_with_counts.json';
+import infraYearData from '../../../data/flood_control/lookups/InfraYear_with_counts.json';
+import contractorData from '../../../data/flood_control/lookups/Contractor_with_counts.json';
+import typeOfWorkData from '../../../data/flood_control/lookups/TypeofWork_with_counts.json';
 import { useSearchParams } from 'react-router-dom';
 import { generateUrlParams } from './utils';
 

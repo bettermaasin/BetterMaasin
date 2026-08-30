@@ -3,9 +3,9 @@ import { Helmet } from 'react-helmet-async';
 import { InstantSearch, Configure, useHits } from 'react-instantsearch';
 import { instantMeiliSearch } from '@meilisearch/instant-meilisearch';
 import 'instantsearch.css/themes/satellite.css';
-import { exportMeilisearchData } from '../../lib/exportData';
+import { exportMeilisearchData } from '../../../lib/exportData';
 import { DownloadIcon, InfoIcon, ZoomInIcon, ZoomOutIcon } from 'lucide-react';
-import Button from '../../components/ui/Button';
+import Button from '../../../components/ui/Button';
 import { MapContainer, TileLayer } from 'react-leaflet';
 import MarkerClusterGroup from 'react-leaflet-cluster';
 import L, { LatLngExpression } from 'leaflet';
@@ -13,7 +13,7 @@ import 'leaflet/dist/leaflet.css';
 import 'react-leaflet-cluster/dist/assets/MarkerCluster.css';
 import 'react-leaflet-cluster/dist/assets/MarkerCluster.Default.css';
 import FloodControlProjectsTab from './tab';
-import ProjectMarker from '../../components/map/ProjectMarker';
+import ProjectMarker from '../../../components/map/ProjectMarker';
 
 // Define types for our data
 interface FloodControlProject {

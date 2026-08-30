@@ -289,17 +289,17 @@ const SitemapPage: FC = () => {
       links: [
         {
           title: 'Flood Control Projects',
-          url: '/flood-control-projects',
+          url: '/statistics/flood-control-projects',
           description: 'Overview of flood control infrastructure projects',
         },
         {
           title: 'Projects Table View',
-          url: '/flood-control-projects/table',
+          url: '/statistics/flood-control-projects/table',
           description: 'Detailed table view of all flood control projects',
         },
         {
           title: 'Projects Map View',
-          url: '/flood-control-projects/map',
+          url: '/statistics/flood-control-projects/map',
           description:
             'Interactive map showing flood control project locations',
         },

@@ -1,6 +1,6 @@
 import { BarChart3Icon, TableIcon, MapIcon } from 'lucide-react';
 import { Link, useSearchParams } from 'react-router-dom';
-import { cn } from '../../lib/utils';
+import { cn } from '../../../lib/utils';
 
 export default function FloodControlProjectsTab({
   selectedTab = 'index',
@@ -28,7 +28,7 @@ export default function FloodControlProjectsTab({
           Visual
         </Link>
         <Link
-          to={`/flood-control-projects/table${queryString}`}
+          to={`/statistics/flood-control-projects/table${queryString}`}
           className={cn(
             'px-3 sm:px-4 py-2 border-b-2 font-medium flex items-center whitespace-nowrap',
             selectedTab === 'table'
@@ -40,7 +40,7 @@ export default function FloodControlProjectsTab({
           Table
         </Link>
         <Link
-          to='/flood-control-projects/map'
+          to='/statistics/flood-control-projects/map'
           className={cn(
             'px-3 sm:px-4 py-2 border-b-2 font-medium flex items-center whitespace-nowrap',
             selectedTab === 'map'
