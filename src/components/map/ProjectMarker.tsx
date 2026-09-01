@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { Marker, Popup } from 'react-leaflet';
 import L from 'leaflet';
 import {
@@ -47,12 +47,23 @@ const formatCost = (value?: string | number): string => {
 };
 
 const ProjectMarker: FC<ProjectMarkerProps> = ({ project, icon }) => {
+  const [copied, setCopied] = useState(false);
   const lat = parseFloat(project.Latitude!);
   const lng = parseFloat(project.Longitude!);
   const description = fallback(project.ProjectDescription);
   const typeOfWork = fallback(project.TypeofWork);
   const cost = formatCost(project.ContractCost);
   const contractId = fallback(project.ContractID);
+
+  const handleCopyId = async () => {
+    try {
+      await navigator.clipboard.writeText(contractId);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1500);
+    } catch {
+      /* clipboard unavailable */
+    }
+  };
 
   const rows = [
     { icon: Calendar, label: 'Year', value: fallback(project.InfraYear) },
@@ -71,13 +82,6 @@ const ProjectMarker: FC<ProjectMarkerProps> = ({ project, icon }) => {
       label: 'Cost',
       value: cost,
       valueClass: 'font-semibold text-primary-700',
-    },
-    {
-      icon: FileText,
-      label: 'Contract ID',
-      value: contractId,
-      valueClass: 'break-all font-mono text-xs font-medium text-primary-700',
-      mono: true,
     },
   ];
 
@@ -125,6 +129,25 @@ const ProjectMarker: FC<ProjectMarkerProps> = ({ project, icon }) => {
                 </li>
               ))}
             </ul>
+
+            {/* Contract ID with copy button */}
+            <div className='mt-1 flex items-center gap-1.5 text-[13px]'>
+              <FileText className='h-3.5 w-3.5 shrink-0 self-center text-primary-500' />
+              <span className='shrink-0 text-[11px] font-medium uppercase tracking-wide text-gray-500'>
+                Contract ID
+              </span>
+              <span className='min-w-0 grow break-all font-mono text-xs font-medium text-primary-700'>
+                {contractId}
+              </span>
+              <button
+                type='button'
+                onClick={handleCopyId}
+                className='shrink-0 rounded bg-primary-50 px-2 py-0.5 text-[11px] font-medium text-primary-700 transition-colors hover:bg-primary-100'
+                aria-label='Copy contract ID'
+              >
+                {copied ? 'Copied' : 'Copy'}
+              </button>
+            </div>
 
             {/* Source footer */}
             <div className='mt-2.5 border-t border-gray-100 pt-1.5'>
