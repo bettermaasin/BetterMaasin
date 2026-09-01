@@ -70,7 +70,10 @@ export const footerNavigation = {
         { label: 'Weather', href: '/data/weather' },
         { label: 'Hotlines', href: '/philippines/hotlines' },
         { label: 'Holidays', href: '/philippines/holidays' },
-        { label: 'Flood Control Projects', href: '/flood-control-projects' },
+        {
+          label: 'Flood Control Projects',
+          href: '/statistics/flood-control-projects',
+        },
       ],
     },
     {
