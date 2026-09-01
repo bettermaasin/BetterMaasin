@@ -16,9 +16,9 @@ const InfoWidgets: FC = () => {
   const [forexError, setForexError] = useState<string | null>(null);
 
   // Function to get weather icon component
-  const getWeatherIcon = (iconName: string) => {
+  const getWeatherIcon = (iconName: string, className = 'h-8 w-8') => {
     const Icon = LucideIcons[iconName as keyof typeof LucideIcons];
-    return Icon ? <Icon className='h-8 w-8' /> : null;
+    return Icon ? <Icon className={className} /> : null;
   };
 
   // Fetch weather data
@@ -95,40 +95,66 @@ const InfoWidgets: FC = () => {
                 {t('weather.title')}
               </h3>
             </CardHeader>
-            <CardContent className='@container'>
+            <CardContent className='@container relative overflow-hidden bg-gradient-to-br from-primary-50 via-sky-50 to-indigo-100'>
+              <LucideIcons.CloudSnow className='pointer-events-none absolute -bottom-6 -left-6 h-32 w-32 text-white/70' />
+              <LucideIcons.CloudRain className='pointer-events-none absolute -right-8 -top-8 h-36 w-36 text-white/60 [transform:rotate(12deg)]' />
               {isLoadingWeather ? (
-                <div className='flex justify-center items-center h-40'>
+                <div className='relative flex justify-center items-center h-40'>
                   <LucideIcons.Loader className='h-8 w-8 animate-spin text-primary-600' />
                 </div>
               ) : weatherError ? (
-                <div className='text-center p-4 text-red-500'>
+                <div className='relative text-center p-4 text-red-500'>
                   <LucideIcons.AlertCircle className='h-8 w-8 mx-auto mb-2' />
                   <p>{weatherError}</p>
                 </div>
               ) : (
-                <div className='grid grid-cols-2 @md:grid-cols-4 gap-4'>
+                <div
+                  className={`relative grid gap-4 ${
+                    weatherData.length > 1
+                      ? 'grid-cols-1 @md:grid-cols-2'
+                      : 'grid-cols-1'
+                  }`}
+                >
                   {weatherData.map(location => (
                     <div
                       key={location.location}
-                      className='flex flex-col items-center p-3 rounded-lg border border-gray-100 bg-white uppercase'
+                      className='group relative overflow-hidden rounded-xl border border-white/60 bg-white/60 p-5 shadow-sm backdrop-blur-sm transition-shadow hover:shadow-md'
                     >
-                      <div className='text-accent-500 mb-1'>
-                        {getWeatherIcon(location.icon)}
+                      <div className='absolute -right-6 -top-6 h-24 w-24 rounded-full bg-gradient-to-br from-primary-200/50 to-sky-200/40 blur-xl' />
+                      <div className='relative flex items-start justify-between'>
+                        <div>
+                          <div className='font-semibold text-lg text-gray-900'>
+                            {location.location}
+                          </div>
+                          <div className='text-sm text-gray-700 capitalize'>
+                            {location.condition}
+                          </div>
+                        </div>
+                        <div className='text-accent-500'>
+                          {getWeatherIcon(location.icon, 'h-12 w-12')}
+                        </div>
                       </div>
-                      <div className='font-semibold text-lg'>
-                        {location.location}
+                      <div className='relative mt-1 flex items-baseline'>
+                        <span className='text-4xl font-bold text-gray-900'>
+                          {location.temperature}°
+                        </span>
+                        <span className='ml-1 text-lg text-gray-600'>C</span>
                       </div>
-                      <div className='text-2xl font-bold'>
-                        {location.temperature}°C
-                      </div>
-                      <div className='text-sm text-gray-800 text-center'>
-                        {location.condition}
+                      <div className='relative mt-3 flex flex-wrap gap-x-4 gap-y-1 text-xs text-gray-700'>
+                        <span className='inline-flex items-center gap-1'>
+                          <LucideIcons.Droplets className='h-3.5 w-3.5 text-primary-500' />
+                          {location.humidity}% humidity
+                        </span>
+                        <span className='inline-flex items-center gap-1'>
+                          <LucideIcons.Wind className='h-3.5 w-3.5 text-primary-500' />
+                          {Math.round(location.windSpeed * 3.6)} km/h wind
+                        </span>
                       </div>
                     </div>
                   ))}
                 </div>
               )}
-              <div className='flex space-between w-full items-center'>
+              <div className='relative flex items-center justify-between'>
                 <p className='text-sm text-gray-700 mt-4 text-right'>
                   Weather data provided by{' '}
                   <a
