@@ -24,8 +24,8 @@ const contactMethods = [
     icon: MessageCircle,
     title: 'Discord Community',
     description: 'Join the Better movement for discussion and support',
-    contact: 'discord.gg/bettergov',
-    action: 'https://discord.gg/mHtThpN8bT',
+    contact: 'discord.gg/BvSDVFj82',
+    action: '/redirect?to=discord',
   },
   {
     icon: Users,
@@ -39,7 +39,7 @@ const contactMethods = [
     title: 'Report Issues',
     description: 'Found a bug or have a suggestion? Open an issue on GitHub',
     contact: 'GitHub Issues',
-    action: 'https://github.com/bettergovph/bettergov/issues',
+    action: 'https://github.com/bettermaasin/BetterMaasin/issues',
   },
 ];
 

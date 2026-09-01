@@ -44,9 +44,7 @@ const JoinUsBanner: FC = () => {
             <div className='text-blue-100 font-medium'>{t('joinUs.or')}</div>
 
             <a
-              href='https://discord.gg/mHtThpN8bT'
-              target='_blank'
-              rel='noreferrer'
+              href='/redirect?to=discord'
               className='inline-flex items-center justify-center px-6 py-3 border border-white text-white font-semibold rounded-md hover:bg-white/10 transition-colors'
             >
               <MessageCircleIcon className='h-5 w-5 mr-2' />

@@ -104,12 +104,12 @@ const Ideas: FC = () => {
 
   const handleSubmitIdea = () => {
     const githubUrl =
-      'https://github.com/bettergovph/bettergov/issues/new?assignees=&labels=enhancement%2Cidea&projects=&template=idea-submission.md&title=%5BIDEA%5D+';
+      'https://github.com/bettermaasin/BetterMaasin/issues/new?assignees=&labels=enhancement%2Cidea&projects=&template=idea-submission.md&title=%5BIDEA%5D+';
     window.open(githubUrl, '_blank');
   };
 
   const handleSubmitPR = () => {
-    const githubUrl = 'https://github.com/bettergovph/bettergov/contribute';
+    const githubUrl = 'https://github.com/bettermaasin/BetterMaasin/contribute';
     window.open(githubUrl, '_blank');
   };
   return (

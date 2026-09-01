@@ -127,7 +127,7 @@ const Footer: FC = () => {
             </p>
             <div className='flex space-x-6'>
               <Link
-                to='https://github.com/bettergovph/bettergov'
+                to='/redirect?to=github'
                 className='text-gray-400 hover:text-white text-sm transition-colors'
               >
                 Contribute at GitHub
