@@ -188,6 +188,92 @@
   animation: slideIn 0.5s ease-out;
 }
 
+/* Continuous ambient animations */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes pulseSoft {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+.animate-float {
+  animation: float 5s ease-in-out infinite;
+}
+
+.animate-shimmer {
+  background-size: 200% 100%;
+  animation: shimmer 4s linear infinite;
+}
+
+.animate-pulse-soft {
+  animation: pulseSoft 3s ease-in-out infinite;
+}
+
+/* Logo shimmer: two sleek light streaks sweeping cohesively */
+@keyframes shimmerSweep {
+  0% {
+    transform: translateX(-180%);
+  }
+  60%,
+  100% {
+    transform: translateX(180%);
+  }
+}
+
+.shine {
+  background: linear-gradient(
+    110deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0) 36%,
+    rgba(255, 255, 255, 0.3) 42%,
+    rgba(255, 255, 255, 0) 48%,
+    rgba(255, 255, 255, 0) 62%,
+    rgba(255, 255, 255, 0.3) 68%,
+    rgba(255, 255, 255, 0) 74%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  mix-blend-mode: screen;
+  animation: shimmerSweep 6.5s cubic-bezier(0.45, 0, 0.2, 1) infinite;
+  will-change: transform;
+}
+
+/* Scroll-reveal (fade + slide up) */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.7s ease-out,
+    transform 0.7s ease-out;
+  will-change: opacity, transform;
+}
+
+.reveal.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 /* Custom scrollbar styles */
 .scrollbar-thin {
   scrollbar-width: thin;
