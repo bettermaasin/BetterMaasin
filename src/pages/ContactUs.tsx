@@ -1,244 +1,192 @@
 import {
-  MailIcon,
-  MessageCircleIcon,
-  UsersIcon,
-  GlobeIcon,
-  ArrowRightIcon,
-  HeartHandshakeIcon,
-  ChevronDownIcon,
-  ChevronUpIcon,
+  ArrowRight,
+  HeartHandshake,
+  HelpCircle,
+  Mail,
+  MessageCircle,
+  Plus,
+  Users,
+  Globe,
 } from 'lucide-react';
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 
+const contactMethods = [
+  {
+    icon: Mail,
+    title: 'Email Us',
+    description: 'General questions, feedback, or suggestions for us',
+    contact: 'contact@bettermaasin.org',
+    action: 'mailto:contact@bettermaasin.org',
+  },
+  {
+    icon: MessageCircle,
+    title: 'Discord Community',
+    description: 'Join the Better movement for discussion and support',
+    contact: 'discord.gg/bettergov',
+    action: 'https://discord.gg/mHtThpN8bT',
+  },
+  {
+    icon: Users,
+    title: 'Volunteer',
+    description: 'Help keep BetterMaasin.org accurate and useful',
+    contact: 'volunteer@bettermaasin.org',
+    action: 'mailto:volunteer@bettermaasin.org',
+  },
+  {
+    icon: Globe,
+    title: 'Report Issues',
+    description: 'Found a bug or have a suggestion? Open an issue on GitHub',
+    contact: 'GitHub Issues',
+    action: 'https://github.com/bettergovph/bettergov/issues',
+  },
+];
+
+const faqs = [
+  {
+    q: 'How can I volunteer?',
+    a: 'We welcome volunteers with various skills! Check out our Get Involved page to see how to help, and reach out to us anytime.',
+  },
+  {
+    q: 'Is BetterMaasin.org affiliated with the government?',
+    a: 'No. BetterMaasin.org is an independent civic-tech project built in support of transparency. We are not affiliated with the Maasin City LGU or any government office in any way.',
+  },
+  {
+    q: 'How do I report a bug or request a feature?',
+    a: 'The best way is to open an issue on our GitHub repository. This helps us track and prioritize all requests.',
+  },
+  {
+    q: 'Can I use BetterMaasin content for my project?',
+    a: 'Yes! BetterMaasin.org is released under Creative Commons CC0 / public domain, so its content can be used freely for any purpose unless otherwise stated.',
+  },
+  {
+    q: 'Where does the data on BetterMaasin come from?',
+    a: 'Our data is aggregated from various publicly available government sources, and sources are credited wherever they appear.',
+  },
+];
+
 const ContactUs: FC = () => {
-  const contactMethods = [
-    {
-      icon: <MailIcon className='h-8 w-8' />,
-      title: 'Email Us',
-      description:
-        'Send us an email for general inquiries and collaboration opportunities',
-      contact: 'volunteers@bettergov.ph',
-      action: 'mailto:volunteers@bettergov.ph',
-      color: 'bg-blue-100 text-blue-600',
-    },
-    {
-      icon: <MessageCircleIcon className='h-8 w-8' />,
-      title: 'Discord Community',
-      description:
-        'Join our volunteer community for real-time discussions and support',
-      contact: 'discord.gg/bettergov',
-      action: 'https://discord.gg/mHtThpN8bT',
-      color: 'bg-blue-100 text-blue-600',
-    },
-    {
-      icon: <UsersIcon className='h-8 w-8' />,
-      title: 'Volunteer With Us',
-      description: 'Help us build better digital services for Filipinos',
-      contact: 'Become a Volunteer',
-      action: '/join-us',
-      color: 'bg-blue-100 text-blue-600',
-    },
-    {
-      icon: <GlobeIcon className='h-8 w-8' />,
-      title: 'Report Issues',
-      description: 'Found a bug or have a suggestion? Open an issue on GitHub',
-      contact: 'GitHub Issues',
-      action: 'https://github.com/bettergovph/bettergov/issues',
-      color: 'bg-blue-100 text-blue-600',
-    },
-  ];
-
-  const faqs = [
-    {
-      question: 'How can I volunteer for BetterGov?',
-      answer:
-        'We welcome volunteers with various skills! Check out our Join Us page to see current opportunities and fill out our volunteer form.',
-      link: { text: 'Join Us page', href: '/join-us' },
-    },
-    {
-      question: 'Is BetterGov affiliated with the Philippine government?',
-      answer:
-        'No, BetterGov is an independent volunteer-led initiative. We work alongside government agencies but are not officially part of the Philippine government.',
-    },
-    {
-      question: 'How do I report a bug or request a feature?',
-      answer:
-        'The best way is to open an issue on our GitHub repository. This helps us track and prioritize all requests.',
-      link: {
-        text: 'GitHub repository',
-        href: 'https://github.com/bettergovph/bettergov/issues',
-      },
-    },
-    {
-      question: 'Can I use BetterGov content for my project?',
-      answer:
-        'Yes! BetterGov is released under Creative Commons CC0, meaning our content is in the public domain and can be used freely for any purpose.',
-    },
-    {
-      question: 'Where does the data on BetterGov come from?',
-      answer:
-        'Our data is aggregated from various publicly available government sources. We use custom scripts and tools to collect, process, and display this information in a way that is easy for citizens to access and understand.',
-    },
-  ];
-
-  const [openFaq, setOpenFaq] = useState<number | null>(null);
-
   return (
     <div className='min-h-screen bg-gray-50'>
       <Helmet>
-        <title>Contact Us | BetterGov.ph</title>
+        <title>Contact Us | BetterMaasin.org</title>
         <meta
           name='description'
-          content='Contact the BetterGov.ph team. Get in touch with our volunteers, report issues, or join our community.'
+          content='Contact the BetterMaasin.org team. Get in touch, report issues, ask questions, or join the Better movement community.'
         />
         <meta
           name='keywords'
-          content='contact, bettergov, volunteer, feedback, support, philippines government'
+          content='contact, BetterMaasin, better movement, feedback, support, Maasin City'
         />
-        <link rel='canonical' href='https://bettergov.ph/contact' />
-        <meta property='og:title' content='Contact Us | BetterGov.ph' />
+        <link rel='canonical' href='https://bettermaasin.org/contact' />
+        <meta property='og:title' content='Contact Us | BetterMaasin.org' />
         <meta
           property='og:description'
-          content='Contact the BetterGov.ph team. Get in touch with our volunteers, report issues, or join our community.'
+          content='Contact the BetterMaasin.org team. Get in touch, report issues, ask questions, or join the Better movement community.'
         />
         <meta property='og:type' content='website' />
-        <meta property='og:url' content='https://bettergov.ph/contact' />
-        <meta property='og:image' content='https://bettergov.ph/ph-logo.png' />
+        <meta property='og:url' content='https://bettermaasin.org/contact' />
+        <meta
+          property='og:image'
+          content='https://bettermaasin.org/ph-logo.png'
+        />
       </Helmet>
 
-      <div className='container mx-auto px-4 py-6 md:py-8'>
-        {/* Header Section */}
-        <div className='bg-white rounded-lg border shadow-xs p-6 md:p-8 md:py-16 mt-4'>
-          <div className='max-w-4xl mx-auto text-center'>
-            <div className='flex justify-center mb-6'>
-              <div className='p-4 bg-blue-100 rounded-full'>
-                <HeartHandshakeIcon className='h-12 w-12 text-blue-600' />
-              </div>
-            </div>
-            <h1 className='text-3xl md:text-5xl font-bold text-gray-900 mb-6'>
-              Connect with Us
-            </h1>
-            <p className='text-lg md:text-xl text-gray-600 max-w-3xl mx-auto mb-8'>
-              We&apos;re a passionate community of volunteers, developers, and
-              designers dedicated to improving digital public services in the
-              Philippines. Whether you have a question, a suggestion, or want to
-              join our mission, we&apos;d love to hear from you.
-            </p>
-          </div>
-        </div>
-
-        {/* Contact Methods Grid */}
-        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-8'>
-          {contactMethods.map((method, index) => (
-            <div
-              key={index}
-              className='bg-white rounded-lg border shadow-xs hover:shadow-md transition-shadow p-6'
-            >
-              <div className={`${method.color} rounded-lg p-3 w-fit mb-4`}>
-                {method.icon}
-              </div>
-              <h3 className='text-lg font-semibold text-gray-900 mb-2'>
-                {method.title}
-              </h3>
-              <p className='text-gray-600 text-sm mb-4'>{method.description}</p>
-              <a
-                href={method.action}
-                className='text-blue-600 hover:text-blue-800 font-medium text-sm inline-flex items-center group'
-                target={method.action.startsWith('http') ? '_blank' : '_self'}
-                rel={
-                  method.action.startsWith('http')
-                    ? 'noopener noreferrer'
-                    : undefined
-                }
-              >
-                {method.contact}
-                <ArrowRightIcon className='w-4 h-4 ml-1 transition-transform group-hover:translate-x-1' />
-              </a>
-            </div>
-          ))}
-        </div>
-
-        {/* FAQ Section */}
-        <div className='bg-white rounded-lg border shadow-xs p-6 md:p-8 mt-8'>
-          <div className='max-w-4xl mx-auto'>
-            <div className='text-center mb-8'>
-              <h2 className='text-2xl md:text-3xl font-bold text-gray-900 mb-4'>
-                Frequently Asked Questions
-              </h2>
-              <p className='text-gray-600'>
-                Find answers to common questions about BetterGov
+      <div className='container mx-auto px-4 py-6 md:py-10'>
+        <div className='overflow-hidden rounded-2xl bg-white border border-gray-200 shadow-sm'>
+          {/* Hero */}
+          <div className='relative bg-linear-to-br from-primary-700 via-primary-600 to-blue-600 px-6 py-12 md:px-12 md:py-16'>
+            <HeartHandshake className='absolute -bottom-6 right-6 h-40 w-40 text-white/10 rotate-12' />
+            <div className='relative max-w-2xl'>
+              <span className='inline-flex items-center gap-1.5 rounded-full bg-white/15 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-white/90'>
+                We&apos;d love to hear from you
+              </span>
+              <h1 className='mt-4 text-3xl font-extrabold leading-tight text-white md:text-4xl'>
+                Get in Touch
+              </h1>
+              <p className='mt-3 max-w-xl text-base text-white/90 md:text-lg'>
+                BetterMaasin.org is a community effort. Whether you have a
+                question, a suggestion, want to help keep information accurate,
+                or join the Better movement — reach out.
               </p>
             </div>
+          </div>
 
-            <div className='space-y-4'>
-              {faqs.map((faq, index) => (
-                <div key={index} className='border rounded-lg'>
-                  <button
-                    onClick={() => setOpenFaq(openFaq === index ? null : index)}
-                    className='w-full flex justify-between items-center p-4 text-left'
-                  >
-                    <h3 className='font-semibold text-gray-800 flex-1'>
-                      {faq.question}
-                    </h3>
-                    {openFaq === index ? (
-                      <ChevronUpIcon className='h-5 w-5 text-gray-500' />
-                    ) : (
-                      <ChevronDownIcon className='h-5 w-5 text-gray-500' />
-                    )}
-                  </button>
-                  {openFaq === index && (
-                    <div className='p-4 pt-0 text-gray-600 text-sm leading-relaxed'>
-                      <p>
-                        {faq.answer}
-                        {faq.link && (
-                          <>
-                            {' '}
-                            <Link
-                              to={faq.link.href}
-                              className='text-blue-600 hover:text-blue-800 font-medium'
-                              target={
-                                faq.link.href.startsWith('http')
-                                  ? '_blank'
-                                  : '_self'
-                              }
-                              rel={
-                                faq.link.href.startsWith('http')
-                                  ? 'noopener noreferrer'
-                                  : undefined
-                              }
-                            >
-                              {faq.link.text}
-                            </Link>
-                            .
-                          </>
-                        )}
-                      </p>
-                    </div>
-                  )}
-                </div>
+          {/* Contact methods */}
+          <div className='px-6 py-8 md:px-12'>
+            <div className='grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4'>
+              {contactMethods.map(m => (
+                <a
+                  key={m.title}
+                  href={m.action}
+                  target={m.action.startsWith('http') ? '_blank' : '_self'}
+                  rel={
+                    m.action.startsWith('http')
+                      ? 'noopener noreferrer'
+                      : undefined
+                  }
+                  className='group rounded-xl border border-gray-200 p-5 transition-all hover:border-primary-400 hover:shadow-sm'
+                >
+                  <div className='flex h-11 w-11 items-center justify-center rounded-lg bg-primary-100 text-primary-600 transition-colors group-hover:bg-primary-600 group-hover:text-white'>
+                    <m.icon className='h-5 w-5' />
+                  </div>
+                  <h3 className='mt-3 font-semibold text-gray-900'>
+                    {m.title}
+                  </h3>
+                  <p className='mt-1 text-sm text-gray-600'>{m.description}</p>
+                  <p className='mt-2 inline-flex items-center text-sm font-medium text-primary-600'>
+                    {m.contact}
+                    <ArrowRight className='ml-1 h-4 w-4 transition-transform group-hover:translate-x-1' />
+                  </p>
+                </a>
               ))}
             </div>
           </div>
-        </div>
 
-        {/* Call to Action */}
-        <div className='bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg p-8 mt-8 text-center'>
-          <h3 className='text-2xl font-bold text-white mb-4'>
-            Ready to Make a Difference?
-          </h3>
-          <p className='text-blue-100 mb-6 max-w-2xl mx-auto'>
-            Join our community of volunteers building better digital services
-            for the Philippines.
-          </p>
-          <Link
-            to='/join-us'
-            className='inline-flex items-center bg-white text-blue-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-50 transition-colors'
-          >
-            Become a Volunteer
-            <ArrowRightIcon className='w-5 h-5 ml-2' />
-          </Link>
+          {/* FAQ */}
+          <div className='border-t border-gray-200 px-6 py-8 md:px-12'>
+            <h2 className='flex items-center gap-2 text-xl font-bold text-gray-900'>
+              <HelpCircle className='h-5 w-5 text-primary-600' />
+              Frequently asked questions
+            </h2>
+            <div className='mt-5 space-y-3'>
+              {faqs.map(faq => (
+                <details
+                  key={faq.q}
+                  className='group rounded-xl border border-gray-200 bg-white px-5 py-4 open:border-primary-400'
+                >
+                  <summary className='flex cursor-pointer list-none items-center justify-between gap-3 font-semibold text-gray-900'>
+                    {faq.q}
+                    <span className='shrink-0 text-primary-500 transition-transform group-open:rotate-45'>
+                      <Plus className='h-4 w-4' />
+                    </span>
+                  </summary>
+                  <p className='mt-2 text-sm leading-relaxed text-gray-600'>
+                    {faq.a}
+                  </p>
+                </details>
+              ))}
+            </div>
+          </div>
+
+          {/* CTA */}
+          <div className='border-t border-gray-200 bg-gray-50 px-6 py-8 text-center md:px-12'>
+            <p className='text-lg font-semibold text-gray-900'>
+              Part of something bigger
+            </p>
+            <p className='mx-auto mt-1 max-w-md text-sm text-gray-600'>
+              One of many local expressions of the Better movement — citizens
+              building open, transparent government tech.
+            </p>
+            <Link
+              to='/join-us'
+              className='mt-4 inline-flex items-center gap-2 rounded-lg bg-primary-600 px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-primary-700'
+            >
+              Get involved
+              <ArrowRight className='h-4 w-4' />
+            </Link>
+          </div>
         </div>
       </div>
     </div>
