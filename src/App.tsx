@@ -93,7 +93,7 @@ import Ideas from './pages/Ideas';
 import JoinUs from './pages/JoinUs';
 import TermsOfService from './pages/TermsOfService';
 import ScrollToTop from './components/ui/ScrollToTop';
-import Discord from './pages/Discord';
+import Redirector from './pages/Redirector';
 import SalaryGradePage from './pages/government/salary-grade/index';
 import NotFound from './pages/NotFound';
 
@@ -118,7 +118,7 @@ function App() {
             <Route path='/join-us' element={<JoinUs />} />
             <Route path='/terms-of-service' element={<TermsOfService />} />
             <Route path='/sitemap' element={<SitemapPage />} />
-            <Route path='/discord' Component={Discord} />
+            <Route path='/redirect' Component={Redirector} />
 
             <Route path='/philippines'>
               <Route index element={<Navigate to='about' replace />} />

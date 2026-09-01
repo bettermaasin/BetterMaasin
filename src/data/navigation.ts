@@ -94,9 +94,10 @@ export const footerNavigation = {
     },
   ],
   socialLinks: [
-    { label: 'Facebook', href: 'https://facebook.com/bettergovph' },
-    { label: 'Discord', href: '/discord' },
-    // { label: 'Instagram', href: 'https://instagram.com/govph' },
-    // { label: 'YouTube', href: 'https://youtube.com/govph' },
+    { label: 'Facebook', href: '/redirect?to=facebook' },
+    { label: 'Discord', href: '/redirect?to=discord' },
+    { label: 'GitHub', href: '/redirect?to=github' },
+    // { label: 'Instagram', href: '/redirect?to=instagram' },
+    // { label: 'YouTube', href: '/redirect?to=youtube' },
   ],
 };
