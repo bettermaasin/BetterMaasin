@@ -60,7 +60,7 @@
     "callToAction": {
       "title": "Ready na ba maghimo kang kaibhan?",
       "description": "Kon interesado ka mag-contribute, palihug makipag-angot sa amon sa",
-      "email": "volunteers@bettergov.ph",
+      "email": "volunteer@bettermaasin.org",
       "alternative": "o iban nga paagi, mag-open kang issue sa amon nga repository."
     }
   },
@@ -80,7 +80,7 @@
     ],
     "alternative": {
       "text": "Iban nga paagi, i-email kami sa",
-      "email": "bugs@bettergov.ph"
+      "email": "contact@bettermaasin.org"
     }
   },
   "license": {

@@ -60,7 +60,7 @@
     "callToAction": {
       "title": "Andam nang mohimo og kausaban?",
       "description": "Kon interesado kang motampo, palihug pagkontak kanamo sa",
-      "email": "volunteers@bettergov.ph",
+      "email": "volunteer@bettermaasin.org",
       "alternative": "o pag-abli og isyu sa among repositorya."
     }
   },
@@ -80,7 +80,7 @@
     ],
     "alternative": {
       "text": "Usab, mahimo nimo kami e-mail-an sa",
-      "email": "bugs@bettergov.ph"
+      "email": "contact@bettermaasin.org"
     }
   },
   "license": {

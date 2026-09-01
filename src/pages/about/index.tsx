@@ -1,267 +1,232 @@
 import {
-  BuildingIcon,
-  GlobeIcon,
-  HeartIcon,
-  LightbulbIcon,
-  MessageCircleIcon,
-  RocketIcon,
-  ServerIcon,
-  StarIcon,
-  TargetIcon,
-  UsersIcon,
-  ZapIcon,
+  ArrowRight,
+  Building2,
+  Flame,
+  Heart,
+  MapPin,
+  Search,
+  Sparkles,
+  Waves,
 } from 'lucide-react';
 import { FC } from 'react';
-import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
+import { Link } from 'react-router-dom';
+
+const stats = [
+  { value: 'One', label: 'Local portal' },
+  { value: 'Open', label: 'Source & data' },
+  { value: 'All', label: 'Free for everyone' },
+];
+
+const features = [
+  {
+    icon: Building2,
+    title: 'Services',
+    desc: 'Find public services and how to get them.',
+  },
+  {
+    icon: MapPin,
+    title: 'Government',
+    desc: 'Officials, barangays, departments & agencies.',
+  },
+  {
+    icon: Waves,
+    title: 'Statistics',
+    desc: 'Local data & maps, incl. flood-control projects.',
+  },
+  {
+    icon: Sparkles,
+    title: 'Everyday tools',
+    desc: 'Hotlines, weather, forex & holidays.',
+  },
+  {
+    icon: Search,
+    title: 'One search',
+    desc: 'Search across the whole portal at once.',
+  },
+  {
+    icon: Heart,
+    title: 'Built for the city',
+    desc: 'Part of the Better movement, free to reuse (CC0).',
+  },
+];
 
 const AboutPage: FC = () => {
-  const { t } = useTranslation('about');
   return (
     <div className='min-h-screen bg-gray-50'>
       <Helmet>
-        <title>About | BetterGov.ph</title>
+        <title>About | BetterMaasin.org</title>
         <meta
           name='description'
-          content='BetterGov is a volunteer-led tech initiative committed to creating #civictech projects aimed at making government more transparent, efficient, and accessible to citizens.'
+          content='BetterMaasin.org gathers Maasin City’s government, services, and data into one transparent, accessible civic-tech portal.'
         />
         <meta
           name='keywords'
-          content='government projects, civic tech, transparency, accountability, Philippines, innovation'
+          content='Maasin City, civic tech, Better movement, transparency, government'
         />
-        <link rel='canonical' href='https://bettergov.ph/about' />
-
-        {/* Open Graph / Social */}
-        <meta property='og:title' content='About | BetterGov.ph' />
+        <link rel='canonical' href='https://bettermaasin.org/about' />
+        <meta property='og:title' content='About | BetterMaasin.org' />
         <meta
           property='og:description'
-          content='BetterGov is a volunteer-led tech initiative committed to creating #civictech projects aimed at making government more transparent, efficient, and accessible to citizens.'
+          content='BetterMaasin.org gathers Maasin City’s government, services, and data into one transparent, accessible civic-tech portal.'
         />
         <meta property='og:type' content='website' />
-        <meta property='og:url' content='https://bettergov.ph/about' />
-        <meta property='og:image' content='https://bettergov.ph/ph-logo.png' />
+        <meta property='og:url' content='https://bettermaasin.org/about' />
+        <meta
+          property='og:image'
+          content='https://bettermaasin.org/ph-logo.png'
+        />
       </Helmet>
-      <div className='container mx-auto px-4 py-6 md:py-8'>
-        <div className='bg-white rounded-lg border shadow-xs p-6 md:p-8 md:py-24 mt-4'>
-          <div className='max-w-3xl mx-auto'>
-            <h1 className='text-3xl md:text-4xl font-bold text-gray-900 mb-6'>
-              {t('title')}
-            </h1>
 
-            <div className='prose prose-lg max-w-none'>
-              <section className='mb-10'>
-                <h2 className='flex items-center text-2xl font-bold text-gray-800 mb-4'>
-                  <TargetIcon className='mr-2 h-6 w-6 text-primary-600' />
-                  {t('mission.title')}
-                </h2>
-                <div className='bg-gradient-to-r from-primary-50 to-blue-50 rounded-xl p-6 md:p-8 mb-6'>
-                  <p className='text-lg text-gray-800 leading-relaxed mb-4'>
-                    BetterGov is a{' '}
-                    <strong>volunteer-led tech initiative</strong> committed to
-                    creating
-                    <span className='inline-flex items-center mx-2 px-3 py-1 bg-primary-600 text-white rounded-full text-sm font-semibold'>
-                      <ZapIcon className='h-4 w-4 mr-1' />
-                      #civictech
-                    </span>
-                    projects aimed at making government more transparent,
-                    efficient, and accessible to citizens.
-                  </p>
-                  <p className='text-lg text-gray-800 leading-relaxed mb-4'>
-                    Our goal is to{' '}
-                    <strong>support, promote, consolidate, and empower</strong>{' '}
-                    citizen builders!
-                  </p>
-                </div>
-              </section>
-
-              <section className='mb-10'>
-                <h2 className='flex items-center text-2xl font-bold text-gray-800 mb-4'>
-                  <RocketIcon className='mr-2 h-6 w-6 text-primary-600' />
-                  {t('mission.goalsIntro')}
-                </h2>
-
-                <ul className='list-disc pl-6 mb-6 text-gray-700'>
-                  {(
-                    t('mission.goalsList', { returnObjects: true }) as string[]
-                  ).map((goal: string, index: number) => (
-                    <li key={index} className='mb-2'>
-                      {goal}
-                    </li>
-                  ))}
-                </ul>
-              </section>
-
-              {/* What We Provide Section */}
-              <section className='mb-10'>
-                <h2 className='flex items-center text-2xl font-bold text-gray-800 mb-4'>
-                  <RocketIcon className='mr-2 h-6 w-6 text-primary-600' />
-                  What We Provide
-                </h2>
-                <p className='mb-6 text-gray-700'>
-                  To support citizen builders in building impactful civic tech
-                  projects:
-                </p>
-                <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6'>
-                  {[
-                    {
-                      icon: ServerIcon,
-                      title: 'Infrastructure & Tools',
-                      desc: 'Servers, AI credits, development tools, and more!',
-                    },
-                    {
-                      icon: UsersIcon,
-                      title: 'Tech Hackathons',
-                      desc: 'Regular events to collaborate and build together',
-                    },
-                    {
-                      icon: GlobeIcon,
-                      title: 'Data & APIs',
-                      desc: 'Access to government data and API endpoints',
-                    },
-                    {
-                      icon: HeartIcon,
-                      title: 'Find Your Team',
-                      desc: 'Connect with the right people and resource persons',
-                    },
-                    {
-                      icon: StarIcon,
-                      title: 'Industry Mentorship',
-                      desc: 'Guidance from seasoned tech and startup veterans',
-                    },
-                    {
-                      icon: BuildingIcon,
-                      title: 'Office Space',
-                      desc: 'Physical workspace for collaboration and meetings',
-                    },
-                  ].map((item, index) => (
-                    <div
-                      key={index}
-                      className='bg-white border rounded-lg p-5 hover:shadow-md transition-all'
-                    >
-                      <div className='flex items-center justify-center w-12 h-12 bg-primary-100 rounded-lg mb-3'>
-                        <item.icon className='h-6 w-6 text-primary-600' />
-                      </div>
-                      <h3 className='text-base font-semibold text-gray-900 mb-2'>
-                        {item.title}
-                      </h3>
-                      <p className='text-sm text-gray-600'>{item.desc}</p>
-                    </div>
-                  ))}
-                </div>
-              </section>
-
-              <section className='mb-10'>
-                <h2 className='text-2xl font-bold text-gray-800 mb-4'>
-                  {t('whyBuilding.title')}
-                </h2>
-                <p className='mb-4 text-gray-700'>
-                  {t('whyBuilding.intro')}
-                  <a
-                    href='https://www.gov.ph'
-                    className='text-blue-600 hover:text-blue-800 mx-1'
-                  >
-                    {t('whyBuilding.govPhLink')}
-                  </a>
-                  {t('whyBuilding.challenges')}
-                </p>
-                <ul className='list-disc pl-6 mb-6 text-gray-700 leading-relaxed'>
-                  {(
-                    t('whyBuilding.challengesList', {
-                      returnObjects: true,
-                    }) as string[]
-                  ).map((challenge: string, index: number) => (
-                    <li key={index} className='mb-2'>
-                      {challenge}
-                    </li>
-                  ))}
-                </ul>
-                <p className='text-gray-700'>{t('whyBuilding.conclusion')}</p>
-              </section>
-
-              {/* Our Commitment Section */}
-              <section className='mb-10'>
-                <h2 className='flex items-center text-2xl font-bold text-gray-800 mb-4'>
-                  <ZapIcon className='mr-2 h-6 w-6 text-yellow-500' />
-                  Our Commitment
-                </h2>
-                <div className='bg-gradient-to-r from-red-50 via-orange-50 to-yellow-50 rounded-xl p-6 md:p-8 border-l-4 border-primary-600'>
-                  <div className='space-y-4 text-gray-800'>
-                    <p className='text-lg font-bold text-primary-700'>
-                      WE&apos;RE DONE WAITING.
-                    </p>
-                    <p className='text-base leading-relaxed'>
-                      We&apos;re angry. You&apos;re angry. But we can contribute
-                      in our own ways —{' '}
-                      <strong>no matter how little it is</strong>.
-                    </p>
-                    <p className='text-base leading-relaxed'>
-                      We can do <strong>amazing things</strong> together.{' '}
-                      <span className='font-semibold text-primary-700'>
-                        Grassroots style. Open source. No permission needed.
-                      </span>
-                    </p>
-                    <p className='text-base leading-relaxed'>
-                      We are committed to putting{' '}
-                      <strong>time, resources, and money</strong> into this
-                      initiative. We will keep building{' '}
-                      <strong>relentlessly</strong> without anyone&apos;s
-                      permission. Open source, public,{' '}
-                      <strong>high quality</strong> sites.
-                    </p>
-                    <div className='mt-6 pt-4 border-t-2 border-primary-200'>
-                      <p className='font-bold text-primary-700 text-lg'>
-                        WE&apos;RE LOOKING FOR PEOPLE SMARTER THAN US!
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </section>
-              <section>
-                <h2 className='text-2xl font-bold text-gray-800 mb-4'>
-                  {t('license.title')}
-                </h2>
-                <p className='mb-4 text-gray-700'>
-                  {t('license.description')}
-                  <a
-                    href='https://creativecommons.org/publicdomain/zero/1.0/'
-                    className='text-blue-600 hover:text-blue-800 mx-1'
-                  >
-                    {t('license.ccLink')}
-                  </a>
-                  {t('license.explanation')}
-                </p>
-              </section>
-            </div>
-
-            {/* Call to Action */}
-            <div className='bg-blue-600 rounded-lg p-8 mt-8 text-center'>
-              <h3 className='text-2xl font-bold text-white mb-4'>
-                Ready to Make a Difference?
-              </h3>
-              <p className='text-blue-100 mb-6 max-w-2xl mx-auto'>
-                Join our community of builders, dreamers, and changemakers.
+      <div className='container mx-auto px-4 py-6 md:py-10'>
+        <div className='overflow-hidden rounded-2xl bg-white border border-gray-200 shadow-sm'>
+          {/* Hero */}
+          <div className='relative bg-linear-to-br from-primary-700 via-primary-600 to-blue-600 px-6 py-12 md:px-12 md:py-16'>
+            <Waves className='absolute -bottom-6 right-6 h-40 w-40 text-white/10 rotate-12' />
+            <div className='relative max-w-2xl'>
+              <span className='inline-flex items-center gap-1.5 rounded-full bg-white/15 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-white/90'>
+                <Flame className='h-3.5 w-3.5' />A Better movement portal
+              </span>
+              <h1 className='mt-4 text-3xl font-extrabold leading-tight text-white md:text-4xl'>
+                About BetterMaasin.org
+              </h1>
+              <p className='mt-3 max-w-xl text-base text-white/90 md:text-lg'>
+                A civic-tech portal that brings Maasin City&apos;s government,
+                services, and data together in one transparent, accessible place
+                — built in the spirit of doing things{' '}
+                <strong className='text-white'>better</strong>.
               </p>
-              <div className='flex flex-col sm:flex-row gap-4 justify-center'>
+            </div>
+            {/* Stats bar */}
+            <div className='relative mt-8 grid grid-cols-3 gap-3 border-t border-white/20 pt-6'>
+              {stats.map(s => (
+                <div key={s.label}>
+                  <p className='text-xl font-bold text-white md:text-2xl'>
+                    {s.value}
+                  </p>
+                  <p className='text-xs text-white/80'>{s.label}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Why */}
+          <div className='px-6 py-8 md:px-12'>
+            <div className='grid gap-8 md:grid-cols-2'>
+              <div>
+                <h2 className='text-xl font-bold text-gray-900'>
+                  Why build it
+                </h2>
+                <p className='mt-3 leading-relaxed text-gray-700'>
+                  Local information is scattered, disconnected, and hard to find
+                  when you need it most. BetterMaasin.org exists so the answers
+                  are easy to find, easy to understand, and easy to trust.
+                </p>
+                <p className='mt-3 text-sm text-gray-600'>
+                  BetterMaasin.org is an independent project and is{' '}
+                  <strong>not affiliated</strong> with the Maasin City LGU or
+                  any government office in any way.
+                </p>
                 <Link
                   to='/contact'
-                  className='inline-flex items-center bg-yellow-400 text-blue-900 px-6 py-3 rounded-lg font-semibold hover:bg-yellow-500 transition-colors'
+                  className='mt-5 inline-flex items-center gap-2 rounded-lg bg-primary-600 px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-primary-700'
                 >
-                  <MessageCircleIcon className='w-5 h-5 mr-2' />
-                  Contacts
-                </Link>
-                <span className='text-white flex items-center justify-center'>
-                  or
-                </span>
-                <Link
-                  to='/join-us'
-                  className='inline-flex items-center bg-transparent border-2 border-white text-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition-colors'
-                >
-                  <LightbulbIcon className='w-5 h-5 mr-2' />
-                  Join Us
+                  Get in touch
+                  <ArrowRight className='h-4 w-4' />
                 </Link>
               </div>
+              <div>
+                <h2 className='text-xl font-bold text-gray-900'>
+                  What we stand for
+                </h2>
+                <ul className='mt-3 space-y-2 text-gray-700'>
+                  <li className='rounded-lg bg-primary-50 px-4 py-3 font-medium text-primary-800'>
+                    Transparent — information open &amp; easy to see
+                  </li>
+                  <li className='rounded-lg bg-primary-50 px-4 py-3 font-medium text-primary-800'>
+                    Accessible — works for everyone, any device
+                  </li>
+                  <li className='rounded-lg bg-primary-50 px-4 py-3 font-medium text-primary-800'>
+                    Local-first &amp; open — no permission needed
+                  </li>
+                </ul>
+              </div>
             </div>
+          </div>
+
+          {/* Features */}
+          <div className='border-t border-gray-200 px-6 py-8 md:px-12'>
+            <h2 className='text-xl font-bold text-gray-900'>
+              What&apos;s inside
+            </h2>
+            <div className='mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3'>
+              {features.map(f => (
+                <div
+                  key={f.title}
+                  className='group rounded-xl border border-gray-200 p-5 transition-all hover:border-primary-400 hover:shadow-sm'
+                >
+                  <div className='flex h-11 w-11 items-center justify-center rounded-lg bg-primary-100 text-primary-600 transition-colors group-hover:bg-primary-600 group-hover:text-white'>
+                    <f.icon className='h-5 w-5' />
+                  </div>
+                  <h3 className='mt-3 font-semibold text-gray-900'>
+                    {f.title}
+                  </h3>
+                  <p className='mt-1 text-sm text-gray-600'>{f.desc}</p>
+                </div>
+              ))}
+            </div>
+
+            {/* License & data */}
+            <div className='mt-8 rounded-2xl bg-gray-50 px-6 py-8 md:px-8'>
+              <h2 className='text-xl font-bold text-gray-900'>
+                License &amp; data
+              </h2>
+              <p className='mt-3 text-lg font-semibold text-gray-800'>
+                Everything here is{' '}
+                <a
+                  href='https://creativecommons.org/publicdomain/zero/1.0/'
+                  target='_blank'
+                  rel='noopener noreferrer'
+                  className='font-bold text-primary-600 hover:underline'
+                >
+                  CC0 / public domain
+                </a>{' '}
+                unless otherwise stated.
+              </p>
+              <p className='mt-2 text-base leading-relaxed text-gray-700'>
+                You&apos;re free to copy, reuse, remix, and build on the portal
+                and its data — no permission needed. Any third-party data
+                sources (like the DPWH Flood Control Information System) are
+                credited wherever they appear. Some information may be under
+                other open licenses, such as CC BY 4.0 (for example, data from
+                the Philippine Statistics Authority).
+              </p>
+            </div>
+
+            <p className='mt-6 rounded-xl border border-amber-200 bg-amber-50 px-5 py-4 text-sm leading-relaxed text-amber-900'>
+              <strong>No guarantee of accuracy or timeliness.</strong> This
+              portal is a community effort, so information may change or become
+              outdated. That’s why we need people like you to help keep it
+              accurate, up to date, and useful for everyone.
+            </p>
+          </div>
+
+          {/* CTA */}
+          <div className='border-t border-gray-200 bg-gray-50 px-6 py-8 text-center md:px-12'>
+            <p className='text-lg font-semibold text-gray-900'>
+              Part of something bigger
+            </p>
+            <p className='mx-auto mt-1 max-w-md text-sm text-gray-600'>
+              One of many local expressions of the Better movement — citizens
+              building open, transparent government tech.
+            </p>
+            <Link
+              to='/join-us'
+              className='mt-4 inline-flex items-center gap-2 rounded-lg bg-primary-600 px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-primary-700'
+            >
+              Get involved
+              <ArrowRight className='h-4 w-4' />
+            </Link>
           </div>
         </div>
       </div>

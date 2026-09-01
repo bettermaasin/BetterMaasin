@@ -60,7 +60,7 @@
     "callToAction": {
       "title": "Handa ka na bang gumawa ng pagbabago?",
       "description": "Kung interesado kayo sa pag-aambag sa proyektong ito, maari kayong makipag-ugnayan sa amin sa",
-      "email": "volunteers@bettergov.ph",
+      "email": "volunteer@bettermaasin.org",
       "alternative": "o mag-open ng issue sa aming repository."
     }
   },
@@ -80,7 +80,7 @@
     ],
     "alternative": {
       "text": "Alternatibong paraan, mag-email sa amin sa",
-      "email": "bugs@bettergov.ph"
+      "email": "contact@bettermaasin.org"
     }
   },
   "license": {
