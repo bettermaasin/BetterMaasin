@@ -349,10 +349,10 @@ const TermsOfService: FC = () => {
                   <p className='font-semibold'>
                     Please contact us at:{' '}
                     <a
-                      href='mailto:volunteers@bettergov.ph'
+                      href='mailto:contact@bettermaasin.org'
                       className='text-primary-600 hover:text-primary-700'
                     >
-                      volunteers@bettergov.ph
+                      contact@bettermaasin.org
                     </a>
                   </p>
                 </div>
@@ -412,10 +412,10 @@ const TermsOfService: FC = () => {
               </p>
               <p className='text-xl font-semibold text-primary-900'>
                 <a
-                  href='mailto:volunteers@bettergov.ph'
+                  href='mailto:contact@bettermaasin.org'
                   className='hover:text-primary-700 transition-colors'
                 >
-                  volunteers@bettergov.ph
+                  contact@bettermaasin.org
                 </a>
               </p>
               <p className='text-primary-700 mt-4 italic'>
