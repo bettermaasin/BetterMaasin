@@ -102,7 +102,7 @@ export default function GovernmentIndexPageContainer({
           <main className='flex-1 min-w-0'>
             <div
               id='government-content'
-              className='bg-white rounded-lg border shadow-xs p-4 md:p-8'
+              className='bg-white rounded-2xl border border-gray-200 shadow-sm p-4 md:p-8'
             >
               {children}
             </div>

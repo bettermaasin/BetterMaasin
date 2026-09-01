@@ -312,10 +312,10 @@ const WebsitesDirectory: FC = () => {
                 suggestions for improvement, please contact us through our
                 feedback form or email at
                 <a
-                  href='mailto:info@bettergov.ph'
+                  href='mailto:contact@bettermaasin.org'
                   className='text-primary-600 hover:underline ml-1'
                 >
-                  info@bettergov.ph
+                  contact@bettermaasin.org
                 </a>
                 .
               </p>
