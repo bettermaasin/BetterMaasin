@@ -128,17 +128,19 @@ const Ticker: FC = () => {
     );
   }
 
-  // If both forex and weather have errors or no data, hide the ticker
+  // Hide the ticker only when both forex and weather data are unavailable due to errors
   if (
-    (error && weatherError) ||
-    (forexRates.length === 0 && weatherData.length === 0)
+    error &&
+    weatherError &&
+    forexRates.length === 0 &&
+    weatherData.length === 0
   ) {
     return null;
   }
 
-  const currentRate = forexRates[currentRateIndex];
+  if (pathname === '/philippines/map') return null;
 
-  if (!currentRate || pathname === '/philippines/map') return null;
+  const currentRate = forexRates[currentRateIndex];
 
   return (
     <div className='bg-blue-950 text-white py-1.5'>
@@ -154,17 +156,25 @@ const Ticker: FC = () => {
                     : 'opacity-100 translate-y-0'
                 }`}
               >
-                <div className='inline-flex items-center space-x-1'>
-                  <span className='text-accent-200'>
-                    {getCurrencyIcon(currentRate.code)}
-                  </span>
-                  <span className='text-xs font-medium'>
-                    {currentRate.code}
-                  </span>
+                {currentRate ? (
+                  <div className='inline-flex items-center space-x-1'>
+                    <span className='text-accent-200'>
+                      {getCurrencyIcon(currentRate.code)}
+                    </span>
+                    <span className='text-xs font-medium'>
+                      {currentRate.code}
+                    </span>
+                    <span className='text-xs text-accent-100'>
+                      ₱{currentRate.rate.toFixed(2)}
+                    </span>
+                  </div>
+                ) : error ? (
                   <span className='text-xs text-accent-100'>
-                    ₱{currentRate.rate.toFixed(2)}
+                    Rates unavailable
                   </span>
-                </div>
+                ) : (
+                  <LoaderIcon className='h-4 w-4 animate-spin mr-2 text-accent-100' />
+                )}
               </div>
             </div>
           </div>
