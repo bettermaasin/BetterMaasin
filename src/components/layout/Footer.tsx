@@ -57,7 +57,7 @@ const Footer: FC = () => {
           <div className='col-span-1 md:col-span-2'>
             <div className='flex items-center mb-4'>
               <img
-                src='/logos/svg/BetterMaasin_Square_Textless-White.svg'
+                src='/logos/svg/BetterMaasin_Square-White.svg'
                 alt='BetterMaasin.org Logo'
                 className='h-12 w-12 mr-3'
               />
