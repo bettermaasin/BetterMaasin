@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && npm run generate:metadata && tsx ./scripts/write-ver-to-json.ts && vite build",
+    "build": "tsc && npm run generate:metadata && tsx ./scripts/build-maasin-flood-control.ts && tsx ./scripts/write-ver-to-json.ts && vite build",
+    "build:maasin-data": "tsx ./scripts/build-maasin-flood-control.ts",
     "lint": "eslint . --report-unused-disable-directives --max-warnings 0",
     "format": "prettier --write .",
     "wrangler": "wrangler",
