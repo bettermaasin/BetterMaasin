@@ -1,9 +1,7 @@
 import { useState, useEffect, useMemo, useRef, FC } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { InstantSearch, Configure, useHits } from 'react-instantsearch';
-import { instantMeiliSearch } from '@meilisearch/instant-meilisearch';
-import 'instantsearch.css/themes/satellite.css';
-import { exportMeilisearchData } from '../../../lib/exportData';
+import { useFloodControlSearch } from '../../../hooks/useFloodControlSearch';
+import { exportToCSV } from '../../../lib/exportData';
 import { DownloadIcon, InfoIcon, ZoomInIcon, ZoomOutIcon } from 'lucide-react';
 import Button from '../../../components/ui/Button';
 import { MapContainer, TileLayer, GeoJSON } from 'react-leaflet';
@@ -32,43 +30,6 @@ interface FloodControlProject {
   Longitude?: string;
 }
 
-// Custom component to access Meilisearch hits for map
-const MapHitsComponent = ({
-  onHitsUpdate,
-}: {
-  onHitsUpdate: (hits: FloodControlProject[]) => void;
-}) => {
-  const { hits } = useHits<FloodControlProject>();
-
-  useEffect(() => {
-    onHitsUpdate(hits);
-  }, [hits, onHitsUpdate]);
-
-  return null;
-};
-
-// Meilisearch configuration
-const MEILISEARCH_HOST =
-  import.meta.env.VITE_MEILISEARCH_HOST || 'http://localhost';
-const MEILISEARCH_PORT = import.meta.env.VITE_MEILISEARCH_PORT || '7700';
-const MEILISEARCH_SEARCH_API_KEY =
-  import.meta.env.VITE_MEILISEARCH_SEARCH_API_KEY ||
-  'your_public_search_key_here';
-
-// Create search client with proper type casting
-const meiliSearchInstance = instantMeiliSearch(
-  `${MEILISEARCH_HOST}:${MEILISEARCH_PORT}`,
-  MEILISEARCH_SEARCH_API_KEY,
-  {
-    primaryKey: 'GlobalID',
-    keepZeroFacets: true,
-  }
-);
-
-// Extract the searchClient from meiliSearchInstance
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const searchClient = meiliSearchInstance.searchClient as any;
-
 const FloodControlProjectsMap: FC = () => {
   // Loading state for export
   const [isExporting, setIsExporting] = useState<boolean>(false);
@@ -80,22 +41,27 @@ const FloodControlProjectsMap: FC = () => {
   const initialCenter: LatLngExpression = [10.133, 124.844]; // Maasin City, Southern Leyte
   const initialZoom = 12;
 
+  // Client-side hits for the map (no filters — show all Maasin projects)
+  const { hits } = useFloodControlSearch();
+
+  useEffect(() => {
+    setMapProjects(hits as FloodControlProject[]);
+  }, [hits]);
+
   // Export data function
   const handleExportData = async () => {
     // Set loading state
     setIsExporting(true);
 
     try {
-      await exportMeilisearchData({
-        host: MEILISEARCH_HOST,
-        port: MEILISEARCH_PORT,
-        apiKey: MEILISEARCH_SEARCH_API_KEY,
-        indexName: 'bettergov_flood_control',
-        filters: 'type = "flood_control"',
-        searchTerm: '',
-        filename: 'flood-control-projects-map',
-      });
-      // Show success message
+      if (hits.length === 0) {
+        alert('No data to export.');
+        return;
+      }
+      exportToCSV(
+        hits as Record<string, unknown>[],
+        'flood-control-projects-map'
+      );
       alert('Data exported successfully!');
     } catch (error) {
       console.error('Error exporting data:', error);
@@ -104,11 +70,6 @@ const FloodControlProjectsMap: FC = () => {
       // Reset loading state
       setIsExporting(false);
     }
-  };
-
-  // Build filter string for Meilisearch
-  const buildFilterString = (): string => {
-    return 'type = "flood_control"';
   };
 
   // filteredProjects is just the mapProjects returned from the search
@@ -174,32 +135,7 @@ const FloodControlProjectsMap: FC = () => {
           {/* View Tabs */}
           <FloodControlProjectsTab selectedTab='map' />
 
-          {/* Hidden InstantSearch for data fetching only */}
-          <InstantSearch
-            indexName='bettergov_flood_control'
-            searchClient={searchClient}
-          >
-            <Configure
-              hitsPerPage={5000}
-              filters={buildFilterString()}
-              query=''
-              attributesToRetrieve={[
-                'ProjectDescription',
-                'Municipality',
-                'ContractID',
-                'TypeofWork',
-                'ContractCost',
-                'GlobalID',
-                'InfraYear',
-                'Contractor',
-                'Latitude',
-                'Longitude',
-              ]}
-            />
-            <MapHitsComponent onHitsUpdate={setMapProjects} />
-          </InstantSearch>
-
-          {/* Map View - separate from InstantSearch to prevent flickering */}
+          {/* Map View */}
           <div className='bg-white rounded-lg shadow-md p-4'>
             <div className='h-[700px] relative'>
               <MapContainer

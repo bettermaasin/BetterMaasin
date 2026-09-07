@@ -1,9 +1,7 @@
 import { FC, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { InstantSearch, Configure, useHits } from 'react-instantsearch';
-import { instantMeiliSearch } from '@meilisearch/instant-meilisearch';
-import 'instantsearch.css/themes/satellite.css';
-import { exportMeilisearchData } from '../../../lib/exportData';
+import { exportToCSV } from '../../../lib/exportData';
+import { useFloodControlSearch } from '../../../hooks/useFloodControlSearch';
 import {
   Filter,
   ChevronLeft,
@@ -29,28 +27,6 @@ interface DataItem {
   value: string;
   count: number;
 }
-
-// Meilisearch configuration
-const MEILISEARCH_HOST =
-  import.meta.env.VITE_MEILISEARCH_HOST || 'http://localhost';
-const MEILISEARCH_PORT = import.meta.env.VITE_MEILISEARCH_PORT || '7700';
-const MEILISEARCH_SEARCH_API_KEY =
-  import.meta.env.VITE_MEILISEARCH_SEARCH_API_KEY ||
-  'your_public_search_key_here';
-
-// Create search client with proper type casting
-const meiliSearchInstance = instantMeiliSearch(
-  `${MEILISEARCH_HOST}:${MEILISEARCH_PORT}`,
-  MEILISEARCH_SEARCH_API_KEY,
-  {
-    primaryKey: 'GlobalID',
-    keepZeroFacets: true,
-  }
-);
-
-// Extract the searchClient from meiliSearchInstance
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const searchClient = meiliSearchInstance.searchClient as any;
 
 // Define filter dropdown component props
 interface FilterDropdownProps {
@@ -333,8 +309,11 @@ const TableHits: FC<{ filters: FilterState; searchTerm: string }> = ({
   const [currentPage, setCurrentPage] = useState(0);
   const hitsPerPage = 20; // Number of records per page
 
-  // Use useHits hook from react-instantsearch to access hits data directly
-  const { hits, results } = useHits();
+  // Use the client-side search hook to access hits directly
+  const { hits, results } = useFloodControlSearch({
+    query: searchTerm,
+    filters,
+  });
 
   // Sort hits based on current sort field and direction
   const sortedHits = [...hits].sort(
@@ -612,51 +591,26 @@ const FloodControlProjectsTable: FC = () => {
     setSearchParams(generateUrlParams(newFilters));
   };
 
-  // Build filter string for Meilisearch
-  const buildFilterString = (): string => {
-    // Start with an empty array - we'll add filters as needed
-    const filterStrings: string[] = [];
-
-    // Always filter by type - format it correctly
-    filterStrings.push('type = "flood_control"');
-
-    // InfraYear is not filterable, try using FundingYear instead if they represent the same data
-    if (filters.InfraYear && filters.InfraYear.trim()) {
-      filterStrings.push(`FundingYear = ${filters.InfraYear.trim()}`);
-    }
-
-    if (filters.TypeofWork && filters.TypeofWork.trim()) {
-      filterStrings.push(`TypeofWork = "${filters.TypeofWork.trim()}"`);
-    }
-
-    if (filters.Contractor && filters.Contractor.trim()) {
-      filterStrings.push(`Contractor = "${filters.Contractor.trim()}"`);
-    }
-
-    return filterStrings.length > 0 ? filterStrings.join(' AND ') : '';
-  };
+  // Client-side filtered hits (also used for export)
+  const { hits: exportHits } = useFloodControlSearch({
+    query: searchTerm,
+    filters,
+  });
 
   // Export data function
   const handleExportData = async () => {
     // Set loading state
     setIsExporting(true);
 
-    // Build filter string based on selected filters
-    const filterString = buildFilterString();
-    // Get effective search term including year filter if present
-    const effectiveSearchTerm = getEffectiveSearchTerm();
-
     try {
-      await exportMeilisearchData({
-        host: MEILISEARCH_HOST,
-        port: MEILISEARCH_PORT,
-        apiKey: MEILISEARCH_SEARCH_API_KEY,
-        indexName: 'bettergov_flood_control',
-        filters: filterString,
-        searchTerm: effectiveSearchTerm,
-        filename: 'flood-control-projects-table',
-      });
-      // Show success message
+      if (exportHits.length === 0) {
+        alert('No data to export based on current filters.');
+        return;
+      }
+      exportToCSV(
+        exportHits as Record<string, unknown>[],
+        'flood-control-projects-table'
+      );
       alert('Data exported successfully!');
     } catch (error) {
       console.error('Error exporting data:', error);
@@ -670,12 +624,6 @@ const FloodControlProjectsTable: FC = () => {
   // Update search term when it changes in the search box
   const handleSearchChange = (query: string) => {
     setSearchTerm(query);
-  };
-
-  // Get the effective search term (no need to include year filter now as it's handled by FundingYear filter)
-  const getEffectiveSearchTerm = (): string => {
-    // Simply return the searchTerm since we're handling InfraYear via FundingYear filter now
-    return searchTerm;
   };
 
   return (
@@ -802,18 +750,7 @@ const FloodControlProjectsTable: FC = () => {
 
             {/* Table View */}
             <div className='bg-white rounded-lg shadow-md overflow-hidden'>
-              <InstantSearch
-                indexName='bettergov_flood_control'
-                searchClient={searchClient}
-                future={{ preserveSharedStateOnUnmount: true }}
-              >
-                <Configure
-                  hitsPerPage={1000}
-                  filters={buildFilterString()}
-                  query={getEffectiveSearchTerm()}
-                />
-                <TableHits filters={filters} searchTerm={searchTerm} />
-              </InstantSearch>
+              <TableHits filters={filters} searchTerm={searchTerm} />
             </div>
 
             {/* Data Source Information */}

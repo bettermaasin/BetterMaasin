@@ -1,5 +1,3 @@
-import { instantMeiliSearch } from '@meilisearch/instant-meilisearch';
-import 'instantsearch.css/themes/satellite.css';
 import {
   BarChart3Icon,
   DownloadIcon,
@@ -15,7 +13,6 @@ import {
 import { FC, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
-import { Configure, InstantSearch, useHits } from 'react-instantsearch';
 import {
   Bar,
   BarChart,
@@ -30,7 +27,8 @@ import {
   YAxis,
 } from 'recharts';
 import Button from '../../../components/ui/Button';
-import { exportMeilisearchData } from '../../../lib/exportData';
+import { exportToCSV } from '../../../lib/exportData';
+import { useFloodControlSearch } from '../../../hooks/useFloodControlSearch';
 
 // Import shared components
 import {
@@ -40,7 +38,7 @@ import {
   FloodControlHit,
 } from './shared-components';
 import FloodControlProjectsTab from './tab';
-import { buildFilterString, FilterState, generateUrlParams } from './utils';
+import { FilterState, generateUrlParams } from './utils';
 
 // Import lookup data
 import contractorData from '../../../data/flood_control/lookups/Contractor_with_counts.json';
@@ -48,28 +46,6 @@ import infraYearData from '../../../data/flood_control/lookups/InfraYear_with_co
 import summaryData from '../../../data/flood_control/lookups/Projects_Cost_UniqueContractors_Summary.json';
 import typeOfWorkData from '../../../data/flood_control/lookups/TypeofWork_with_counts.json';
 import { useSearchParams } from 'react-router-dom';
-
-// Meilisearch configuration
-const MEILISEARCH_HOST =
-  import.meta.env.VITE_MEILISEARCH_HOST || 'http://localhost';
-const MEILISEARCH_PORT = import.meta.env.VITE_MEILISEARCH_PORT || '7700';
-const MEILISEARCH_SEARCH_API_KEY =
-  import.meta.env.VITE_MEILISEARCH_SEARCH_API_KEY ||
-  'your_public_search_key_here';
-
-// Create search client with proper type casting
-const meiliSearchInstance = instantMeiliSearch(
-  `${MEILISEARCH_HOST}:${MEILISEARCH_PORT}`,
-  MEILISEARCH_SEARCH_API_KEY,
-  {
-    primaryKey: 'GlobalID',
-    keepZeroFacets: true,
-  }
-);
-
-// Extract the searchClient from meiliSearchInstance
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const searchClient = meiliSearchInstance.searchClient as any;
 
 // Colors for charts
 const COLORS = [
@@ -88,9 +64,15 @@ const COLORS = [
 const DEFAULT_STATS = summaryData;
 
 // Statistics Display Component with hardcoded values for better performance
-const DashboardStatistics: FC = () => {
+const DashboardStatistics: FC<{
+  filters: FilterState;
+  searchTerm: string;
+}> = ({ filters, searchTerm }) => {
   const { t } = useTranslation('flood-control-projects');
-  const { hits, results } = useHits();
+  const { hits, results } = useFloodControlSearch({
+    query: searchTerm,
+    filters,
+  });
   const totalHits = results?.nbHits || 0;
 
   // Default statistics to display when no filters are applied
@@ -148,9 +130,15 @@ const DashboardStatistics: FC = () => {
   );
 };
 
-// Chart components that use live filtered data from Meilisearch
-const YearlyChart: FC = () => {
-  const { hits, results } = useHits();
+// Chart components that use the filtered client-side data
+const YearlyChart: FC<{
+  filters: FilterState;
+  searchTerm: string;
+}> = ({ filters, searchTerm }) => {
+  const { hits, results } = useFloodControlSearch({
+    query: searchTerm,
+    filters,
+  });
   const totalHits = results?.nbHits || 0;
   const typedHits = hits as FloodControlHit[];
 
@@ -202,9 +190,15 @@ const YearlyChart: FC = () => {
   );
 };
 
-const TypeOfWorkChart: FC = () => {
+const TypeOfWorkChart: FC<{
+  filters: FilterState;
+  searchTerm: string;
+}> = ({ filters, searchTerm }) => {
   const { t } = useTranslation('flood-control-projects');
-  const { hits, results } = useHits();
+  const { hits, results } = useFloodControlSearch({
+    query: searchTerm,
+    filters,
+  });
   const totalHits = results?.nbHits || 0;
   const typedHits = hits as FloodControlHit[];
 
@@ -288,9 +282,15 @@ const TypeOfWorkChart: FC = () => {
   );
 };
 
-const ContractorChart: FC = () => {
+const ContractorChart: FC<{
+  filters: FilterState;
+  searchTerm: string;
+}> = ({ filters, searchTerm }) => {
   const { t } = useTranslation('flood-control-projects');
-  const { hits, results } = useHits();
+  const { hits, results } = useFloodControlSearch({
+    query: searchTerm,
+    filters,
+  });
   const totalHits = results?.nbHits || 0;
   const typedHits = hits as FloodControlHit[];
 
@@ -400,7 +400,7 @@ const FloodControlProjects: FC = () => {
     return Object.values(filters).some(value => value && value.trim() !== '');
   };
 
-  // Track whether filters or search are applied to conditionally render InstantSearch
+  // Track whether filters or search are applied
   const [filtersApplied, setFiltersApplied] = useState(
     checkIfFiltersApplied(filters, searchTerm)
   );
@@ -466,33 +466,26 @@ const FloodControlProjects: FC = () => {
   // Loading state for export
   const [isExporting, setIsExporting] = useState(false);
 
-  // Get the effective search term (no need to include year filter now as it's handled by FundingYear filter)
-  const getEffectiveSearchTerm = (): string => {
-    // Simply return the searchTerm since we're handling InfraYear via FundingYear filter now
-    return searchTerm;
-  };
+  // Client-side filtered hits (also used for export)
+  const { hits: exportHits } = useFloodControlSearch({
+    query: searchTerm,
+    filters,
+  });
 
-  // Export data function
+  // Export the currently filtered data as CSV
   const handleExportData = async () => {
     // Set loading state
     setIsExporting(true);
 
-    // Build filter string based on selected filters
-    const filterString = buildFilterString(filters);
-    // Get effective search term
-    const effectiveSearchTerm = getEffectiveSearchTerm();
-
     try {
-      await exportMeilisearchData({
-        host: MEILISEARCH_HOST,
-        port: MEILISEARCH_PORT,
-        apiKey: MEILISEARCH_SEARCH_API_KEY,
-        indexName: 'bettergov_flood_control',
-        filters: filterString,
-        searchTerm: effectiveSearchTerm,
-        filename: 'flood-control-projects-visual',
-      });
-      // Show success message
+      if (exportHits.length === 0) {
+        alert(t('alerts.noData'));
+        return;
+      }
+      exportToCSV(
+        exportHits as Record<string, unknown>[],
+        'flood-control-projects-visual'
+      );
       alert(t('alerts.exportSuccess'));
     } catch (error) {
       console.error('Error exporting data:', error);
@@ -644,79 +637,43 @@ const FloodControlProjects: FC = () => {
             <FloodControlProjectsTab selectedTab='index' />
 
             {/* Active Filter Display */}
-            <InstantSearch
-              indexName='bettergov_flood_control'
-              searchClient={searchClient}
-              future={{ preserveSharedStateOnUnmount: true }}
-            >
-              <Configure
-                filters={buildFilterString(filters)}
-                query={getEffectiveSearchTerm()}
-                hitsPerPage={10}
-                attributesToRetrieve={[
-                  'ProjectDescription',
-                  'Municipality',
-                  'Province',
-                  'Region',
-                  'ContractID',
-                  'TypeofWork',
-                  'ContractCost',
-                  'GlobalID',
-                  'DistrictEngineeringOffice',
-                  'LegislativeDistrict',
-                  'Contractor',
-                  'InfraYear',
-                ]}
-              />
-              <FilterTitle filters={filters} searchTerm={searchTerm} />
+            <FilterTitle filters={filters} searchTerm={searchTerm} />
 
-              {/* Statistics */}
-              {filtersApplied ? (
-                <InstantSearch
-                  indexName='bettergov_flood_control'
-                  searchClient={searchClient}
-                  future={{ preserveSharedStateOnUnmount: true }}
-                >
-                  <Configure
-                    filters={buildFilterString(filters)}
-                    query={getEffectiveSearchTerm()}
-                    hitsPerPage={10000}
-                  />
-                  <DashboardStatistics />
-                </InstantSearch>
-              ) : (
-                <div className='mb-6'>
-                  <div className='grid grid-cols-1 sm:grid-cols-3 gap-4'>
-                    <div className='bg-white rounded-lg shadow-xs p-4'>
-                      <h3 className='text-sm font-medium text-gray-800 mb-1'>
-                        {t('statistics.totalProjects')}
-                      </h3>
-                      <p className='text-2xl font-bold text-blue-600'>
-                        {DEFAULT_STATS.totalProjects.toLocaleString()}
-                      </p>
-                    </div>
+            {/* Statistics */}
+            {filtersApplied ? (
+              <DashboardStatistics filters={filters} searchTerm={searchTerm} />
+            ) : (
+              <div className='mb-6'>
+                <div className='grid grid-cols-1 sm:grid-cols-3 gap-4'>
+                  <div className='bg-white rounded-lg shadow-xs p-4'>
+                    <h3 className='text-sm font-medium text-gray-800 mb-1'>
+                      {t('statistics.totalProjects')}
+                    </h3>
+                    <p className='text-2xl font-bold text-blue-600'>
+                      {DEFAULT_STATS.totalProjects.toLocaleString()}
+                    </p>
+                  </div>
 
-                    <div className='bg-white rounded-lg shadow-xs p-4'>
-                      <h3 className='text-sm font-medium text-gray-800 mb-1'>
-                        {t('statistics.totalContractCost')}
-                      </h3>
-                      <p className='text-2xl font-bold text-green-600'>
-                        ₱{DEFAULT_STATS.totalCost.toLocaleString()}
-                      </p>
-                    </div>
+                  <div className='bg-white rounded-lg shadow-xs p-4'>
+                    <h3 className='text-sm font-medium text-gray-800 mb-1'>
+                      {t('statistics.totalContractCost')}
+                    </h3>
+                    <p className='text-2xl font-bold text-green-600'>
+                      ₱{DEFAULT_STATS.totalCost.toLocaleString()}
+                    </p>
+                  </div>
 
-                    <div className='bg-white rounded-lg shadow-xs p-4'>
-                      <h3 className='text-sm font-medium text-gray-800 mb-1'>
-                        {t('statistics.uniqueContractors')}
-                      </h3>
-                      <p className='text-2xl font-bold text-purple-600'>
-                        {DEFAULT_STATS.uniqueContractors.toLocaleString()}
-                      </p>
-                    </div>
+                  <div className='bg-white rounded-lg shadow-xs p-4'>
+                    <h3 className='text-sm font-medium text-gray-800 mb-1'>
+                      {t('statistics.uniqueContractors')}
+                    </h3>
+                    <p className='text-2xl font-bold text-purple-600'>
+                      {DEFAULT_STATS.uniqueContractors.toLocaleString()}
+                    </p>
                   </div>
                 </div>
-              )}
-            </InstantSearch>
+              </div>
+            )}
 
             {/* Visualizations Section */}
             <div className='space-y-6 mb-6'>
@@ -730,18 +687,7 @@ const FloodControlProjects: FC = () => {
                 </div>
                 <div className='h-[300px]'>
                   {filtersApplied ? (
-                    <InstantSearch
-                      indexName='bettergov_flood_control'
-                      searchClient={searchClient}
-                      future={{ preserveSharedStateOnUnmount: true }}
-                    >
-                      <Configure
-                        filters={buildFilterString(filters)}
-                        query={getEffectiveSearchTerm()}
-                        hitsPerPage={1000}
-                      />
-                      <YearlyChart />
-                    </InstantSearch>
+                    <YearlyChart filters={filters} searchTerm={searchTerm} />
                   ) : (
                     <ResponsiveContainer width='100%' height='100%'>
                       <BarChart
@@ -770,18 +716,10 @@ const FloodControlProjects: FC = () => {
                 </div>
                 <div className='h-[300px] relative'>
                   {filtersApplied ? (
-                    <InstantSearch
-                      indexName='bettergov_flood_control'
-                      searchClient={searchClient}
-                      future={{ preserveSharedStateOnUnmount: true }}
-                    >
-                      <Configure
-                        filters={buildFilterString(filters)}
-                        query={getEffectiveSearchTerm()}
-                        hitsPerPage={1000}
-                      />
-                      <TypeOfWorkChart />
-                    </InstantSearch>
+                    <TypeOfWorkChart
+                      filters={filters}
+                      searchTerm={searchTerm}
+                    />
                   ) : (
                     <div className='flex items-center justify-center h-full'>
                       <div className='w-[60%] pr-2'>
@@ -852,18 +790,10 @@ const FloodControlProjects: FC = () => {
                 </div>
                 <div className='h-[300px]'>
                   {filtersApplied ? (
-                    <InstantSearch
-                      indexName='bettergov_flood_control'
-                      searchClient={searchClient}
-                      future={{ preserveSharedStateOnUnmount: true }}
-                    >
-                      <Configure
-                        filters={buildFilterString(filters)}
-                        query={getEffectiveSearchTerm()}
-                        hitsPerPage={1000}
-                      />
-                      <ContractorChart />
-                    </InstantSearch>
+                    <ContractorChart
+                      filters={filters}
+                      searchTerm={searchTerm}
+                    />
                   ) : (
                     <ResponsiveContainer width='100%' height='100%'>
                       <BarChart
