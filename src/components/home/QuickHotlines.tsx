@@ -38,94 +38,86 @@ const pinned = [
     label: 'Unified 911',
     icon: <AlertCircleIcon className='h-4 w-4' />,
     hotline: findHotlineByText(emergencyHotlines, '911'),
-    chip: 'bg-purple-100 text-purple-700',
   },
   {
     label: 'Police',
     icon: <ShieldIcon className='h-4 w-4' />,
     hotline: findHotlineByText(securityHotlines, 'police'),
-    chip: 'bg-blue-100 text-blue-700',
   },
   {
     label: 'Fire',
     icon: <FlameIcon className='h-4 w-4' />,
     hotline: findHotlineByText(disasterHotlines, 'fire'),
-    chip: 'bg-red-100 text-red-700',
   },
   {
     label: 'Disaster',
     icon: <TriangleAlertIcon className='h-4 w-4' />,
     hotline: findHotlineByText(disasterHotlines, 'cdrrmo'),
-    chip: 'bg-yellow-100 text-yellow-800',
   },
   {
     label: 'Medical',
     icon: <CrossIcon className='h-4 w-4' />,
     hotline: findHotlineByText(emergencyHotlines, 'soymph'),
-    chip: 'bg-green-100 text-green-700',
   },
 ].filter(item => item.hotline) as {
   label: string;
   icon: JSX.Element;
   hotline: Hotline;
-  chip: string;
 }[];
 
 const QuickHotlines: FC = () => {
   const { t } = useTranslation('common');
 
   return (
-    <section className='bg-gray-50 py-6'>
+    <section className='bg-linear-to-r from-red-800 via-red-700 to-red-600 py-5 text-white'>
       <div className='container mx-auto px-4'>
-        <div className='rounded-xl border border-red-100 bg-white p-4 shadow-xs'>
-          <div className='mb-3 flex flex-wrap items-center justify-between gap-2'>
-            <h2 className='flex items-center gap-2 text-lg md:text-xl font-bold text-gray-900'>
-              <span className='flex h-7 w-7 items-center justify-center rounded-full bg-red-50 text-red-600'>
-                <AlertCircleIcon className='h-4 w-4' />
-              </span>
-              {t('emergency.title')}
-            </h2>
-            <Link
-              to='/hotlines'
-              className='inline-flex items-center text-sm text-primary-600 hover:text-primary-700 font-medium transition-colors'
-            >
-              {t('emergency.viewAll')}
-              <ArrowRightIcon className='ml-1 h-4 w-4' />
-            </Link>
-          </div>
+        <div className='mb-3 flex flex-wrap items-center justify-between gap-2'>
+          <h2 className='flex items-center gap-2 text-base md:text-lg font-bold text-white'>
+            <span className='flex h-6 w-6 items-center justify-center rounded-full bg-white/15'>
+              <AlertCircleIcon className='h-3.5 w-3.5 text-white' />
+            </span>
+            {t('emergency.title')}
+          </h2>
+          <Link
+            to='/hotlines'
+            className='hotline-btn-shine inline-flex items-center rounded-full bg-red-50 px-3 py-1 text-xs font-semibold text-red-700 ring-1 ring-white/40 transition-colors hover:bg-white'
+          >
+            {t('emergency.viewAll')}
+            <ArrowRightIcon className='ml-1 h-3.5 w-3.5' />
+          </Link>
+        </div>
 
-          <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-2'>
-            {pinned.map(item => (
-              <div
-                key={item.label}
-                className='flex items-center gap-3 rounded-lg border border-gray-200 bg-white p-3 shadow-xs transition-shadow hover:shadow-sm'
-              >
-                <span
-                  className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-md ${item.chip}`}
+        <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-2'>
+          {pinned.map(item => (
+            <div
+              key={item.label}
+              className='flex items-center gap-2.5 rounded-lg border border-white/40 bg-red-50 p-2.5'
+            >
+              <span className='flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-white text-red-600'>
+                {item.icon}
+              </span>
+              <div className='min-w-0'>
+                <div className='text-[10px] font-medium text-red-800/70 uppercase tracking-wide'>
+                  {item.label}
+                </div>
+                <a
+                  href={`tel:${item.hotline.numbers[0].replace(/\D/g, '')}`}
+                  className='block truncate text-sm font-semibold text-red-900 hover:text-red-700'
                 >
-                  {item.icon}
-                </span>
-                <div className='min-w-0'>
-                  <div className='text-[11px] font-medium text-gray-500 uppercase tracking-wide'>
-                    {item.label}
-                  </div>
-                  <a
-                    href={`tel:${item.hotline.numbers[0].replace(/\D/g, '')}`}
-                    className='block truncate text-sm font-semibold text-gray-900 hover:text-primary-700'
-                  >
-                    {item.hotline.numbers[0]}
-                  </a>
-                  <div
-                    className='block truncate text-xs text-gray-500'
-                    title={item.hotline.name}
-                  >
-                    {item.hotline.name}
-                  </div>
+                  {item.hotline.numbers[0]}
+                </a>
+                <div
+                  className='block truncate text-xs text-red-800/60'
+                  title={item.hotline.name}
+                >
+                  {item.hotline.name}
                 </div>
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
+
+        <p className='mt-3 text-xs text-white/90'>{t('emergency.quickNote')}</p>
       </div>
     </section>
   );

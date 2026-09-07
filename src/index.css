@@ -327,3 +327,40 @@
     background-position: 0% center;
   }
 }
+
+/* Hotline button shine sweep */
+.hotline-btn-shine {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.hotline-btn-shine::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  top: 0;
+  left: -150%;
+  width: 60%;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255, 255, 255, 0.55),
+    transparent
+  );
+  transform: skewX(-20deg);
+  pointer-events: none;
+  animation: hotlineBtnShine 3.5s cubic-bezier(0.6, 0, 0.3, 1) infinite;
+}
+
+@keyframes hotlineBtnShine {
+  0% {
+    left: -150%;
+  }
+  55% {
+    left: 150%;
+  }
+  100% {
+    left: 150%;
+  }
+}

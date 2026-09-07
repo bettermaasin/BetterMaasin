@@ -9,7 +9,8 @@
   "emergency": {
     "title": "Emergency & Quick Hotlines",
     "subtitle": "Important numbers for emergencies and public services across Maasin.",
-    "viewAll": "View all hotlines"
+    "viewAll": "View all hotlines",
+    "quickNote": "Just a few of the hotline entries, see all of them on the full hotlines page, including descriptions and alternate contacts."
   },
   "services": {
     "title": "Popular Services",
