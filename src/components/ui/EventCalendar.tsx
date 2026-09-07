@@ -130,7 +130,7 @@ export const EventCalendar = ({
   return (
     <Card className={cn('mb-8', className)}>
       <CardHeader className='border-b border-blue-100 bg-blue-50'>
-        <div className='flex flex-wrap items-center justify-between gap-2'>
+        <div className='flex flex-wrap items-center justify-center gap-2 gap-y-1 md:justify-between'>
           <div className='grid grid-cols-[2.25rem_10rem_2.25rem] items-center gap-1'>
             <button
               type='button'
