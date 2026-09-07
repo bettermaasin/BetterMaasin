@@ -1,7 +1,7 @@
 // helpers for interpolation
 
 export function formatStandardTitle(subject: string): string {
-  return `${subject} | BetterGov.ph`;
+  return `${subject} | BetterMaasin.org`;
 }
 
 export function formatStandardDescription(subject: string): string {

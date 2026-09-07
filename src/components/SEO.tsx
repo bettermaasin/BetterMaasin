@@ -117,8 +117,7 @@ export default function SEO({
   }
 
   // Default values
-  const defaultTitle =
-    'BetterGov.ph Philippines | Community Powered Government Portal';
+  const defaultTitle = 'BetterMaasin.org | Community Portal';
   const defaultDescription =
     'Community-powered portal of the Philippines. Access government services, stay updated with the latest news, and find information about the Philippines.';
   const defaultCanonical = location.pathname + location.search;
@@ -133,7 +132,7 @@ export default function SEO({
   const finalDescription =
     description || routeDescription || defaultDescription;
 
-  const siteTitle = 'BetterGov.ph';
+  const siteTitle = 'BetterMaasin.org';
   const fullTitle = title ? `${title} | ${siteTitle}` : finalTitle;
   const baseUrl = 'https://bettergov.ph';
   const fullCanonical = defaultCanonical
@@ -190,8 +189,8 @@ export default function SEO({
       <meta name='geo.country' content='PH' />
       <meta name='geo.region' content='PH' />
       <meta name='DC.language' content='en' />
-      <meta name='DC.creator' content='BetterGov.ph' />
-      <meta name='DC.publisher' content='BetterGov.ph' />
+      <meta name='DC.creator' content='BetterMaasin.org' />
+      <meta name='DC.publisher' content='BetterMaasin.org' />
 
       {/* Structured Data */}
       {jsonLd && (
