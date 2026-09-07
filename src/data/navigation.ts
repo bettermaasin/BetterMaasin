@@ -69,7 +69,7 @@ export const footerNavigation = {
         { label: 'Forex', href: '/data/forex' },
         { label: 'Weather', href: '/data/weather' },
         { label: 'Hotlines', href: '/philippines/hotlines' },
-        { label: 'Holidays', href: '/philippines/holidays' },
+        { label: 'Holidays', href: '/holidays' },
         {
           label: 'Flood Control Projects',
           href: '/statistics/flood-control-projects',

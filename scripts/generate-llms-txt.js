@@ -49,7 +49,7 @@ const mainNavigation = [
       { label: 'Regions', href: '/philippines/regions' },
       { label: 'Map', href: '/philippines/map' },
       { label: 'Hotlines', href: '/philippines/hotlines' },
-      { label: 'Holidays', href: '/philippines/holidays' },
+      { label: 'Holidays', href: '/holidays' },
     ],
   },
   {

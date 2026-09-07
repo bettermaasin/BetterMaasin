@@ -127,11 +127,11 @@ function App() {
               <Route path='culture' element={<PhilippinesCulture />} />
               <Route path='regions' element={<PhilippinesRegions />} />
               <Route path='map' element={<PhilippinesMap />} />
-              <Route path='holidays' element={<PublicHolidays />} />
               <Route path='hotlines' element={<Hotlines />} />
             </Route>
 
             <Route path='/hotlines' element={<Hotlines />} />
+            <Route path='/holidays' element={<PublicHolidays />} />
 
             <Route path='/statistics'>
               <Route index element={<Navigate to='overview' replace />} />

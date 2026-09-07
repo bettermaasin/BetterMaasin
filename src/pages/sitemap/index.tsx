@@ -73,7 +73,7 @@ const SitemapPage: FC = () => {
         },
         {
           title: 'Public Holidays',
-          url: '/philippines/holidays',
+          url: '/holidays',
           description: 'Official holidays in the Philippines',
         },
         {
