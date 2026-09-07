@@ -24,6 +24,11 @@
   "forex": {
     "title": "Foreign Exchange Rates"
   },
+  "holidays": {
+    "title": "Holidays",
+    "nextHoliday": "Next holiday",
+    "viewAll": "View all holidays"
+  },
   "news": {
     "title": "Latest News & Updates"
   },

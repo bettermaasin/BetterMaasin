@@ -5,6 +5,7 @@ import { WeatherData, ForexRate } from '../../types';
 import { useTranslation } from 'react-i18next';
 import { fetchWeatherData } from '../../lib/weather';
 import { fetchForexData } from '../../lib/forex';
+import HolidaysWidget from './HolidaysWidget';
 
 const InfoWidgets: FC = () => {
   const { t } = useTranslation('common');
@@ -257,6 +258,9 @@ const InfoWidgets: FC = () => {
               </div>
             </CardContent>
           </Card>
+        </div>
+        <div className='mt-6'>
+          <HolidaysWidget />
         </div>
       </div>
     </section>
