@@ -6,6 +6,11 @@
     "birthCertificate": "Birth Certificate",
     "businessRegistration": "Business Registration"
   },
+  "emergency": {
+    "title": "Emergency & Quick Hotlines",
+    "subtitle": "Important numbers for emergencies and public services across Maasin.",
+    "viewAll": "View all hotlines"
+  },
   "services": {
     "title": "Popular Services",
     "governmentServices": "Local Government Services",

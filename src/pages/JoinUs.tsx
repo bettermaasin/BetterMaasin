@@ -197,7 +197,7 @@ const JoinUs: FC = () => {
                         src={m.img}
                         alt={m.alt}
                         style={m.imgStyle}
-                        className={`${m.imgClass} object-contain transition-transform duration-300 group-hover:scale-105`}
+                        className={`${m.imgClass} object-contain grayscale transition-[filter,transform] duration-300 group-hover:grayscale-0 group-hover:scale-105`}
                       />
                       <div
                         className='shine pointer-events-none absolute inset-0'
