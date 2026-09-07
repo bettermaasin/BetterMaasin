@@ -143,11 +143,11 @@ const HolidayTable = ({
 );
 
 const HOLIDAY_EMPTY_MESSAGE =
-  'Checking the calendar for a long weekend and finding nothing is the ultimate jumpscare.';
+  'Checking the calendar for a long weekend and finding nothing is the ultimate jumpscare';
 
 const CATEGORY_A = 'A. Regular Holidays';
 const CATEGORY_B = 'B. Special (Non-Working) Holidays';
-const CATEGORY_C = 'C. Local (Non-Working) Holidays';
+const CATEGORY_C = 'C. Local (Special Non-Working) Holidays';
 
 const HOLIDAY_CATEGORY_COLORS: Record<string, AccentSet> = {
   [CATEGORY_A]: {
@@ -237,7 +237,7 @@ const PublicHolidays: FC = () => {
           `${count} holiday${count === 1 ? '' : 's'} this month`
         }
         emptyMessage={HOLIDAY_EMPTY_MESSAGE}
-        emptyIcon={<span>💀😂🥀</span>}
+        emptyIcon={<span>💀🥀</span>}
         categoryColors={HOLIDAY_CATEGORY_COLORS}
       />
 
