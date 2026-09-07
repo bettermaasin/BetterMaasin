@@ -11,11 +11,11 @@
     {
       "name": "Philippine Red Cross - Maasin",
       "category": "Emergency",
-      "numbers": ["0975-014-9544"],
+      "numbers": ["413", "0936-735-1579", "0915-269-3956"],
       "description": "Blood services, disaster management, and emergency medical assistance."
     },
     {
-      "name": "SOYMPH - ER",
+      "name": "SOYM Provincial Hospital - ER",
       "category": "Emergency",
       "numbers": ["0992-459-8559"],
       "description": "Salvacion Oppus Yñiguez Memorial Provincial Hospital Emergency Room."
@@ -41,7 +41,7 @@
       "description": "Provincial Disaster Risk Reduction and Management Office for province-wide coordination."
     },
     {
-      "name": "Bureau of Fire Protection (BFP) - Maasin",
+      "name": "BFP - Maasin City Fire Station (MCFS)",
       "category": "Disaster",
       "numbers": ["0907-598-9255", "0936-824-5704"],
       "description": "Fire suppression and emergency rescue services."
@@ -49,13 +49,13 @@
   ],
   "securityHotlines": [
     {
-      "name": "Philippine National Police (PNP) - Maasin",
+      "name": "PNP - Maasin City Police Station (MCPS)",
       "category": "Security",
       "numbers": ["0995-061-1081", "0998-598-6527", "0998-598-6528"],
       "description": "Local police station for law enforcement and public safety concerns."
     },
     {
-      "name": "Philippine Coast Guard - Maasin",
+      "name": "PCG - Coast Guard Station Southern Leyte (CGSSL)",
       "category": "Security",
       "numbers": ["0915-585-8807"],
       "description": "Maritime safety, security, and search and rescue operations."
@@ -63,7 +63,7 @@
   ],
   "transportHotlines": [
     {
-      "name": "Land Transportation Office (LTO) - Maasin",
+      "name": "Land Transportation Office (LTO) - Maasin District Office (MDO)",
       "category": "Transport",
       "numbers": ["(053) 570-8056", "09385003058"],
       "description": "Vehicle registration, driver licensing, and traffic management inquiries."
@@ -72,7 +72,7 @@
   "weatherHotlines": [],
   "utilityHotlines": [
     {
-      "name": "Maasin Water District (Prime Water)",
+      "name": "Maasin Water District (PrimeWater)",
       "category": "Utility",
       "numbers": ["0998-590-3379"],
       "description": "Customer service and emergency water supply issues."
