@@ -364,3 +364,14 @@
     left: 150%;
   }
 }
+
+/* Gradient crossfade - fades a background layer to reveal the layer beneath */
+.blend-fade-out {
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    #000 0%,
+    #000 70%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(to bottom, #000 0%, #000 70%, transparent 100%);
+}
