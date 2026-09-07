@@ -36,6 +36,15 @@ const SPECIAL_HOLIDAYS: Holiday[] = [
   { event: 'Last Day of the Year', date: 'December 31', day: 'Thursday' },
 ];
 
+const LOCAL_HOLIDAYS: Holiday[] = [
+  {
+    event: 'Adlaw ng Southern Leyte (Province Day)',
+    date: 'July 1',
+    day: '',
+  },
+  { event: 'Maasin City Charter Day', date: 'August 10', day: '' },
+];
+
 function getHolidayWithDynamicDay(
   holiday: Holiday,
   currentYear: number
@@ -137,15 +146,18 @@ const PublicHolidays: FC = () => {
   const specialHolidays = SPECIAL_HOLIDAYS.map(holiday =>
     getHolidayWithDynamicDay(holiday, currentYear)
   );
+  const localHolidays = LOCAL_HOLIDAYS.map(holiday =>
+    getHolidayWithDynamicDay(holiday, currentYear)
+  );
 
   return (
     <div className='max-w-6xl px-4 py-8 sm:mx-auto sm:px-6 lg:px-8'>
       <div className='text-center mb-12'>
         <h1 className='text-4xl font-extrabold text-gray-900 sm:text-5xl sm:tracking-tight lg:text-6xl'>
-          Philippine Public Holidays {currentYear}
+          Holidays {currentYear}
         </h1>
         <p className='mt-3 max-w-2xl mx-auto text-xl text-gray-800 sm:mt-4'>
-          Official non-working holidays in the Philippines
+          Official non-working holidays in Maasin
         </p>
       </div>
 
@@ -169,7 +181,10 @@ const PublicHolidays: FC = () => {
             <p className='text-sm text-yellow-700'>
               Note: This list is based on the official holidays declared by the
               Philippine government for the year 2026. Dates may be subject to
-              change based on official announcements.
+              change based on official announcements. The local holidays below
+              apply within Maasin City and the Province of Southern Leyte —
+              Adlaw ng Southern Leyte (July 1, per R.A. 7740) and Maasin City
+              Charter Day (August 10, per R.A. 9202).
             </p>
           </div>
         </div>
@@ -181,6 +196,11 @@ const PublicHolidays: FC = () => {
         <HolidayTable
           title='B. Special (Non-Working) Holidays'
           holidays={specialHolidays}
+        />
+
+        <HolidayTable
+          title='C. Local Special (Non-Working) Holidays'
+          holidays={localHolidays}
         />
       </div>
     </div>
