@@ -57,7 +57,7 @@ const pinned = [
   {
     label: 'Medical',
     icon: <CrossIcon className='h-4 w-4' />,
-    hotline: findHotlineByText(emergencyHotlines, 'soymph'),
+    hotline: findHotlineByText(emergencyHotlines, 'soym'),
   },
 ].filter(item => item.hotline) as {
   label: string;

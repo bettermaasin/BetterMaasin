@@ -192,7 +192,7 @@ const pinnedHotlines = [
   {
     label: 'SOYMPH-ER',
     icon: <CrossIcon className='h-4 w-4 text-emerald-600' />,
-    hotline: findHotlineByText(categoryData.emergency, 'soymph'),
+    hotline: findHotlineByText(categoryData.emergency, 'soym'),
   },
 ].filter(item => item.hotline) as {
   label: string;
@@ -224,9 +224,14 @@ const Hotlines: FC = () => {
   return (
     <div className='container mx-auto px-4 py-8'>
       <div className='text-center mb-8'>
-        <h1 className='text-3xl font-bold mb-2'>Maasin Emergency Hotlines</h1>
+        <h1 className='text-3xl font-bold mb-2'>
+          Maasin Emergency &amp; Other Hotlines
+        </h1>
         <p className='text-gray-800'>
-          Important contact numbers for emergencies and public services
+          Important contact numbers for emergencies and public services, grouped
+          by each agency&apos;s primary category. Many agencies cover more than
+          one role, so check the full list — BFP, for example, also responds to
+          disasters and medical emergencies.
         </p>
       </div>
 
