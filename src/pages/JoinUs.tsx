@@ -197,7 +197,15 @@ const JoinUs: FC = () => {
                         src={m.img}
                         alt={m.alt}
                         style={m.imgStyle}
-                        className={`${m.imgClass} object-contain grayscale transition-[filter,transform] duration-300 group-hover:grayscale-0 group-hover:scale-105`}
+                        className={`${m.imgClass} object-contain saturate-0 brightness-[1.05] contrast-[1.1] transition-[filter,transform] duration-300 group-hover:saturate-100 group-hover:brightness-100 group-hover:contrast-100 group-hover:scale-105`}
+                      />
+                      <div
+                        className='pointer-events-none absolute inset-0 opacity-60 transition-opacity duration-300 group-hover:opacity-0'
+                        style={{
+                          mixBlendMode: 'screen',
+                          background:
+                            'linear-gradient(180deg, #eef1f6 0%, #d9dee9 38%, #b9c1d2 60%, #6b7a93 100%)',
+                        }}
                       />
                       <div
                         className='shine pointer-events-none absolute inset-0'
