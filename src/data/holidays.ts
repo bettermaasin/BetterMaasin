@@ -158,13 +158,13 @@ export const HOLIDAY_SOURCES: HolidaySource[] = [
   },
   {
     label: 'Republic Act No. 7740 - Adlaw ng Southern Leyte',
-    url: 'https://lawphil.net/statutes/repacts/ra1994/ra_7740_1994.html',
+    url: 'https://elibrary.judiciary.gov.ph/thebookshelf/showdocsfriendly/2/2394',
     coverage:
       'Local special (non-working) holiday on July 1 in the Province of Southern Leyte',
   },
   {
     label: 'Republic Act No. 9202 - Maasin City Charter Day',
-    url: 'https://lawphil.net/statutes/repacts/ra2003/ra_9202_2003.html',
+    url: 'https://elibrary.judiciary.gov.ph/thebookshelf/showdocsfriendly/2/322',
     coverage:
       'Local special (non-working) holiday on August 10 in the City of Maasin',
   },

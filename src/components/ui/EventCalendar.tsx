@@ -218,7 +218,7 @@ export const EventCalendar = ({
 
           {eventDays.length === 0 && emptyMessage && (
             <div className='absolute inset-0 flex items-center justify-center px-6 py-8'>
-              <div className='max-w-md rounded-2xl border-2 border-dashed border-amber-300 bg-amber-50/40 px-6 py-5 text-center shadow-sm backdrop-blur-sm'>
+              <div className='max-w-md rounded-2xl border-2 border-dashed border-amber-300 bg-amber-50/70 px-6 py-5 text-center shadow-sm'>
                 {emptyIcon && (
                   <div className='text-2xl leading-none tracking-wide'>
                     {emptyIcon}

@@ -4,7 +4,12 @@ import {
   CalendarEvent,
   EventCalendar,
 } from '../../../components/ui/EventCalendar';
-import { CalendarIcon, ExternalLinkIcon, ShieldAlertIcon } from 'lucide-react';
+import {
+  CalendarIcon,
+  ExternalLinkIcon,
+  InfoIcon,
+  ShieldAlertIcon,
+} from 'lucide-react';
 import {
   Holiday,
   REGULAR_HOLIDAYS,
@@ -118,33 +123,24 @@ const PublicHolidays: FC = () => {
         </p>
       </div>
 
-      <div className='mb-6 p-6 bg-yellow-50 border-l-4 border-yellow-400 rounded-r-md'>
-        <div className='flex'>
-          <div className='shrink-0'>
-            <svg
-              className='h-5 w-5 text-yellow-400'
-              xmlns='http://www.w3.org/2000/svg'
-              viewBox='0 0 20 20'
-              fill='currentColor'
-            >
-              <path
-                fillRule='evenodd'
-                d='M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z'
-                clipRule='evenodd'
-              />
-            </svg>
-          </div>
-          <div className='ml-3'>
-            <p className='text-sm text-yellow-700'>
-              Note: This list is based on the official holidays declared by the
-              Philippine government for the year 2026. Dates may be subject to
-              change based on official announcements. The local holidays below
-              apply within Maasin City and the Province of Southern Leyte —
-              Adlaw ng Southern Leyte (July 1, per R.A. 7740) and Maasin City
-              Charter Day (August 10, per R.A. 9202).
-            </p>
-          </div>
-        </div>
+      <div className='mb-6 flex flex-wrap items-center gap-x-2 gap-y-1 rounded-md border border-yellow-100 bg-yellow-50/60 px-4 py-2.5 text-sm text-yellow-800'>
+        <InfoIcon className='h-4 w-4 shrink-0 text-yellow-600' />
+        <span>
+          Dates are based on official announcements and may change. Always
+          verify from the sourced government links.
+        </span>
+        <button
+          type='button'
+          onClick={() =>
+            document
+              .getElementById('holidays-data-sources')
+              ?.scrollIntoView({ behavior: 'smooth' })
+          }
+          className='text-blue-600 underline'
+        >
+          See data sources
+          <ExternalLinkIcon className='ml-0.5 inline-block h-3 w-3' />
+        </button>
       </div>
 
       <EventCalendar
@@ -174,7 +170,10 @@ const PublicHolidays: FC = () => {
       </div>
 
       {/* Data Source Card */}
-      <div className='mt-8 rounded-lg border border-yellow-100 bg-yellow-50/60 p-4 md:p-5'>
+      <div
+        id='holidays-data-sources'
+        className='mt-8 scroll-mt-24 rounded-lg border border-yellow-100 bg-yellow-50/60 p-4 md:p-5'
+      >
         <div className='flex items-start gap-3'>
           <div className='rounded-full border border-yellow-100 bg-white p-2'>
             <ShieldAlertIcon className='h-4 w-4 text-yellow-700' />
@@ -185,12 +184,13 @@ const PublicHolidays: FC = () => {
               Data Source and Freshness
             </h2>
             <p className='mt-1 text-sm leading-relaxed text-yellow-900/90'>
-              The national holidays are sourced from the Official Gazette based
-              on the official proclamations declared by the Philippine
-              government for the year {currentYear}. The local holidays below
-              apply within Maasin City and the Province of Southern Leyte per
-              their respective laws. Dates may be subject to change based on
-              official announcements.
+              National holiday dates are based on the official proclamations
+              published in the Official Gazette (for {currentYear}: Proclamation
+              No. 1006, s. 2025). Local holidays apply within the City of Maasin
+              and the Province of Southern Leyte per R.A. No. 7740 (Adlaw ng
+              Southern Leyte, July 1) and R.A. No. 9202 (Maasin City Charter
+              Day, August 10). Dates may be subject to change based on official
+              announcements.
             </p>
 
             <div className='mt-3 space-y-2'>
