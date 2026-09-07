@@ -1,77 +1,23 @@
 import { FC } from 'react';
 import { Card, CardContent, CardHeader } from '../../../components/ui/Card';
 import {
-  AccentSet,
   CalendarEvent,
   EventCalendar,
 } from '../../../components/ui/EventCalendar';
-import { CalendarIcon } from 'lucide-react';
-
-interface Holiday {
-  event: string;
-  date: string;
-  day: string;
-}
-
-const REGULAR_HOLIDAYS: Holiday[] = [
-  { event: "New Year's Day", date: 'January 1', day: 'Thursday' },
-  { event: 'Maundy Thursday', date: 'April 2', day: 'Thursday' },
-  { event: 'Good Friday', date: 'April 3', day: 'Friday' },
-  { event: 'Araw ng Kagitingan', date: 'April 9', day: 'Thursday' },
-  { event: 'Labor Day', date: 'May 1', day: 'Friday' },
-  { event: 'Independence Day', date: 'June 12', day: 'Friday' },
-  { event: 'National Heroes Day', date: 'August 31', day: 'Monday' },
-  { event: 'Bonifacio Day', date: 'November 30', day: 'Monday' },
-  { event: 'Christmas Day', date: 'December 25', day: 'Friday' },
-  { event: 'Rizal Day', date: 'December 30', day: 'Wednesday' },
-];
-
-const SPECIAL_HOLIDAYS: Holiday[] = [
-  { event: 'Chinese New Year', date: 'February 17', day: 'Tuesday' },
-  { event: 'Black Saturday', date: 'April 4', day: 'Saturday' },
-  { event: 'Ninoy Aquino Day', date: 'August 21', day: 'Friday' },
-  { event: "All Saints' Day", date: 'November 1', day: 'Sunday' },
-  { event: "All Souls' Day", date: 'November 2', day: 'Monday' },
-  {
-    event: 'Feast of the Immaculate Conception of Mary',
-    date: 'December 8',
-    day: 'Tuesday',
-  },
-  { event: 'Christmas Eve', date: 'December 24', day: 'Thursday' },
-  { event: 'Last Day of the Year', date: 'December 31', day: 'Thursday' },
-];
-
-const LOCAL_HOLIDAYS: Holiday[] = [
-  {
-    event: 'Adlaw ng Southern Leyte (Province Day)',
-    date: 'July 1',
-    day: '',
-  },
-  { event: 'Maasin City Charter Day', date: 'August 10', day: '' },
-];
-
-function getHolidayWithDynamicDay(
-  holiday: Holiday,
-  currentYear: number
-): Holiday {
-  const fullDate = new Date(`${holiday.date} ${currentYear}`);
-
-  const days = [
-    'Sunday',
-    'Monday',
-    'Tuesday',
-    'Wednesday',
-    'Thursday',
-    'Friday',
-    'Saturday',
-  ];
-  const dayName = days[fullDate.getDay()];
-
-  return {
-    ...holiday,
-    day: dayName,
-  };
-}
+import { CalendarIcon, ExternalLinkIcon, ShieldAlertIcon } from 'lucide-react';
+import {
+  Holiday,
+  REGULAR_HOLIDAYS,
+  SPECIAL_HOLIDAYS,
+  LOCAL_HOLIDAYS,
+  CATEGORY_A,
+  CATEGORY_B,
+  CATEGORY_C,
+  HOLIDAY_CATEGORY_COLORS,
+  HOLIDAY_EMPTY_MESSAGE,
+  HOLIDAY_SOURCES,
+  getHolidayWithDynamicDay,
+} from '../../../data/holidays';
 
 const HolidayTable = ({
   holidays,
@@ -141,34 +87,6 @@ const HolidayTable = ({
     </Card>
   </div>
 );
-
-const HOLIDAY_EMPTY_MESSAGE =
-  'Checking the calendar for a long weekend and finding nothing is the ultimate jumpscare';
-
-const CATEGORY_A = 'A. Regular Holidays';
-const CATEGORY_B = 'B. Special (Non-Working) Holidays';
-const CATEGORY_C = 'C. Local (Special Non-Working) Holidays';
-
-const HOLIDAY_CATEGORY_COLORS: Record<string, AccentSet> = {
-  [CATEGORY_A]: {
-    cell: 'bg-blue-100 font-semibold text-blue-800',
-    dot: 'bg-blue-600',
-    badge: 'bg-blue-600',
-    event: 'text-blue-900',
-  },
-  [CATEGORY_B]: {
-    cell: 'bg-amber-100 font-semibold text-amber-800',
-    dot: 'bg-amber-500',
-    badge: 'bg-amber-500',
-    event: 'text-amber-900',
-  },
-  [CATEGORY_C]: {
-    cell: 'bg-emerald-100 font-semibold text-emerald-800',
-    dot: 'bg-emerald-600',
-    badge: 'bg-emerald-600',
-    event: 'text-emerald-900',
-  },
-};
 
 const PublicHolidays: FC = () => {
   const currentYear = new Date().getFullYear();
@@ -253,6 +171,60 @@ const PublicHolidays: FC = () => {
           title='C. Local Special (Non-Working) Holidays'
           holidays={localHolidays}
         />
+      </div>
+
+      {/* Data Source Card */}
+      <div className='mt-8 rounded-lg border border-yellow-100 bg-yellow-50/60 p-4 md:p-5'>
+        <div className='flex items-start gap-3'>
+          <div className='rounded-full border border-yellow-100 bg-white p-2'>
+            <ShieldAlertIcon className='h-4 w-4 text-yellow-700' />
+          </div>
+
+          <div className='min-w-0'>
+            <h2 className='text-sm font-semibold text-yellow-900'>
+              Data Source and Freshness
+            </h2>
+            <p className='mt-1 text-sm leading-relaxed text-yellow-900/90'>
+              The national holidays are sourced from the Official Gazette based
+              on the official proclamations declared by the Philippine
+              government for the year {currentYear}. The local holidays below
+              apply within Maasin City and the Province of Southern Leyte per
+              their respective laws. Dates may be subject to change based on
+              official announcements.
+            </p>
+
+            <div className='mt-3 space-y-2'>
+              <p className='text-xs font-medium text-yellow-800'>Sources:</p>
+              <ul className='space-y-2 text-xs text-yellow-800'>
+                {HOLIDAY_SOURCES.map(source => (
+                  <li
+                    key={source.url}
+                    className='flex flex-wrap items-baseline gap-x-2 gap-y-0.5'
+                  >
+                    <a
+                      href={source.url}
+                      className='text-blue-600 underline'
+                      target='_blank'
+                      rel='noopener noreferrer'
+                    >
+                      {source.label}
+                      <ExternalLinkIcon className='mb-0.5 ml-1 inline-block h-3 w-3' />
+                    </a>
+                    <span className='text-yellow-800/70'>
+                      {source.coverage}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+
+              <p className='pt-1 text-xs text-yellow-800'>
+                Coverage: National & Maasin local holidays
+                <span className='mx-2'>•</span>
+                Last verified: September 2026
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
