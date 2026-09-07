@@ -1,6 +1,5 @@
 import {
   ArrowRight,
-  Flame,
   GitBranch,
   HeartHandshake,
   Languages,
@@ -134,8 +133,7 @@ const JoinUs: FC = () => {
             <div className='pointer-events-none absolute -right-10 -top-24 h-72 w-72 rounded-full bg-white/5 blur-2xl' />
             <div className='relative max-w-2xl'>
               <span className='animate-pulse-soft inline-flex items-center gap-1.5 rounded-full bg-white/15 px-3 py-1.5 text-xs font-semibold uppercase tracking-wider text-white/90'>
-                <Flame className='h-3.5 w-3.5' />A Better LGU portal • Open
-                source
+                Be a Part of the Movement
               </span>
               <h1 className='mt-5 text-4xl font-extrabold leading-tight text-white md:text-5xl'>
                 Join the BetterMaasin movement

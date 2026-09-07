@@ -1,7 +1,6 @@
 import {
   ArrowRight,
   Building2,
-  Flame,
   Heart,
   MapPin,
   Search,
@@ -85,7 +84,7 @@ const AboutPage: FC = () => {
             <Waves className='absolute -bottom-6 right-6 h-40 w-40 text-white/10 rotate-12' />
             <div className='relative max-w-2xl'>
               <span className='inline-flex items-center gap-1.5 rounded-full bg-white/15 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-white/90'>
-                <Flame className='h-3.5 w-3.5' />A Better movement portal
+                A Better movement portal
               </span>
               <h1 className='mt-4 text-3xl font-extrabold leading-tight text-white md:text-4xl'>
                 About BetterMaasin.org

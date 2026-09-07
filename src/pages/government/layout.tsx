@@ -58,7 +58,7 @@ export default function GovernmentLayout({ children }: GovernmentLayoutProps) {
             <LandmarkIcon className='absolute -bottom-6 right-6 h-40 w-40 text-white/10 rotate-12' />
             <div className='relative max-w-2xl'>
               <span className='inline-flex items-center gap-1.5 rounded-full bg-white/15 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-white/90'>
-                Community-powered directory
+                Your public servants, in one place
               </span>
               <h1 className='mt-4 text-3xl font-extrabold leading-tight text-white md:text-4xl'>
                 The Maasin City Government Directory
