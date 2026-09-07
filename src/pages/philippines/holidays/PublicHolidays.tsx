@@ -1,5 +1,10 @@
 import { FC } from 'react';
 import { Card, CardContent, CardHeader } from '../../../components/ui/Card';
+import {
+  AccentSet,
+  CalendarEvent,
+  EventCalendar,
+} from '../../../components/ui/EventCalendar';
 import { CalendarIcon } from 'lucide-react';
 
 interface Holiday {
@@ -137,6 +142,34 @@ const HolidayTable = ({
   </div>
 );
 
+const HOLIDAY_EMPTY_MESSAGE =
+  'Checking the calendar for a long weekend and finding nothing is the ultimate jumpscare.';
+
+const CATEGORY_A = 'A. Regular Holidays';
+const CATEGORY_B = 'B. Special (Non-Working) Holidays';
+const CATEGORY_C = 'C. Local (Non-Working) Holidays';
+
+const HOLIDAY_CATEGORY_COLORS: Record<string, AccentSet> = {
+  [CATEGORY_A]: {
+    cell: 'bg-blue-100 font-semibold text-blue-800',
+    dot: 'bg-blue-600',
+    badge: 'bg-blue-600',
+    event: 'text-blue-900',
+  },
+  [CATEGORY_B]: {
+    cell: 'bg-amber-100 font-semibold text-amber-800',
+    dot: 'bg-amber-500',
+    badge: 'bg-amber-500',
+    event: 'text-amber-900',
+  },
+  [CATEGORY_C]: {
+    cell: 'bg-emerald-100 font-semibold text-emerald-800',
+    dot: 'bg-emerald-600',
+    badge: 'bg-emerald-600',
+    event: 'text-emerald-900',
+  },
+};
+
 const PublicHolidays: FC = () => {
   const currentYear = new Date().getFullYear();
 
@@ -149,6 +182,12 @@ const PublicHolidays: FC = () => {
   const localHolidays = LOCAL_HOLIDAYS.map(holiday =>
     getHolidayWithDynamicDay(holiday, currentYear)
   );
+
+  const calendarEvents: CalendarEvent[] = [
+    ...regularHolidays.map(holiday => ({ ...holiday, category: CATEGORY_A })),
+    ...specialHolidays.map(holiday => ({ ...holiday, category: CATEGORY_B })),
+    ...localHolidays.map(holiday => ({ ...holiday, category: CATEGORY_C })),
+  ];
 
   return (
     <div className='max-w-6xl px-4 py-8 sm:mx-auto sm:px-6 lg:px-8'>
@@ -189,6 +228,18 @@ const PublicHolidays: FC = () => {
           </div>
         </div>
       </div>
+
+      <EventCalendar
+        events={calendarEvents}
+        minYear={currentYear}
+        maxYear={currentYear}
+        countLabel={count =>
+          `${count} holiday${count === 1 ? '' : 's'} this month`
+        }
+        emptyMessage={HOLIDAY_EMPTY_MESSAGE}
+        emptyIcon={<span>💀😂🥀</span>}
+        categoryColors={HOLIDAY_CATEGORY_COLORS}
+      />
 
       <div className='space-y-12'>
         <HolidayTable title='A. Regular Holidays' holidays={regularHolidays} />
