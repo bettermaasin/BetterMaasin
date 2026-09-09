@@ -370,20 +370,6 @@ const Navbar: FC = () => {
             🚀 Join Us
           </Link>
           <Link
-            to='https://about.bettergov.ph'
-            onClick={closeMenu}
-            className='flex items-center px-4 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-primary-500'
-          >
-            About
-          </Link>
-          <Link
-            to='/contact'
-            onClick={closeMenu}
-            className='flex items-center px-4 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-primary-500'
-          >
-            Contact Us
-          </Link>
-          <Link
             to='/search'
             onClick={closeMenu}
             className='flex items-center px-4 py-2 text-base font-semibold text-gray-700 hover:bg-gray-50 hover:text-primary-600'
