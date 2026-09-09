@@ -52,9 +52,7 @@ export const footerNavigation = {
       title: 'About',
       links: [
         { label: 'About the Portal', href: '/about' },
-        { label: 'About BetterGov.ph', href: 'https://about.bettergov.ph' },
-        { label: 'Documentation', href: 'https://docs.bettergov.ph/' },
-        { label: 'Project Ideas', href: '/ideas' },
+        { label: 'Join the Movement', href: '/join-us' },
         { label: 'Accessibility', href: '/accessibility' },
         { label: 'Terms of Use', href: '/terms-of-service' },
         { label: 'Contact Us', href: '/contact' },
@@ -66,29 +64,33 @@ export const footerNavigation = {
         { label: 'All Services', href: '/services' },
         { label: 'Service Directory', href: '/services' },
         { label: 'Websites', href: '/services/websites' },
-        { label: 'Forex', href: '/data/forex' },
-        { label: 'Weather', href: '/data/weather' },
-        { label: 'Hotlines', href: '/philippines/hotlines' },
+        { label: 'Hotlines', href: '/hotlines' },
         { label: 'Holidays', href: '/holidays' },
-        {
-          label: 'Flood Control Projects',
-          href: '/statistics/flood-control-projects',
-        },
       ],
     },
     {
-      title: 'Government',
+      title: 'External Resources',
       links: [
-        { label: 'Official Gov.ph', href: 'https://www.gov.ph' },
-        { label: 'Open Data', href: 'https://data.gov.ph' },
-        { label: 'Freedom of Information', href: 'https://www.foi.gov.ph' },
         {
-          label: 'Contact Center',
-          href: 'https://contactcenterngbayan.gov.ph',
+          label: 'Official Maasin City Website',
+          href: 'https://www.maasincity.gov.ph/',
         },
         {
+          label: 'Province of Southern Leyte',
+          href: 'https://southernleyte.gov.ph/',
+        },
+        {
+          label: 'Flood Control Map',
+          href: '/statistics/flood-control-projects/map',
+        },
+        {
+          label: 'Freedom of Information (FOI)',
+          href: 'https://www.foi.gov.ph/',
+        },
+        { label: 'Open Data PH', href: 'https://data.gov.ph/' },
+        {
           label: 'Official Gazette',
-          href: 'https://www.officialgazette.gov.ph',
+          href: 'https://www.officialgazette.gov.ph/',
         },
       ],
     },

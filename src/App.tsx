@@ -89,7 +89,6 @@ import WebsitesDirectory from './pages/services/websites';
 
 // Sitemap Page
 import SitemapPage from './pages/sitemap';
-import Ideas from './pages/Ideas';
 import JoinUs from './pages/JoinUs';
 import TermsOfService from './pages/TermsOfService';
 import ScrollToTop from './components/ui/ScrollToTop';
@@ -114,7 +113,6 @@ function App() {
             <Route path='/contact' element={<ContactUs />} />
             <Route path='/accessibility' element={<AccessibilityPage />} />
             <Route path='/search' element={<SearchPage />} />
-            <Route path='/ideas' element={<Ideas />} />
             <Route path='/join-us' element={<JoinUs />} />
             <Route path='/terms-of-service' element={<TermsOfService />} />
             <Route path='/sitemap' element={<SitemapPage />} />

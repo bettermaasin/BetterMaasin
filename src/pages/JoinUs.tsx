@@ -12,7 +12,6 @@ import {
 } from 'lucide-react';
 import { FC, useEffect, useRef } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { Link } from 'react-router-dom';
 
 const roles = [
   'Developers & engineers',
@@ -246,13 +245,6 @@ const JoinUs: FC = () => {
                   across the Philippines — independent, volunteer-built, and
                   open.
                 </p>
-                <Link
-                  to='/ideas'
-                  className='mt-5 inline-flex items-center gap-2 rounded-lg bg-primary-600 px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-primary-700'
-                >
-                  Explore project ideas
-                  <ArrowRight className='h-4 w-4' />
-                </Link>
               </div>
               <div className='reveal'>
                 <h2 className='text-2xl font-bold text-gray-900'>
