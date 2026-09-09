@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { fetchWeatherData } from '../../lib/weather';
 import { fetchForexData } from '../../lib/forex';
 import HolidaysWidget from './HolidaysWidget';
+import MaasinMapWidget from './MaasinMapWidget';
 
 const InfoWidgets: FC = () => {
   const { t } = useTranslation('common');
@@ -261,6 +262,9 @@ const InfoWidgets: FC = () => {
         </div>
         <div className='mt-6'>
           <HolidaysWidget />
+        </div>
+        <div className='mt-6'>
+          <MaasinMapWidget />
         </div>
       </div>
     </section>

@@ -80,6 +80,11 @@
     "jpy": "JPY",
     "moreCurrencies": "More Currencies"
   },
+  "map": {
+    "title": "Maasin City on the Map",
+    "subtitle": "The city boundary and its city proper, centered on the City Hall. Map tiles from OpenStreetMap.",
+    "cityHall": "Maasin City Hall"
+  },
   "promotion": {
     "philsysTitle": "PhilSys National ID Registration",
     "philsysDescription": "Register for your Philippine Identification System (PhilSys) ID card today. The national ID serves as a single government-issued identification document for all citizens.",
