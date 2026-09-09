@@ -15,6 +15,9 @@ type Version = {
   head_commit: string;
 };
 
+const isExternal = (href: string) =>
+  /^(https?:)?\/\//i.test(href) || href.startsWith('mailto:');
+
 const Footer: FC = () => {
   const { t } = useTranslation('common');
   const [version, setVersion] = useState<string | null>(null);
@@ -93,16 +96,29 @@ const Footer: FC = () => {
             <div key={section.title}>
               <h3 className='text-lg font-semibold mb-4'>{section.title}</h3>
               <ul className='space-y-2'>
-                {section.links.map(link => (
-                  <li key={link.label}>
-                    <Link
-                      to={link.href}
-                      className='text-gray-400 hover:text-white text-sm transition-colors'
-                    >
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
+                {section.links.map(link =>
+                  isExternal(link.href) ? (
+                    <li key={link.label}>
+                      <a
+                        href={link.href}
+                        target='_blank'
+                        rel='noopener noreferrer'
+                        className='text-gray-400 hover:text-white text-sm transition-colors'
+                      >
+                        {link.label}
+                      </a>
+                    </li>
+                  ) : (
+                    <li key={link.label}>
+                      <Link
+                        to={link.href}
+                        className='text-gray-400 hover:text-white text-sm transition-colors'
+                      >
+                        {link.label}
+                      </Link>
+                    </li>
+                  )
+                )}
               </ul>
             </div>
           ))}
