@@ -119,7 +119,7 @@ const Ticker: FC = () => {
   // If loading or error, show appropriate content
   if (isLoading && weatherLoading) {
     return (
-      <div className='bg-primary-600 text-white py-1 px-4'>
+      <div className='site-ticker bg-primary-600 text-white py-1 px-4'>
         <div className='container mx-auto flex items-center justify-center'>
           <LoaderIcon className='h-4 w-4 animate-spin mr-2' />
           <span className='text-xs'>Loading data...</span>
@@ -143,7 +143,7 @@ const Ticker: FC = () => {
   const currentRate = forexRates[currentRateIndex];
 
   return (
-    <div className='bg-blue-950 text-white py-1.5'>
+    <div className='site-ticker bg-blue-950 text-white py-1.5'>
       <div className='container mx-auto px-4 flex justify-end'>
         <div className='flex justify-end items-center'>
           {/* Forex ticker */}

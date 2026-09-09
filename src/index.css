@@ -375,3 +375,138 @@
   );
   mask-image: linear-gradient(to bottom, #000 0%, #000 70%, transparent 100%);
 }
+
+/* About deck: slide text reveal (enter / exit) */
+@keyframes aboutIn {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes aboutOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-16px);
+  }
+}
+
+.about-anim-in {
+  animation: aboutIn 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.about-anim-out {
+  animation: aboutOut 0.4s ease-in both;
+}
+
+/* About deck: left-to-right text sweep reveal (draws text in like a bar) */
+.text-sweep {
+  display: block;
+  background-image: linear-gradient(90deg, currentColor 50%, transparent 50%);
+  background-size: 200% 100%;
+  background-position: 100% 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: textSweep 0.9s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes textSweep {
+  to {
+    background-position: 0% 0;
+  }
+}
+
+/* Paragraph variant of the sweep (stays block-width, slightly slower) */
+.text-sweep-p {
+  background-image: linear-gradient(90deg, currentColor 50%, transparent 50%);
+  background-size: 200% 100%;
+  background-position: 100% 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: textSweep 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* Quick fade-up for eyebrow, notes, buttons */
+@keyframes aboutFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.about-fade-up {
+  animation: aboutFadeUp 0.5s ease-out both;
+}
+
+/* Staggered card/entry entrance */
+@keyframes aboutCardIn {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.about-card {
+  animation: aboutCardIn 0.5s ease-out both;
+}
+
+/* Collapse the ticker once the About deck scrolls past the intro slide */
+.site-ticker {
+  overflow: hidden;
+  max-height: 3rem;
+  transition:
+    max-height 0.3s ease,
+    opacity 0.3s ease;
+}
+
+body.about-ticker-hidden .site-ticker {
+  max-height: 0;
+  opacity: 0;
+}
+
+/* Immersive mode: hide the site chrome entirely */
+body.immersive .site-navbar,
+body.immersive .site-ticker {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .about-anim-in,
+  .about-anim-out {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+
+  .text-sweep,
+  .text-sweep-p {
+    animation: none;
+    background-image: none;
+    -webkit-text-fill-color: initial;
+  }
+
+  .about-fade-up,
+  .about-card {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
