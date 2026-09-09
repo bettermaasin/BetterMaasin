@@ -376,6 +376,49 @@
   mask-image: linear-gradient(to bottom, #000 0%, #000 70%, transparent 100%);
 }
 
+/* Hero -> hotlines seam: clear white divider, crossed by a red emergency shine sweep */
+.transition-line {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.9) 8%,
+      rgba(255, 255, 255, 0.9) 92%,
+      transparent 100%
+    )
+    top / 100% 2px no-repeat;
+}
+
+.transition-line::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 55%;
+  background: linear-gradient(
+    120deg,
+    transparent 0%,
+    rgba(220, 38, 38, 0.55) 50%,
+    transparent 100%
+  );
+  transform: skewX(-20deg) translateX(-200%);
+  animation: transitionLineSweep 5s cubic-bezier(0.6, 0, 0.3, 1) infinite;
+  pointer-events: none;
+  will-change: transform;
+}
+
+@keyframes transitionLineSweep {
+  0% {
+    transform: skewX(-20deg) translateX(-200%);
+  }
+  60%,
+  100% {
+    transform: skewX(-20deg) translateX(500%);
+  }
+}
+
 /* About deck: slide text reveal (enter / exit) */
 @keyframes aboutIn {
   from {
@@ -508,5 +551,9 @@ body.immersive .site-ticker {
     animation: none;
     opacity: 1;
     transform: none;
+  }
+
+  .transition-line::before {
+    display: none;
   }
 }

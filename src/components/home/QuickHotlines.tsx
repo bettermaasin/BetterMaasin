@@ -70,9 +70,8 @@ const QuickHotlines: FC = () => {
 
   return (
     <section className='text-white'>
-      <div className='relative h-10 overflow-hidden md:h-12'>
-        <div className='absolute inset-0 bg-linear-to-r from-red-800 via-red-700 to-red-600' />
-        <div className='absolute inset-0 bg-linear-to-r from-primary-600 to-primary-700 blend-fade-out' />
+      <div className='relative h-2 overflow-hidden bg-linear-to-r from-red-800 via-red-700 to-red-600'>
+        <span aria-hidden='true' className='transition-line' />
       </div>
       <div className='bg-linear-to-r from-red-800 via-red-700 to-red-600 py-5'>
         <div className='container mx-auto px-4'>
