@@ -57,11 +57,11 @@ const faqs = [
     a: 'The best way is to open an issue on our GitHub repository. This helps us track and prioritize all requests.',
   },
   {
-    q: 'Can I use BetterMaasin content for my project?',
+    q: 'Can I use BetterMaasin.org content for my project?',
     a: 'Yes! BetterMaasin.org is released under Creative Commons CC0 / public domain, so its content can be used freely for any purpose unless otherwise stated.',
   },
   {
-    q: 'Where does the data on BetterMaasin come from?',
+    q: 'Where does the data on BetterMaasin.org come from?',
     a: 'Our data is aggregated from various publicly available government sources, and sources are credited wherever they appear.',
   },
 ];

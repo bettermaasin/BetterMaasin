@@ -52,7 +52,7 @@ const ways = [
   {
     icon: MapPin,
     title: 'Start your own Better LGU',
-    desc: 'Use BetterMaasin as a template for your city.',
+    desc: 'Use BetterMaasin.org as a template for your city.',
   },
 ];
 
@@ -136,7 +136,7 @@ const JoinUs: FC = () => {
                 Be a Part of the Movement
               </span>
               <h1 className='mt-5 text-4xl font-extrabold leading-tight text-white md:text-5xl'>
-                Join the BetterMaasin movement
+                Join the BetterMaasin.org movement
               </h1>
               <p className='mt-4 max-w-xl text-base text-white/90 md:text-lg'>
                 BetterMaasin.org is an open-source, volunteer-driven effort to
@@ -234,7 +234,7 @@ const JoinUs: FC = () => {
                 </p>
                 <p className='mt-3 text-sm text-gray-600'>
                   You don&apos;t need the LGU&apos;s permission to build civic
-                  transparency. BetterMaasin is one of many{' '}
+                  transparency. BetterMaasin.org is one of many{' '}
                   <a
                     href='https://lgu.bettergov.ph/'
                     target='_blank'

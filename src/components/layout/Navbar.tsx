@@ -192,11 +192,11 @@ const Navbar: FC = () => {
             <Link to='/' className='flex items-center'>
               <img
                 src='/logos/svg/BetterMaasin_Square_Textless-Primary.svg'
-                alt='BetterMaasin Logo'
+                alt='BetterMaasin.org Logo'
                 className='h-12 w-12 mr-1 md:mr-3'
               />
               <div>
-                <div className='text-black font-bold'>BetterMaasin</div>
+                <div className='text-black font-bold'>BetterMaasin.org</div>
                 <div className='text-xs text-gray-800'>
                   A community-run portal for Maasin City
                 </div>

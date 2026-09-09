@@ -1,6 +1,6 @@
 {
   "hero": {
-    "title": "Welcome to BetterMaasin",
+    "title": "Welcome to BetterMaasin.org",
     "subtitle": "The volunteer run portal of the City of Maasin. Find information, access government services, stay updated with the latest news about Maasin.",
     "nationalId": "National ID",
     "birthCertificate": "Birth Certificate",
@@ -34,7 +34,7 @@
     "title": "Latest News & Updates"
   },
   "footer": {
-    "copyright": "2026 BetterMaasin - MIT | CC BY 4.0 | All content is public domain unless otherwise specified."
+    "copyright": "2026 BetterMaasin.org - MIT | CC BY 4.0 | All content is public domain unless otherwise specified."
   },
   "navbar": {
     "services": "Services",
@@ -47,7 +47,7 @@
     "joinUs": "🚀 Join Us",
     "emergencyHotlines": "Emergency Hotlines",
     "search": "Search",
-    "brandName": "BetterMaasin",
+    "brandName": "BetterMaasin.org",
     "brandSubtitle": "A community-run portal for Maasin City"
   },
   "joinUs": {
@@ -55,10 +55,10 @@
     "stripSubtitle": "Help build the future of the Philippines and governance through technology",
     "joinNow": "Join Now",
     "discord": "Discord",
-    "bannerTitle": "Help Improve BetterMaasin",
+    "bannerTitle": "Help Improve BetterMaasin.org",
     "bannerSubtitle": "Contribute your ideas, skills, or feedback to make local government services more accessible, accurate, and citizen-friendly for every Maasinon.",
     "bannerHighlight": "Volunteer-led. Open collaboration for a better digital Maasin.",
-    "joinMovement": "Contribute to BetterMaasin",
+    "joinMovement": "Contribute to BetterMaasin.org",
     "or": "or",
     "joinDiscord": "Join Community Chat",
     "features": "Community-driven • Open source • Built for Maasinhons"
