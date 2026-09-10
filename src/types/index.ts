@@ -56,6 +56,8 @@ export interface NavigationItem {
   href: string;
   target?: string;
   children?: NavigationItem[];
+  description?: string;
+  badge?: string;
 }
 
 export interface ServiceCategory {

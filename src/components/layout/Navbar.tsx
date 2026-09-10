@@ -241,7 +241,7 @@ const Navbar: FC = () => {
                       style={{
                         WebkitTransform: 'translate3d(0,0,0)',
                       }}
-                      className={`absolute left-0 w-56 rounded-md shadow-lg bg-white ring-1 ring-black/5 transition-[opacity] duration-200 z-50 pt-2 ${
+                      className={`absolute left-0 w-64 rounded-md shadow-lg bg-white ring-1 ring-black/5 transition-[opacity] duration-200 z-50 pt-2 ${
                         hoveredDropdown === item.label
                           ? 'opacity-100 visible pointer-events-auto'
                           : 'opacity-0 invisible pointer-events-none'
@@ -252,21 +252,35 @@ const Navbar: FC = () => {
                         role='menu'
                         aria-orientation='vertical'
                       >
-                        {item.children.map(child => (
-                          <Link
-                            key={child.label}
-                            to={child.href}
-                            className={`text-left block px-4 py-2 text-sm ${
-                              isActiveChildRoute(child.href)
-                                ? 'bg-primary-500 text-primary-50 hover:bg-primary-500 hover:text-primary-50'
-                                : 'text-gray-700 hover:bg-primary-50 hover:text-primary-600'
-                            }`}
-                            role='menuitem'
-                            target={child.target}
-                          >
-                            {child.label}
-                          </Link>
-                        ))}
+                        {item.children.map(child =>
+                          child.badge ? (
+                            <span
+                              key={child.label}
+                              role='menuitem'
+                              aria-disabled='true'
+                              className='flex cursor-default items-center justify-between gap-2 px-4 py-2 text-sm text-gray-400'
+                            >
+                              <span>{child.label}</span>
+                              <span className='shrink-0 rounded-md bg-amber-100 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-amber-700'>
+                                {child.badge}
+                              </span>
+                            </span>
+                          ) : (
+                            <Link
+                              key={child.label}
+                              to={child.href}
+                              className={`text-left block px-4 py-2 text-sm ${
+                                isActiveChildRoute(child.href)
+                                  ? 'bg-primary-500 text-primary-50 hover:bg-primary-500 hover:text-primary-50'
+                                  : 'text-gray-700 hover:bg-primary-50 hover:text-primary-600'
+                              }`}
+                              role='menuitem'
+                              target={child.target}
+                            >
+                              {child.label}
+                            </Link>
+                          )
+                        )}
                       </div>
                     </div>
                   )}
@@ -347,16 +361,29 @@ const Navbar: FC = () => {
 
                 {item.children && activeMenu === item.label && (
                   <div className='pl-6 py-2 space-y-1 bg-gray-50'>
-                    {item.children.map(child => (
-                      <Link
-                        key={child.label}
-                        to={child.href}
-                        onClick={closeMenu}
-                        className='block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-primary-500'
-                      >
-                        {child.label}
-                      </Link>
-                    ))}
+                    {item.children.map(child =>
+                      child.badge ? (
+                        <span
+                          key={child.label}
+                          aria-disabled='true'
+                          className='flex cursor-default items-center justify-between gap-2 px-4 py-2 text-sm text-gray-400'
+                        >
+                          <span>{child.label}</span>
+                          <span className='shrink-0 rounded-md bg-amber-100 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-amber-700'>
+                            {child.badge}
+                          </span>
+                        </span>
+                      ) : (
+                        <Link
+                          key={child.label}
+                          to={child.href}
+                          onClick={closeMenu}
+                          className='block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-primary-500'
+                        >
+                          {child.label}
+                        </Link>
+                      )
+                    )}
                   </div>
                 )}
               </div>

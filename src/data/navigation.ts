@@ -26,6 +26,31 @@ export const mainNavigation: NavigationItem[] = [
     href: '/government',
   },
   {
+    label: 'Legislative',
+    href: '#',
+    children: [
+      {
+        label: 'Tax Ordinances',
+        href: '#',
+        description: 'Business taxes, fees, and charges collected by the city.',
+        badge: 'Soon',
+      },
+      {
+        label: 'Regulatory Ordinances',
+        href: '#',
+        description:
+          'Rules on traffic, public order, health, safety, and the environment.',
+        badge: 'Soon',
+      },
+      {
+        label: 'Appropriation Ordinances',
+        href: '#',
+        description: "The city's annual budget and spending authorizations.",
+        badge: 'Soon',
+      },
+    ],
+  },
+  {
     label: 'Tourism',
     href: '/tourism',
   },
