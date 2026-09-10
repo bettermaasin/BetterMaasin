@@ -26,6 +26,10 @@ export const mainNavigation: NavigationItem[] = [
     href: '/government',
   },
   {
+    label: 'Tourism',
+    href: '/tourism',
+  },
+  {
     label: 'Statistics',
     href: '/statistics',
     children: [

@@ -1,0 +1,47 @@
+{
+  "page": {
+    "eyebrow": "Your next great escape",
+    "title": "Tourism in Maasin City",
+    "description": "Discover the shrines, landmark cathedral, coastal boulevard, falls and festivals that shape Maasin City, the City of Faith in Southern Leyte.",
+    "subtitle": "Places of faith, nature, and celebration in the City of Faith, gathered from the city's tourism site and the provincial listing."
+  },
+  "attractions": {
+    "title": "Places & events in Maasin"
+  },
+  "categories": {
+    "faith": "Faith & Shrines",
+    "nature": "Falls & Nature",
+    "events": "Festivals & Events",
+    "resorts": "Resorts & Leisure"
+  },
+  "sources": {
+    "moreInfo": "More info"
+  },
+  "plan": {
+    "title": "Plan your visit"
+  },
+  "office": {
+    "title": "City Tourism Office",
+    "officeName": "CIPTO · City Tourism Officer, Atty. Piña Luz C. Abrea",
+    "contact": "(053) 570-8097"
+  },
+  "stay": {
+    "title": "Hotels & Event Places",
+    "subtitle": "Where to stay and where to hold events around Maasin City.",
+    "visit": "See city listings"
+  },
+  "location": {
+    "title": "Where is Maasin?",
+    "subtitle": "Find Maasin City on the map and explore the city proper around the City Hall.",
+    "visit": "View the Maasin map"
+  },
+  "dataSource": {
+    "title": "Data Source and Freshness",
+    "description": "Listings are gathered from the official city and provincial government tourism websites. Details such as fees or schedules may change, so please confirm with the City Tourism Office before you go.",
+    "sourceLabel": "Source:",
+    "citySource": "City of Maasin – City Tourism",
+    "provinceSource": "Province of Southern Leyte – Maasin City Tourism",
+    "coverage": "Coverage: Maasin City tourism sites and events",
+    "lastVerified": "Last verified: September 2026"
+  }
+}

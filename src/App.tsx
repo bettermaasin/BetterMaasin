@@ -94,6 +94,7 @@ import TermsOfService from './pages/TermsOfService';
 import ScrollToTop from './components/ui/ScrollToTop';
 import Redirector from './pages/Redirector';
 import SalaryGradePage from './pages/government/salary-grade/index';
+import Tourism from './pages/tourism';
 import NotFound from './pages/NotFound';
 
 function App() {
@@ -130,6 +131,7 @@ function App() {
 
             <Route path='/hotlines' element={<Hotlines />} />
             <Route path='/holidays' element={<PublicHolidays />} />
+            <Route path='/tourism' element={<Tourism />} />
 
             <Route path='/statistics'>
               <Route index element={<Navigate to='overview' replace />} />
