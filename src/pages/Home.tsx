@@ -6,10 +6,12 @@ import InfoWidgets from '../components/home/InfoWidgets';
 import PromotionBanner from '../components/home/PromotionBanner';
 import JoinUsBanner from '../components/home/JoinUsBanner';
 import GovernmentSection from '../components/home/GovernmentSection';
+import WorkInProgressPopup from '../components/home/WorkInProgressPopup';
 
 const Home: FC = () => {
   return (
     <main className='grow'>
+      <WorkInProgressPopup />
       <Hero />
       <QuickHotlines />
       <ServicesSection />

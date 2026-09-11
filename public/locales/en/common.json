@@ -65,6 +65,13 @@
     "joinDiscord": "Join Community Chat",
     "features": "Community-driven • Open source • Built for Maasinhons"
   },
+  "workInProgress": {
+    "notice": "Notice",
+    "title": "BetterMaasin.org is a Work in Progress",
+    "body": "Development can be slow, since we're still students working on this in our spare time. We'd really love your help, so join us as a volunteer!",
+    "gotIt": "Got it",
+    "joinVolunteer": "Join as Volunteer"
+  },
   "data": {
     "title": "Real-Time Data at Your Fingertips",
     "description": "Access up-to-date information on Maasin's weather conditions and the currency foreign exchange rates.",
