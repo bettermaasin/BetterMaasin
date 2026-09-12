@@ -29,7 +29,7 @@ const WorkInProgressPopup: FC = () => {
 
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
-      <DialogContent className='max-w-md'>
+      <DialogContent className='max-w-md max-h-[85vh] overflow-y-auto p-4 sm:p-6'>
         <div className='pr-8'>
           <p className='text-[11px] font-semibold uppercase tracking-wider text-amber-600'>
             {t('workInProgress.notice')}
@@ -43,7 +43,11 @@ const WorkInProgressPopup: FC = () => {
           {t('workInProgress.body')}
         </DialogDescription>
 
-        <div className='mt-2 flex gap-2'>
+        <div className='mt-2 rounded-md border border-amber-200 bg-amber-50 px-3 py-2 text-[13px] leading-snug text-amber-800'>
+          {t('workInProgress.domainNotice')}
+        </div>
+
+        <div className='mt-4 flex flex-col-reverse gap-2 sm:flex-row'>
           <button
             type='button'
             onClick={() => handleOpenChange(false)}
