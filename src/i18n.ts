@@ -8,6 +8,7 @@ i18n
   .use(LanguageDetector)
   .use(initReactI18next)
   .init({
+    supportedLngs: ['en', 'fil', 'ceb'],
     fallbackLng: 'en',
     debug: false,
     defaultNS: 'common',
