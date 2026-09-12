@@ -9,6 +9,8 @@
     "build:maasin-data": "tsx ./scripts/build-maasin-flood-control.ts",
     "lint": "eslint . --report-unused-disable-directives --max-warnings 0",
     "format": "prettier --write .",
+    "a11y": "node scripts/a11y-audit.mjs",
+    "a11y:lighthouse": "node scripts/a11y-audit.mjs --lighthouse",
     "wrangler": "wrangler",
     "preview": "vite preview",
     "prepare": "husky",
@@ -64,6 +66,7 @@
     "zod": "^4.1.11"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.13.0",
     "@cloudflare/workers-types": "^4.20250607.0",
     "@commitlint/cli": "^19.8.1",
     "@commitlint/config-conventional": "^19.8.1",
@@ -84,7 +87,9 @@
     "glob": "^10.4.5",
     "globals": "^15.9.0",
     "husky": "^9.1.7",
+    "lighthouse": "^13.4.1",
     "lint-staged": "^16.1.6",
+    "playwright": "^1.63.0",
     "prettier": "^3.6.2",
     "tailwindcss": "^4.1.13",
     "ts-node": "^10.9.2",

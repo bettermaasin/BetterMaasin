@@ -17,6 +17,9 @@ dist-ssr
 /playwright-report/
 /playwright/.cache/
 
+# Local accessibility audit reports
+/a11y-report/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
