@@ -146,7 +146,7 @@ const JoinUs: FC = () => {
               </p>
               <div className='mt-7 flex flex-col gap-3 sm:flex-row'>
                 <a
-                  href='mailto:volunteer@bettermaasin.org'
+                  href='mailto:bettermaasin.org@outlook.ph'
                   className='animate-pulse-soft inline-flex items-center justify-center gap-2 rounded-lg bg-yellow-400 px-6 py-3 text-sm font-bold text-gray-900 transition-colors hover:bg-yellow-300'
                 >
                   Volunteer now
@@ -319,7 +319,7 @@ const JoinUs: FC = () => {
             </p>
             <div className='mt-7 flex flex-col items-center justify-center gap-4 sm:flex-row'>
               <a
-                href='mailto:volunteer@bettermaasin.org'
+                href='mailto:bettermaasin.org@outlook.ph'
                 className='inline-flex items-center gap-2 rounded-lg bg-primary-600 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-primary-700'
               >
                 Volunteer

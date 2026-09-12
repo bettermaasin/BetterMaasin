@@ -330,10 +330,10 @@ const AccessibilityPage: FC = () => {
                     Send us your accessibility feedback or request assistance.
                   </p>
                   <a
-                    href='mailto:contact@bettermaasin.org'
+                    href='mailto:bettermaasin.org@outlook.ph'
                     className='text-primary-600 hover:text-primary-700 font-medium'
                   >
-                    contact@bettermaasin.org
+                    bettermaasin.org@outlook.ph
                   </a>
                 </div>
 

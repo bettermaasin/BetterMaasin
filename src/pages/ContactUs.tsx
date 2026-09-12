@@ -17,8 +17,8 @@ const contactMethods = [
     icon: Mail,
     title: 'Email Us',
     description: 'General questions, feedback, or suggestions for us',
-    contact: 'contact@bettermaasin.org',
-    action: 'mailto:contact@bettermaasin.org',
+    contact: 'bettermaasin.org@outlook.ph',
+    action: 'mailto:bettermaasin.org@outlook.ph',
   },
   {
     icon: MessageCircle,
@@ -31,8 +31,8 @@ const contactMethods = [
     icon: Users,
     title: 'Volunteer',
     description: 'Help keep BetterMaasin.org accurate and useful',
-    contact: 'volunteer@bettermaasin.org',
-    action: 'mailto:volunteer@bettermaasin.org',
+    contact: 'bettermaasin.org@outlook.ph',
+    action: 'mailto:bettermaasin.org@outlook.ph',
   },
   {
     icon: Globe,

@@ -404,10 +404,10 @@ const PrivacyPolicy: FC = () => {
                   </p>
                   <p className='text-xl font-semibold text-primary-900'>
                     <a
-                      href='mailto:contact@bettermaasin.org'
+                      href='mailto:bettermaasin.org@outlook.ph'
                       className='hover:text-primary-700 transition-colors'
                     >
-                      contact@bettermaasin.org
+                      bettermaasin.org@outlook.ph
                     </a>
                   </p>
                 </div>
