@@ -84,6 +84,7 @@ export const footerNavigation = {
         { label: 'Join the Movement', href: '/join-us' },
         { label: 'Accessibility', href: '/accessibility' },
         { label: 'Terms of Use', href: '/terms-of-service' },
+        { label: 'Privacy Policy', href: '/privacy-policy' },
         { label: 'Contact Us', href: '/contact' },
       ],
     },

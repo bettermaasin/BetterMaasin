@@ -91,6 +91,7 @@ import WebsitesDirectory from './pages/services/websites';
 import SitemapPage from './pages/sitemap';
 import JoinUs from './pages/JoinUs';
 import TermsOfService from './pages/TermsOfService';
+import PrivacyPolicy from './pages/PrivacyPolicy';
 import ScrollToTop from './components/ui/ScrollToTop';
 import Redirector from './pages/Redirector';
 import SalaryGradePage from './pages/government/salary-grade/index';
@@ -116,6 +117,7 @@ function App() {
             <Route path='/search' element={<SearchPage />} />
             <Route path='/join-us' element={<JoinUs />} />
             <Route path='/terms-of-service' element={<TermsOfService />} />
+            <Route path='/privacy-policy' element={<PrivacyPolicy />} />
             <Route path='/sitemap' element={<SitemapPage />} />
             <Route path='/redirect' Component={Redirector} />
 
