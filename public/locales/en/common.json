@@ -69,9 +69,13 @@
     "notice": "Notice",
     "title": "BetterMaasin.org is a Work in Progress",
     "body": "Development can be slow, since we're still students working on this in our spare time. We'd really love your help, so join us as a volunteer!",
-    "domainNotice": "This site and domain is a live demonstration of the project to showcase development for easy viewing. This won't be the final site, and we can't say yet when the final site will launch. We also plan to purchase the .org domain version later, in approximately 6 months.",
+    "domainNotice": "This is a live demonstration of our work in progress, not the final site. We don't have a confirmed launch date yet, but we plan to move to a .org domain in about 6 months.",
     "gotIt": "Got it",
-    "joinVolunteer": "Join as Volunteer"
+    "joinVolunteer": "Join as Volunteer",
+    "agree": "By using this site, you understand and agree to our",
+    "termsLink": "Terms of Use",
+    "and": "and",
+    "privacyLink": "Privacy Policy"
   },
   "data": {
     "title": "Real-Time Data at Your Fingertips",

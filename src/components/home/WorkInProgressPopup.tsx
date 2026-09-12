@@ -64,6 +64,25 @@ const WorkInProgressPopup: FC = () => {
             {t('workInProgress.joinVolunteer')}
           </Link>
         </div>
+
+        <div className='mt-4 border-t border-gray-100 pt-3 text-center text-xs text-gray-500'>
+          <p>
+            {t('workInProgress.agree')}{' '}
+            <Link
+              to='/terms-of-service'
+              className='text-primary-600 underline underline-offset-2 hover:text-primary-700'
+            >
+              {t('workInProgress.termsLink')}
+            </Link>{' '}
+            {t('workInProgress.and')}{' '}
+            <Link
+              to='/privacy-policy'
+              className='text-primary-600 underline underline-offset-2 hover:text-primary-700'
+            >
+              {t('workInProgress.privacyLink')}
+            </Link>
+          </p>
+        </div>
       </DialogContent>
     </Dialog>
   );
