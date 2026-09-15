@@ -250,7 +250,7 @@ const WeatherPage: FC = () => {
                 forecasts, please visit the{' '}
                 <a
                   href='https://bagong.pagasa.dost.gov.ph/'
-                  className='text-primary-600 hover:underline'
+                  className='text-primary-600 underline'
                   target='_blank'
                   rel='noopener noreferrer'
                 >

@@ -172,6 +172,7 @@ const Navbar: FC = () => {
               <select
                 value={i18n.language}
                 onChange={e => changeLanguage(e.target.value as LanguageType)}
+                aria-label='Choose language'
                 className='text-xs border border-gray-300 rounded-sm px-2 py-1 bg-white text-gray-700 hover:border-primary-600 focus:outline-hidden focus:ring-1 focus:ring-primary-600 focus:border-primary-600'
               >
                 {Object.entries(LANGUAGES).map(([code, lang]) => (
@@ -410,6 +411,7 @@ const Navbar: FC = () => {
               <select
                 value={i18n.language}
                 onChange={e => changeLanguage(e.target.value as LanguageType)}
+                aria-label='Choose language'
                 className='text-sm border border-gray-300 rounded-sm px-2 py-1 bg-white text-gray-700 hover:border-primary-600 focus:outline-hidden focus:ring-1 focus:ring-primary-600 focus:border-primary-600'
               >
                 {Object.entries(LANGUAGES).map(([code, lang]) => (

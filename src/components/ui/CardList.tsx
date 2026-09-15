@@ -98,7 +98,6 @@ export function Card({
   return (
     <article
       className={`${baseClasses} ${variantClasses[variant]} ${hoverClasses} ${className}`}
-      role='listitem'
     >
       {children}
     </article>

@@ -13,6 +13,7 @@ import { instantMeiliSearch } from '@meilisearch/instant-meilisearch';
 import 'instantsearch.css/themes/satellite.css';
 import '../components/search/MeilisearchInstantSearch.css';
 import { Helmet } from 'react-helmet-async';
+import { useLocation } from 'react-router-dom';
 
 interface SearchHit {
   objectID: string;
@@ -156,6 +157,10 @@ const Hit: FC<HitProps> = ({ hit }) => {
 };
 
 const SearchPage: FC = () => {
+  const location = useLocation();
+  const focusSearch =
+    (location.state as { focusSearch?: boolean } | null)?.focusSearch ?? false;
+
   return (
     <div className='container mx-auto px-4 py-8'>
       <Helmet>
@@ -228,6 +233,7 @@ const SearchPage: FC = () => {
             <div className='mb-6'>
               <SearchBox
                 placeholder='Search for government services, offices, and resources...'
+                autoFocus={focusSearch}
                 classNames={{
                   root: 'w-full',
                   form: 'relative',

@@ -94,6 +94,7 @@ import TermsOfService from './pages/TermsOfService';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import ScrollToTop from './components/ui/ScrollToTop';
 import Redirector from './pages/Redirector';
+import GlobalShortcuts from './components/GlobalShortcuts';
 import SalaryGradePage from './pages/government/salary-grade/index';
 import Tourism from './pages/tourism';
 import NotFound from './pages/NotFound';
@@ -103,177 +104,199 @@ function App() {
     <Router>
       <NuqsAdapter>
         <div className='min-h-screen flex flex-col'>
+          <a
+            href='#main-content'
+            className='sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-md focus:bg-white focus:px-4 focus:py-2 focus:text-gray-900 focus:shadow-lg'
+          >
+            Skip to main content
+          </a>
           <SEO />
+          <GlobalShortcuts />
           <Navbar />
           <Ticker />
           <ScrollToTop />
-          <Routes>
-            <Route path='/' element={<Home />} />
-            <Route path='/design' element={<DesignGuide />} />
-            <Route path='/services' element={<Services />} />
-            <Route path='/about' element={<AboutPage />} />
-            <Route path='/contact' element={<ContactUs />} />
-            <Route path='/accessibility' element={<AccessibilityPage />} />
-            <Route path='/search' element={<SearchPage />} />
-            <Route path='/join-us' element={<JoinUs />} />
-            <Route path='/terms-of-service' element={<TermsOfService />} />
-            <Route path='/privacy-policy' element={<PrivacyPolicy />} />
-            <Route path='/sitemap' element={<SitemapPage />} />
-            <Route path='/redirect' Component={Redirector} />
+          <main
+            id='main-content'
+            tabIndex={-1}
+            className='flex-1 flex flex-col'
+          >
+            <Routes>
+              <Route path='/' element={<Home />} />
+              <Route path='/design' element={<DesignGuide />} />
+              <Route path='/services' element={<Services />} />
+              <Route path='/about' element={<AboutPage />} />
+              <Route path='/contact' element={<ContactUs />} />
+              <Route path='/accessibility' element={<AccessibilityPage />} />
+              <Route path='/search' element={<SearchPage />} />
+              <Route path='/join-us' element={<JoinUs />} />
+              <Route path='/terms-of-service' element={<TermsOfService />} />
+              <Route path='/privacy-policy' element={<PrivacyPolicy />} />
+              <Route path='/sitemap' element={<SitemapPage />} />
+              <Route path='/redirect' Component={Redirector} />
 
-            <Route path='/philippines'>
-              <Route index element={<Navigate to='about' replace />} />
-              <Route path='about' element={<AboutPhilippines />} />
-              <Route path='history' element={<PhilippinesHistory />} />
-              <Route path='culture' element={<PhilippinesCulture />} />
-              <Route path='regions' element={<PhilippinesRegions />} />
-              <Route path='map' element={<PhilippinesMap />} />
-              <Route path='hotlines' element={<Hotlines />} />
-            </Route>
+              <Route path='/philippines'>
+                <Route index element={<Navigate to='about' replace />} />
+                <Route path='about' element={<AboutPhilippines />} />
+                <Route path='history' element={<PhilippinesHistory />} />
+                <Route path='culture' element={<PhilippinesCulture />} />
+                <Route path='regions' element={<PhilippinesRegions />} />
+                <Route path='map' element={<PhilippinesMap />} />
+                <Route path='hotlines' element={<Hotlines />} />
+              </Route>
 
-            <Route path='/hotlines' element={<Hotlines />} />
-            <Route path='/holidays' element={<PublicHolidays />} />
-            <Route path='/tourism' element={<Tourism />} />
+              <Route path='/hotlines' element={<Hotlines />} />
+              <Route path='/holidays' element={<PublicHolidays />} />
+              <Route path='/tourism' element={<Tourism />} />
 
-            <Route path='/statistics'>
-              <Route index element={<Navigate to='overview' replace />} />
-              <Route path='overview' element={<OverviewPage />} />
+              <Route path='/statistics'>
+                <Route index element={<Navigate to='overview' replace />} />
+                <Route path='overview' element={<OverviewPage />} />
+                <Route
+                  path='flood-control-projects'
+                  element={<FloodControlProjects />}
+                />
+              </Route>
+
+              {/* Data Routes */}
+              <Route path='/data/weather' element={<WeatherPage />} />
+              <Route path='/data/forex' element={<ForexPage />} />
               <Route
-                path='flood-control-projects'
+                path='/statistics/flood-control-projects'
                 element={<FloodControlProjects />}
               />
-            </Route>
-
-            {/* Data Routes */}
-            <Route path='/data/weather' element={<WeatherPage />} />
-            <Route path='/data/forex' element={<ForexPage />} />
-            <Route
-              path='/statistics/flood-control-projects'
-              element={<FloodControlProjects />}
-            />
-            <Route
-              path='/statistics/flood-control-projects/table'
-              element={<FloodControlProjectsTable />}
-            />
-            <Route
-              path='/statistics/flood-control-projects/map'
-              element={<FloodControlProjectsMap />}
-            />
-
-            {/* Services Routes */}
-            <Route path='/services/websites' element={<WebsitesDirectory />} />
-
-            {/* Travel Routes */}
-            <Route path='/travel'>
-              <Route index element={<Navigate to='visa' replace />} />
-              <Route path='visa' element={<VisaPage />} />
-              <Route path='visa-types' element={<VisaTypesPage />} />
               <Route
-                path='visa-types/:type'
-                element={
-                  <Suspense
-                    fallback={
-                      <div className='flex items-center justify-center min-h-screen'>
-                        Loading...
-                      </div>
-                    }
-                  >
-                    <VisaTypeDetail />
-                  </Suspense>
-                }
+                path='/statistics/flood-control-projects/table'
+                element={<FloodControlProjectsTable />}
               />
-              <Route path='communicating' element={<CommunicatingPage />} />
               <Route
-                path='communicating/print'
-                element={<CommunicatingPrintPage />}
+                path='/statistics/flood-control-projects/map'
+                element={<FloodControlProjectsMap />}
               />
-            </Route>
 
-            {/* Government Routes */}
-            <Route
-              path='/government'
-              element={<GovernmentLayout title='Government' />}
-            >
-              <Route index element={<Navigate to='city-officials' replace />} />
-              <Route path='salary-grade' element={<SalaryGradePage />} />
-
-              <Route path='city-officials' element={<CityOfficialsIndex />} />
+              {/* Services Routes */}
               <Route
-                path='city-departments'
-                element={<CityDepartmentsLayout />}
+                path='/services/websites'
+                element={<WebsitesDirectory />}
+              />
+
+              {/* Travel Routes */}
+              <Route path='/travel'>
+                <Route index element={<Navigate to='visa' replace />} />
+                <Route path='visa' element={<VisaPage />} />
+                <Route path='visa-types' element={<VisaTypesPage />} />
+                <Route
+                  path='visa-types/:type'
+                  element={
+                    <Suspense
+                      fallback={
+                        <div className='flex items-center justify-center min-h-screen'>
+                          Loading...
+                        </div>
+                      }
+                    >
+                      <VisaTypeDetail />
+                    </Suspense>
+                  }
+                />
+                <Route path='communicating' element={<CommunicatingPage />} />
+                <Route
+                  path='communicating/print'
+                  element={<CommunicatingPrintPage />}
+                />
+              </Route>
+
+              {/* Government Routes */}
+              <Route
+                path='/government'
+                element={<GovernmentLayout title='Government' />}
               >
-                <Route index element={<CityDepartmentsIndex />} />
-                <Route path=':category' element={<CityDepartmentsCategory />} />
-              </Route>
-              <Route path='barangays/*' element={<BarangaysLayout />}>
-                <Route index element={<BarangaysIndex />} />
-                <Route path=':barangay' element={<BarangayDetail />} />
+                <Route
+                  index
+                  element={<Navigate to='city-officials' replace />}
+                />
+                <Route path='salary-grade' element={<SalaryGradePage />} />
+
+                <Route path='city-officials' element={<CityOfficialsIndex />} />
+                <Route
+                  path='city-departments'
+                  element={<CityDepartmentsLayout />}
+                >
+                  <Route index element={<CityDepartmentsIndex />} />
+                  <Route
+                    path=':category'
+                    element={<CityDepartmentsCategory />}
+                  />
+                </Route>
+                <Route path='barangays/*' element={<BarangaysLayout />}>
+                  <Route index element={<BarangaysIndex />} />
+                  <Route path=':barangay' element={<BarangayDetail />} />
+                </Route>
+
+                <Route path='executive' element={<ExecutiveLayout />}>
+                  <Route index element={<ExecutiveDirectory />} />
+                  <Route
+                    path='other-executive-offices'
+                    element={<OtherExecutiveOffices />}
+                  />
+                  <Route
+                    path='office-of-the-president'
+                    element={<OfficeOfThePresident />}
+                  />
+                  <Route
+                    path='office-of-the-vice-president'
+                    element={<OfficeOfTheVicePresident />}
+                  />
+                  <Route
+                    path='presidential-communications-office'
+                    element={<PresidentialCommunicationsOffice />}
+                  />
+                </Route>
+
+                <Route path='departments' element={<DepartmentsLayout />}>
+                  <Route index element={<DepartmentsIndex />} />
+                  <Route path=':department' element={<DepartmentDetail />} />
+                </Route>
+
+                <Route path='constitutional' element={<ConstitutionalLayout />}>
+                  <Route index element={<ConstitutionalIndex />} />
+                  <Route path=':office' element={<ConstitutionalOffice />} />
+                  <Route path='goccs' element={<GOCCsPage />} />
+                  <Route path='sucs' element={<SUCsPage />} />
+                </Route>
+                <Route path='legislative' element={<LegislativeLayout />}>
+                  <Route index element={<LegislativeIndex />} />
+                  <Route path=':chamber' element={<LegislativeChamber />} />
+                  <Route path='house-members' element={<HouseMembersPage />} />
+                  <Route
+                    path='party-list-members'
+                    element={<PartyListMembersPage />}
+                  />
+                  <Route
+                    path='senate-committees'
+                    element={<SenateCommitteesPage />}
+                  />
+                </Route>
+                <Route path='diplomatic' element={<DiplomaticLayout />}>
+                  <Route index element={<DiplomaticIndex />} />
+                  <Route path='missions' element={<DiplomaticMissionsPage />} />
+                  <Route path='consulates' element={<ConsulatesPage />} />
+                  <Route
+                    path='organizations'
+                    element={<InternationalOrganizationsPage />}
+                  />
+                </Route>
+
+                {/* Local Government Routes */}
+                <Route path='local' element={<LocalLayout />}>
+                  <Route index element={<LocalGovernmentIndex />} />
+                  <Route path=':region' element={<RegionalLGUPage />} />
+                </Route>
               </Route>
 
-              <Route path='executive' element={<ExecutiveLayout />}>
-                <Route index element={<ExecutiveDirectory />} />
-                <Route
-                  path='other-executive-offices'
-                  element={<OtherExecutiveOffices />}
-                />
-                <Route
-                  path='office-of-the-president'
-                  element={<OfficeOfThePresident />}
-                />
-                <Route
-                  path='office-of-the-vice-president'
-                  element={<OfficeOfTheVicePresident />}
-                />
-                <Route
-                  path='presidential-communications-office'
-                  element={<PresidentialCommunicationsOffice />}
-                />
-              </Route>
-
-              <Route path='departments' element={<DepartmentsLayout />}>
-                <Route index element={<DepartmentsIndex />} />
-                <Route path=':department' element={<DepartmentDetail />} />
-              </Route>
-
-              <Route path='constitutional' element={<ConstitutionalLayout />}>
-                <Route index element={<ConstitutionalIndex />} />
-                <Route path=':office' element={<ConstitutionalOffice />} />
-                <Route path='goccs' element={<GOCCsPage />} />
-                <Route path='sucs' element={<SUCsPage />} />
-              </Route>
-              <Route path='legislative' element={<LegislativeLayout />}>
-                <Route index element={<LegislativeIndex />} />
-                <Route path=':chamber' element={<LegislativeChamber />} />
-                <Route path='house-members' element={<HouseMembersPage />} />
-                <Route
-                  path='party-list-members'
-                  element={<PartyListMembersPage />}
-                />
-                <Route
-                  path='senate-committees'
-                  element={<SenateCommitteesPage />}
-                />
-              </Route>
-              <Route path='diplomatic' element={<DiplomaticLayout />}>
-                <Route index element={<DiplomaticIndex />} />
-                <Route path='missions' element={<DiplomaticMissionsPage />} />
-                <Route path='consulates' element={<ConsulatesPage />} />
-                <Route
-                  path='organizations'
-                  element={<InternationalOrganizationsPage />}
-                />
-              </Route>
-
-              {/* Local Government Routes */}
-              <Route path='local' element={<LocalLayout />}>
-                <Route index element={<LocalGovernmentIndex />} />
-                <Route path=':region' element={<RegionalLGUPage />} />
-              </Route>
-            </Route>
-
-            {/*Not Found/404 Page */}
-            <Route path='*' element={<NotFound />} />
-          </Routes>
+              {/*Not Found/404 Page */}
+              <Route path='*' element={<NotFound />} />
+            </Routes>
+          </main>
           <Footer />
         </div>
       </NuqsAdapter>

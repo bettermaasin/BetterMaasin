@@ -512,7 +512,7 @@ const ForexPage: FC = () => {
                 information, please visit the{' '}
                 <a
                   href='https://www.bsp.gov.ph/SitePages/Statistics/ExchangeRate.aspx'
-                  className='text-primary-600 hover:underline'
+                  className='text-primary-600 underline'
                   target='_blank'
                   rel='noopener noreferrer'
                 >

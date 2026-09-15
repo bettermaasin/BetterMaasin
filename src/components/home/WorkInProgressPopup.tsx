@@ -31,7 +31,7 @@ const WorkInProgressPopup: FC = () => {
     <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogContent className='max-w-md max-h-[85vh] overflow-y-auto p-5 sm:p-6'>
         <div className='pr-8'>
-          <p className='text-[11px] font-semibold uppercase tracking-wider text-amber-600'>
+          <p className='text-[11px] font-semibold uppercase tracking-wider text-amber-800'>
             {t('workInProgress.notice')}
           </p>
           <DialogTitle className='mt-1 text-lg font-semibold leading-snug text-gray-900'>

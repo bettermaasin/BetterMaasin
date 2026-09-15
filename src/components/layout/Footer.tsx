@@ -1,6 +1,7 @@
 import {
   SiDiscord,
   SiFacebook,
+  SiGithub,
   SiInstagram,
   SiX,
   SiYoutube,
@@ -46,6 +47,8 @@ const Footer: FC = () => {
         return <SiYoutube className='h-5 w-5' />;
       case 'Discord':
         return <SiDiscord className='h-5 w-5' />;
+      case 'GitHub':
+        return <SiGithub className='h-5 w-5' />;
       default:
         return null;
     }
@@ -85,6 +88,7 @@ const Footer: FC = () => {
                   className='text-gray-400 hover:text-white transition-colors'
                   target='_blank'
                   rel='noopener noreferrer'
+                  aria-label={link.label}
                 >
                   {getSocialIcon(link.label)}
                 </Link>
@@ -127,7 +131,7 @@ const Footer: FC = () => {
         <div className='flex justify-center my-24'>
           <p className='text-white text-sm md:text-lg bg-gray-800 p-4 px-12 md:px-8 rounded-full border border-gray-700'>
             Cost to build this site to date:{' '}
-            <span className='animate-pulse text-red-500'>₱3,000</span>. Cost to
+            <span className='animate-pulse text-red-200'>₱3,000</span>. Cost to
             the People of the Philippines:{' '}
             <span className='text-green-500'>₱0</span>.
           </p>

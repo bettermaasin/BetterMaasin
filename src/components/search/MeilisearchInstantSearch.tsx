@@ -218,7 +218,7 @@ const MeilisearchInstantSearch: FC = () => {
               root: 'mb-2',
               form: 'relative',
               input:
-                'w-full p-3 pl-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-hidden transition duration-150 ease-in-out',
+                'w-full p-3 pl-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-hidden transition duration-150 ease-in-out placeholder:text-gray-500',
               submit:
                 'absolute top-0 right-0 h-full px-3 text-gray-800 hover:text-blue-600',
               reset:

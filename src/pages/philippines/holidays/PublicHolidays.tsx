@@ -210,9 +210,7 @@ const PublicHolidays: FC = () => {
                       {source.label}
                       <ExternalLinkIcon className='mb-0.5 ml-1 inline-block h-3 w-3' />
                     </a>
-                    <span className='text-yellow-800/70'>
-                      {source.coverage}
-                    </span>
+                    <span className='text-yellow-800'>{source.coverage}</span>
                   </li>
                 ))}
               </ul>

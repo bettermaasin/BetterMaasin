@@ -101,7 +101,7 @@ const QuickHotlines: FC = () => {
                   {item.icon}
                 </span>
                 <div className='min-w-0'>
-                  <div className='text-[10px] font-medium text-red-800/70 uppercase tracking-wide'>
+                  <div className='text-[10px] font-medium text-red-900 uppercase tracking-wide'>
                     {item.label}
                   </div>
                   <a
@@ -111,7 +111,7 @@ const QuickHotlines: FC = () => {
                     {item.hotline.numbers[0]}
                   </a>
                   <div
-                    className='block truncate text-xs text-red-800/60'
+                    className='block truncate text-xs text-red-900'
                     title={item.hotline.name}
                   >
                     {item.hotline.name}

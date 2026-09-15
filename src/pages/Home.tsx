@@ -10,7 +10,7 @@ import WorkInProgressPopup from '../components/home/WorkInProgressPopup';
 
 const Home: FC = () => {
   return (
-    <main className='grow'>
+    <div className='grow'>
       <WorkInProgressPopup />
       <Hero />
       <QuickHotlines />
@@ -20,7 +20,7 @@ const Home: FC = () => {
       <JoinUsBanner />
       <PromotionBanner />
       <GovernmentSection />
-    </main>
+    </div>
   );
 };
 

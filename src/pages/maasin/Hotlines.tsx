@@ -103,11 +103,11 @@ const priorityStyles: Record<string, { card: string; badge: string }> = {
   },
   Medical: {
     card: 'bg-green-50 border-green-200 border-l-4 hover:shadow-xl',
-    badge: 'bg-green-600 text-white',
+    badge: 'bg-green-700 text-white',
   },
   Disaster: {
     card: 'bg-yellow-50 border-yellow-200 border-l-4 hover:shadow-xl',
-    badge: 'bg-yellow-600 text-white',
+    badge: 'bg-yellow-800 text-white',
   },
   '911': {
     card: 'bg-purple-50 border-purple-200 border-l-4 hover:shadow-xl',
@@ -115,11 +115,11 @@ const priorityStyles: Record<string, { card: string; badge: string }> = {
   },
   Water: {
     card: 'bg-cyan-50 border-cyan-200 border-l-4 hover:shadow-xl',
-    badge: 'bg-cyan-600 text-white',
+    badge: 'bg-cyan-700 text-white',
   },
   Electricity: {
     card: 'bg-amber-50 border-amber-200 border-l-4 hover:shadow-xl',
-    badge: 'bg-amber-600 text-white',
+    badge: 'bg-amber-800 text-white',
   },
   Transport: {
     card: 'bg-slate-50 border-slate-200 border-l-4 hover:shadow-xl',
@@ -133,7 +133,7 @@ const priorityStyles: Record<string, { card: string; badge: string }> = {
 
 const defaultStyle = {
   card: 'bg-white border-gray-200',
-  badge: 'bg-green-600 text-white',
+  badge: 'bg-green-700 text-white',
 };
 
 const getPriorityLabel = (hotline: Hotline): string | null => {

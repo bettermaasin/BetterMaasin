@@ -193,7 +193,7 @@ export default function OverviewPage() {
 
       <div className='container mx-auto px-4 py-8 md:py-10'>
         <div className='mb-8'>
-          <p className='text-sm font-semibold uppercase tracking-[0.2em] text-gray-500'>
+          <p className='text-sm font-semibold uppercase tracking-[0.2em] text-gray-700'>
             {t('page.eyebrow')}
           </p>
           <h1 className='mt-1 text-3xl font-bold text-gray-900'>
