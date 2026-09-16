@@ -133,21 +133,22 @@ function loadData() {
 
 // Function to generate government directory information
 function generateGovernmentDirectory(governmentData) {
+  const siteUrl = process.env.SITE_URL || '';
   const sections = [];
 
   // Executive Branch
   sections.push('#### Executive Branch');
   sections.push(
-    '- Office of the President (https://bettergov.ph/government/executive/office-of-the-president)'
+    `- Office of the President (${siteUrl}/government/executive/office-of-the-president)`
   );
   sections.push(
-    '- Office of the Vice President (https://bettergov.ph/government/executive/office-of-the-vice-president)'
+    `- Office of the Vice President (${siteUrl}/government/executive/office-of-the-vice-president)`
   );
   sections.push(
-    '- Presidential Communications Office (https://bettergov.ph/government/executive/presidential-communications-office)'
+    `- Presidential Communications Office (${siteUrl}/government/executive/presidential-communications-office)`
   );
   sections.push(
-    '- Other Executive Offices (https://bettergov.ph/government/executive/other-executive-offices)'
+    `- Other Executive Offices (${siteUrl}/government/executive/other-executive-offices)`
   );
   sections.push('');
 
@@ -159,13 +160,13 @@ function generateGovernmentDirectory(governmentData) {
       if (dept.slug && dept.office_name) {
         const deptName = dept.office_name.replace('DEPARTMENT OF ', '');
         sections.push(
-          `- ${deptName} (https://bettergov.ph/government/departments/${encodeURIComponent(dept.slug)})`
+          `- ${deptName} (${siteUrl}/government/departments/${encodeURIComponent(dept.slug)})`
         );
       }
     });
     if (governmentData.departments.length > 10) {
       sections.push(
-        `- ... and ${governmentData.departments.length - 10} more departments (https://bettergov.ph/government/departments)`
+        `- ... and ${governmentData.departments.length - 10} more departments (${siteUrl}/government/departments)`
       );
     }
   }
@@ -190,15 +191,15 @@ function generateGovernmentDirectory(governmentData) {
 
     constitutionalOffices.forEach(office => {
       sections.push(
-        `- ${office.name || office.office_name} (https://bettergov.ph/government/constitutional/${encodeURIComponent(office.slug)})`
+        `- ${office.name || office.office_name} (${siteUrl}/government/constitutional/${encodeURIComponent(office.slug)})`
       );
     });
 
     sections.push(
-      '- Government-Owned and Controlled Corporations (https://bettergov.ph/government/constitutional/goccs)'
+      `- Government-Owned and Controlled Corporations (${siteUrl}/government/constitutional/goccs)`
     );
     sections.push(
-      '- State Universities and Colleges (https://bettergov.ph/government/constitutional/sucs)'
+      `- State Universities and Colleges (${siteUrl}/government/constitutional/sucs)`
     );
   }
   sections.push('');
@@ -206,32 +207,32 @@ function generateGovernmentDirectory(governmentData) {
   // Legislative Branch
   sections.push('#### Legislative Branch');
   sections.push(
-    '- Senate of the Philippines (https://bettergov.ph/government/legislative/senate-of-the-philippines-20th-congress)'
+    `- Senate of the Philippines (${siteUrl}/government/legislative/senate-of-the-philippines-20th-congress)`
   );
   sections.push(
-    '- House of Representatives (https://bettergov.ph/government/legislative/house-of-representatives-20th-congress)'
+    `- House of Representatives (${siteUrl}/government/legislative/house-of-representatives-20th-congress)`
   );
   sections.push(
-    '- House Members Directory (https://bettergov.ph/government/legislative/house-members)'
+    `- House Members Directory (${siteUrl}/government/legislative/house-members)`
   );
   sections.push(
-    '- Party List Members (https://bettergov.ph/government/legislative/party-list-members)'
+    `- Party List Members (${siteUrl}/government/legislative/party-list-members)`
   );
   sections.push(
-    '- Senate Committees (https://bettergov.ph/government/legislative/senate-committees)'
+    `- Senate Committees (${siteUrl}/government/legislative/senate-committees)`
   );
   sections.push('');
 
   // Diplomatic Missions
   sections.push('#### Diplomatic Missions');
   sections.push(
-    '- Philippine Embassies and Missions (https://bettergov.ph/government/diplomatic/missions)'
+    `- Philippine Embassies and Missions (${siteUrl}/government/diplomatic/missions)`
   );
   sections.push(
-    '- Philippine Consulates (https://bettergov.ph/government/diplomatic/consulates)'
+    `- Philippine Consulates (${siteUrl}/government/diplomatic/consulates)`
   );
   sections.push(
-    '- International Organizations (https://bettergov.ph/government/diplomatic/organizations)'
+    `- International Organizations (${siteUrl}/government/diplomatic/organizations)`
   );
   sections.push('');
 
@@ -240,7 +241,7 @@ function generateGovernmentDirectory(governmentData) {
 
 // Function to generate enhanced sitemap URLs
 function generateSitemap(mainNavigation, governmentData) {
-  const siteUrl = 'https://bettergov.ph';
+  const siteUrl = process.env.SITE_URL || '';
   const pages = new Set();
 
   // Add main pages
@@ -355,11 +356,11 @@ function generateServicesDirectory(serviceCategories) {
 
   serviceCategories.categories.forEach(category => {
     servicesList.push(
-      `- ${category.category} (https://bettergov.ph/services?category=${category.slug})`
+      `- ${category.category} (${siteUrl}/services?category=${category.slug})`
     );
     category.subcategories.forEach(subcat => {
       servicesList.push(
-        `  - ${subcat.name} (https://bettergov.ph/services?category=${category.slug}&subcategory=${subcat.slug})`
+        `  - ${subcat.name} (${siteUrl}/services?category=${category.slug}&subcategory=${subcat.slug})`
       );
     });
   });
@@ -373,8 +374,8 @@ function generateLlmsContent(
   serviceCategories,
   governmentData
 ) {
-  const siteName = 'BetterGov.ph';
-  const siteUrl = 'https://bettergov.ph';
+  const siteName = 'BetterMaasin.org';
+  const siteUrl = process.env.SITE_URL || '';
   const description =
     'A comprehensive portal for Philippine government services, information, and resources';
 
@@ -467,6 +468,15 @@ Educational and informational use is encouraged.`;
 
 // Main execution
 function main() {
+  const siteUrl = process.env.SITE_URL;
+  if (!siteUrl) {
+    console.log(
+      '⏸️  llms.txt generation skipped: SITE_URL env var not set. ' +
+        'Set SITE_URL (e.g. https://bettermaasin.org) when the primary domain is live.'
+    );
+    return;
+  }
+
   console.log('🤖 Generating llms.txt...');
 
   try {

@@ -271,7 +271,7 @@ function generateGovernmentUrls(siteUrl, governmentData) {
 
 // Function to generate all site URLs
 function generateSiteUrls(mainNavigation, governmentData) {
-  const siteUrl = 'https://bettergov.ph';
+  const siteUrl = process.env.SITE_URL || '';
   const urls = new Set();
 
   // Add main pages with priorities and change frequencies
@@ -401,6 +401,15 @@ function generateSitemapXml(urls) {
 
 // Main execution
 function main() {
+  const siteUrl = process.env.SITE_URL;
+  if (!siteUrl) {
+    console.log(
+      '⏸️  Sitemap generation skipped: SITE_URL env var not set. ' +
+        'Set SITE_URL (e.g. https://bettermaasin.org) when the primary domain is live.'
+    );
+    return;
+  }
+
   console.log('🗺️  Generating sitemap.xml...');
 
   try {

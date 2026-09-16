@@ -1,4 +1,5 @@
 User-Agent: *
 Allow: /
 
-Sitemap: https://bettergov.ph/sitemap.xml
+# Temporarily disabled until the primary domain (bettermaasin.org) is live.
+# Sitemap: /sitemap.xml

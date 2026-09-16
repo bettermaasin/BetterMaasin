@@ -4,28 +4,34 @@ import { HomeIcon, AlertTriangleIcon } from 'lucide-react';
 import Button from '../components/ui/Button';
 
 import { Helmet } from 'react-helmet-async';
+import { getSiteUrl } from '../lib/site-url';
 
 export default function NotFound() {
+  const baseUrl = getSiteUrl();
+
   return (
     <div className='min-h-screen bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800'>
       <Helmet>
-        <title>Page Not Found! | BetterGov.ph</title>
+        <title>Page Not Found! | BetterMaasin.org</title>
         <meta
           name='description'
           content='You might be lost, like some of our government (ghost) services..'
         />
         <meta name='keywords' content='Not Found, 404, Page Not Found' />
-        <link rel='canonical' href='https://bettergov.ph/not-found' />
+        <link rel='canonical' href={`${baseUrl}/not-found`} />
 
         {/* Open Graph / Social */}
-        <meta property='og:title' content='Page Not Found! | BetterGov.ph' />
+        <meta
+          property='og:title'
+          content='Page Not Found! | BetterMaasin.org'
+        />
         <meta
           property='og:description'
           content='You might be lost, like some of our government (ghost) services..'
         />
         <meta property='og:type' content='website' />
-        <meta property='og:url' content='https://bettergov.ph/not-found' />
-        <meta property='og:image' content='https://bettergov.ph/ph-logo.png' />
+        <meta property='og:url' content={`${baseUrl}/not-found`} />
+        <meta property='og:image' content={`${baseUrl}/ph-logo.png`} />
       </Helmet>
 
       <div className='relative'>

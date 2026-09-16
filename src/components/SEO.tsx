@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import routeMeta from '../data/seo-metadata.json';
+import { getSiteUrl } from '../lib/site-url';
 import {
   formatStandardDescription,
   formatStandardTitle,
@@ -134,7 +135,7 @@ export default function SEO({
 
   const siteTitle = 'BetterMaasin.org';
   const fullTitle = title ? `${title} | ${siteTitle}` : finalTitle;
-  const baseUrl = 'https://bettergov.ph';
+  const baseUrl = getSiteUrl();
   const fullCanonical = defaultCanonical
     ? `${baseUrl}${defaultCanonical}`
     : undefined;

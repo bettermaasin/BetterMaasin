@@ -7,6 +7,7 @@ import serviceCategories from '../../data/service_categories.json';
 
 // Import all service files
 import { scrollToTop } from '@/lib/scrollUtils';
+import { getSiteUrl } from '../../lib/site-url';
 import { parseAsString, useQueryState, useQueryStates } from 'nuqs';
 import { Helmet } from 'react-helmet-async';
 import Button from '../../components/ui/Button';
@@ -185,7 +186,7 @@ export default function ServicesPage() {
   // Dynamically generate SEO meta tags based on selected category & subcategory
   const { metaTitle, metaDescription, metaKeywords, canonicalUrl } =
     useMemo(() => {
-      const baseTitle = 'Government Services Directory | BetterGov.ph';
+      const baseTitle = 'Government Services Directory | BetterMaasin.org';
       const baseDescription =
         'Browse and search a comprehensive directory of Philippine government services across categories and subcategories.';
 
@@ -198,7 +199,7 @@ export default function ServicesPage() {
       }
 
       const title = phrases.length
-        ? `${phrases.join(' – ')} | BetterGov.ph`
+        ? `${phrases.join(' – ')} | BetterMaasin.org`
         : baseTitle;
 
       const description = phrases.length
@@ -215,7 +216,7 @@ export default function ServicesPage() {
         ...phrases.map(p => p.toLowerCase()),
       ].join(', ');
 
-      let canonical = 'https://bettergov.ph/services';
+      let canonical = `${getSiteUrl()}/services`;
       if (selectedCategorySlug !== 'all') {
         canonical += `?category=${selectedCategorySlug}`;
         if (selectedSubcategorySlug !== 'all') {
