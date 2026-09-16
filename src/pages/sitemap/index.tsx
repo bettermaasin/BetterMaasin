@@ -9,6 +9,7 @@ import {
   Briefcase,
   FileCheck,
   Waves,
+  ExternalLink,
 } from 'lucide-react';
 import SEO from '../../components/SEO';
 
@@ -29,7 +30,11 @@ const SitemapPage: FC = () => {
       icon: <Home className='h-5 w-5' />,
       links: [
         { title: 'Home', url: '/', description: 'Main landing page' },
-        { title: 'About', url: '/about', description: 'About BetterGov.ph' },
+        {
+          title: 'About',
+          url: '/about',
+          description: 'About BetterMaasin.org',
+        },
         {
           title: 'Accessibility',
           url: '/accessibility',
@@ -310,8 +315,8 @@ const SitemapPage: FC = () => {
   return (
     <div className='min-h-screen bg-gray-50 py-12'>
       <SEO
-        title='Sitemap | BetterGov.ph'
-        description='Complete sitemap of BetterGov.ph - Find all pages and services available on the Philippine Government Portal.'
+        title='Sitemap'
+        description='Complete sitemap of BetterMaasin.org - Find all pages and services available on the Philippine Government Portal.'
         keywords={[
           'sitemap',
           'navigation',
@@ -325,11 +330,24 @@ const SitemapPage: FC = () => {
         <div className='max-w-5xl mx-auto'>
           <div className='bg-white rounded-xl shadow-xs overflow-hidden'>
             <div className='p-6 md:p-8 border-b border-gray-200'>
-              <h1 className='text-3xl font-bold text-gray-900'>Sitemap</h1>
-              <p className='mt-2 text-gray-800'>
-                A complete guide to all pages and services available on
-                BetterGov.ph
-              </p>
+              <div className='flex flex-col md:flex-row md:items-center md:justify-between gap-4'>
+                <div>
+                  <h1 className='text-3xl font-bold text-gray-900'>Sitemap</h1>
+                  <p className='mt-2 text-gray-800'>
+                    A complete guide to all pages and services available on
+                    BetterMaasin.org
+                  </p>
+                </div>
+                <a
+                  href='/sitemap.xml'
+                  target='_blank'
+                  rel='noopener noreferrer'
+                  className='inline-flex items-center gap-2 rounded-md bg-primary-600 px-4 py-2 text-sm font-medium text-white hover:bg-primary-700 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600'
+                >
+                  <ExternalLink className='h-4 w-4' />
+                  View raw sitemap.xml
+                </a>
+              </div>
             </div>
 
             <div className='p-6 md:p-8'>
