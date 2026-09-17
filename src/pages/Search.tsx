@@ -9,11 +9,11 @@ import {
   RefinementList,
   Pagination,
 } from 'react-instantsearch';
-import { instantMeiliSearch } from '@meilisearch/instant-meilisearch';
 import 'instantsearch.css/themes/satellite.css';
 import '../components/search/MeilisearchInstantSearch.css';
 import { Helmet } from 'react-helmet-async';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
+import { searchClient } from '../lib/meilisearch';
 
 interface SearchHit {
   objectID: string;
@@ -30,42 +30,6 @@ interface SearchHit {
   slug?: string;
   type?: string;
 }
-
-const MEILISEARCH_HOST =
-  import.meta.env.VITE_MEILISEARCH_HOST || 'http://localhost';
-const MEILISEARCH_PORT = import.meta.env.VITE_MEILISEARCH_PORT || '7700';
-const MEILISEARCH_SEARCH_API_KEY =
-  import.meta.env.VITE_MEILISEARCH_SEARCH_API_KEY ||
-  'your_public_search_key_here';
-
-const { searchClient } = instantMeiliSearch(
-  `${MEILISEARCH_HOST}:${MEILISEARCH_PORT}`,
-  MEILISEARCH_SEARCH_API_KEY,
-  {
-    primaryKey: 'slug',
-    keepZeroFacets: true,
-    meiliSearchParams: {
-      attributesToHighlight: [
-        'name',
-        'office_name',
-        'office',
-        'service',
-        'description',
-      ],
-      attributesToSearchOn: [
-        'name',
-        'office_name',
-        'office',
-        'service',
-        'website',
-        'description',
-        'category',
-        'subcategory',
-        'address',
-      ],
-    },
-  }
-);
 
 interface HitProps {
   hit: {
@@ -156,6 +120,120 @@ const Hit: FC<HitProps> = ({ hit }) => {
   );
 };
 
+const SearchActive: FC<{ focusSearch: boolean }> = ({ focusSearch }) => (
+  <InstantSearch searchClient={searchClient!} indexName='bettergov'>
+    <div className='grid grid-cols-1 lg:grid-cols-4 gap-8'>
+      <div className='lg:col-span-1'>
+        <div className='bg-white rounded-lg shadow-sm p-4 mb-6'>
+          <h3 className='text-lg font-semibold mb-4'>Filter By</h3>
+
+          <div className='mb-6'>
+            <h4 className='font-medium mb-3'>Type</h4>
+            <RefinementList
+              attribute='type'
+              classNames={{
+                root: '',
+                list: 'space-y-2',
+                item: '',
+                label: '',
+                checkbox: '',
+                count:
+                  'ml-2 text-xs text-gray-800 bg-gray-100 px-2 py-0.5 rounded-full',
+              }}
+            />
+          </div>
+
+          <div className='mb-6'>
+            <h4 className='font-medium mb-3'>Category</h4>
+            <RefinementList
+              attribute='category'
+              classNames={{
+                root: '',
+                list: 'space-y-2',
+                item: '',
+                label: '',
+                checkbox: '',
+                count:
+                  'ml-2 text-xs text-gray-800 bg-gray-100 px-2 py-0.5 rounded-full',
+              }}
+            />
+          </div>
+
+          <div>
+            <h4 className='font-medium mb-3'>Subcategory</h4>
+            <RefinementList
+              attribute='subcategory'
+              classNames={{
+                root: '',
+                list: 'space-y-2',
+                item: '',
+                label: '',
+                checkbox: '',
+                count:
+                  'ml-2 text-xs text-gray-800 bg-gray-100 px-2 py-0.5 rounded-full',
+              }}
+            />
+          </div>
+        </div>
+      </div>
+
+      <div className='lg:col-span-3'>
+        <div className='mb-6'>
+          <SearchBox
+            placeholder='Search for government services, offices, and resources...'
+            autoFocus={focusSearch}
+            classNames={{
+              root: 'w-full',
+              form: 'relative',
+              input:
+                'text-lg w-full p-4 pl-12 pr-12 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-hidden transition duration-150 ease-in-out',
+              submit:
+                'absolute top-0 right-0 h-full px-4 text-gray-800 hover:text-blue-600',
+              reset:
+                'absolute top-0 right-10 h-full px-3 text-gray-400 hover:text-gray-800',
+            }}
+          />
+        </div>
+
+        <div className='bg-white rounded-lg shadow-sm overflow-hidden'>
+          <div className='p-4 border-b border-gray-200 flex justify-between items-center'>
+            <h2 className='text-xl font-semibold'>Results</h2>
+            <Stats
+              classNames={{
+                root: 'text-sm text-gray-800',
+              }}
+            />
+          </div>
+
+          <div>
+            <Hits
+              hitComponent={Hit}
+              classNames={{
+                list: 'divide-y divide-gray-200',
+                item: 'w-full',
+              }}
+            />
+          </div>
+
+          <div className='p-4 border-t border-gray-200'>
+            <Pagination
+              className='text-black'
+              classNames={{
+                root: 'flex justify-center',
+                list: 'flex items-center space-x-1',
+                item: 'px-1',
+                link: 'px-3 py-2 rounded-md text-gray-700 hover:bg-gray-100 transition-colors',
+                disabledItem: 'opacity-50 cursor-not-allowed',
+                selectedItem: 'text-black',
+              }}
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </InstantSearch>
+);
+
 const SearchPage: FC = () => {
   const location = useLocation();
   const focusSearch =
@@ -173,117 +251,32 @@ const SearchPage: FC = () => {
 
       <h1 className='text-3xl font-bold mb-6'>Search</h1>
 
-      <InstantSearch searchClient={searchClient} indexName='bettergov'>
-        <div className='grid grid-cols-1 lg:grid-cols-4 gap-8'>
-          <div className='lg:col-span-1'>
-            <div className='bg-white rounded-lg shadow-sm p-4 mb-6'>
-              <h3 className='text-lg font-semibold mb-4'>Filter By</h3>
-
-              <div className='mb-6'>
-                <h4 className='font-medium mb-3'>Type</h4>
-                <RefinementList
-                  attribute='type'
-                  classNames={{
-                    root: '',
-                    list: 'space-y-2',
-                    item: '',
-                    label: '',
-                    checkbox: '',
-                    count:
-                      'ml-2 text-xs text-gray-800 bg-gray-100 px-2 py-0.5 rounded-full',
-                  }}
-                />
-              </div>
-
-              <div className='mb-6'>
-                <h4 className='font-medium mb-3'>Category</h4>
-                <RefinementList
-                  attribute='category'
-                  classNames={{
-                    root: '',
-                    list: 'space-y-2',
-                    item: '',
-                    label: '',
-                    checkbox: '',
-                    count:
-                      'ml-2 text-xs text-gray-800 bg-gray-100 px-2 py-0.5 rounded-full',
-                  }}
-                />
-              </div>
-
-              <div>
-                <h4 className='font-medium mb-3'>Subcategory</h4>
-                <RefinementList
-                  attribute='subcategory'
-                  classNames={{
-                    root: '',
-                    list: 'space-y-2',
-                    item: '',
-                    label: '',
-                    checkbox: '',
-                    count:
-                      'ml-2 text-xs text-gray-800 bg-gray-100 px-2 py-0.5 rounded-full',
-                  }}
-                />
-              </div>
-            </div>
-          </div>
-
-          <div className='lg:col-span-3'>
-            <div className='mb-6'>
-              <SearchBox
-                placeholder='Search for government services, offices, and resources...'
-                autoFocus={focusSearch}
-                classNames={{
-                  root: 'w-full',
-                  form: 'relative',
-                  input:
-                    'text-lg w-full p-4 pl-12 pr-12 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-hidden transition duration-150 ease-in-out',
-                  submit:
-                    'absolute top-0 right-0 h-full px-4 text-gray-800 hover:text-blue-600',
-                  reset:
-                    'absolute top-0 right-10 h-full px-3 text-gray-400 hover:text-gray-800',
-                }}
-              />
-            </div>
-
-            <div className='bg-white rounded-lg shadow-sm overflow-hidden'>
-              <div className='p-4 border-b border-gray-200 flex justify-between items-center'>
-                <h2 className='text-xl font-semibold'>Results</h2>
-                <Stats
-                  classNames={{
-                    root: 'text-sm text-gray-800',
-                  }}
-                />
-              </div>
-
-              <div>
-                <Hits
-                  hitComponent={Hit}
-                  classNames={{
-                    list: 'divide-y divide-gray-200',
-                    item: 'w-full',
-                  }}
-                />
-              </div>
-
-              <div className='p-4 border-t border-gray-200'>
-                <Pagination
-                  className='text-black'
-                  classNames={{
-                    root: 'flex justify-center',
-                    list: 'flex items-center space-x-1',
-                    item: 'px-1',
-                    link: 'px-3 py-2 rounded-md text-gray-700 hover:bg-gray-100 transition-colors',
-                    disabledItem: 'opacity-50 cursor-not-allowed',
-                    selectedItem: 'text-black',
-                  }}
-                />
-              </div>
-            </div>
-          </div>
+      {searchClient ? (
+        <SearchActive focusSearch={focusSearch} />
+      ) : (
+        <div className='bg-white rounded-xl shadow-sm p-8 max-w-xl'>
+          <p className='text-lg font-medium text-gray-900'>
+            Search is temporarily unavailable.
+          </p>
+          <p className='mt-2 text-gray-600'>
+            You can browse{' '}
+            <Link
+              to='/services'
+              className='font-medium text-primary-600 hover:underline'
+            >
+              government services
+            </Link>
+            , check the{' '}
+            <Link
+              to='/sitemap'
+              className='font-medium text-primary-600 hover:underline'
+            >
+              site map
+            </Link>
+            , or use the navigation menu to find what you need.
+          </p>
         </div>
-      </InstantSearch>
+      )}
     </div>
   );
 };

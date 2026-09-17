@@ -8,9 +8,10 @@ import {
   Configure,
   Stats,
 } from 'react-instantsearch';
-import { instantMeiliSearch } from '@meilisearch/instant-meilisearch';
-import 'instantsearch.css/themes/satellite.css'; // Or your preferred theme
-import './MeilisearchInstantSearch.css'; // For custom styles
+import { Link } from 'react-router-dom';
+import 'instantsearch.css/themes/satellite.css';
+import './MeilisearchInstantSearch.css';
+import { searchClient } from '../../lib/meilisearch';
 
 interface SearchHit {
   objectID: string;
@@ -27,48 +28,8 @@ interface SearchHit {
   slug?: string;
 }
 
-const MEILISEARCH_HOST =
-  import.meta.env.VITE_MEILISEARCH_HOST || 'http://localhost';
-const MEILISEARCH_PORT = import.meta.env.VITE_MEILISEARCH_PORT || '7700';
-const MEILISEARCH_SEARCH_API_KEY =
-  import.meta.env.VITE_MEILISEARCH_SEARCH_API_KEY ||
-  'your_public_search_key_here';
-
-const { searchClient } = instantMeiliSearch(
-  `${MEILISEARCH_HOST}:${MEILISEARCH_PORT}`,
-  MEILISEARCH_SEARCH_API_KEY,
-  {
-    primaryKey: 'slug',
-    keepZeroFacets: true,
-    meiliSearchParams: {
-      attributesToHighlight: [
-        'name',
-        'office_name',
-        'office',
-        'service',
-        'description',
-      ],
-      // highlightPreTag: '<em>',
-      // highlightPostTag: '</em>',
-      attributesToSearchOn: [
-        'name',
-        'office_name',
-        'office',
-        'service',
-        'website',
-        'description',
-        'category',
-        'subcategory',
-        'address',
-      ],
-    },
-  }
-);
-
 interface HitProps {
   hit: {
-    // [key: string]: any // Allow any string keys for hit attributes
-    // objectID: string
     name?: string;
     office_name?: string;
     office?: string;
@@ -90,7 +51,6 @@ interface HitProps {
     description?: string;
     slug?: string;
     url?: string;
-    // Add other fields you expect in your search results
   };
 }
 
@@ -108,18 +68,6 @@ const Hit: FC<HitProps> = ({ hit }) => {
       >
         <h2 className='text-lg font-semibold text-blue-600 hover:underline'>
           {title}
-          {/* <Highlight
-            attribute={
-              hit.service
-                ? 'service'
-                : hit.name
-                ? 'name'
-                : hit.office_name
-                ? 'office_name'
-                : 'office'
-            }
-            hit={hit as SearchHit}
-          /> */}
         </h2>
         {hit.description && (
           <p className='text-sm text-gray-800 mt-1'>
@@ -163,11 +111,10 @@ const Hit: FC<HitProps> = ({ hit }) => {
   );
 };
 
-const MeilisearchInstantSearch: FC = () => {
+const MeiliSearchActive: FC = () => {
   const [hasInteracted, setHasInteracted] = useState(false);
   const searchContainerRef = useRef<HTMLDivElement>(null);
 
-  // Handle click outside to close search results
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -178,18 +125,15 @@ const MeilisearchInstantSearch: FC = () => {
       }
     };
 
-    // Handle escape key press to close search results
     const handleEscapeKey = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
         setHasInteracted(false);
       }
     };
 
-    // Add event listeners
     document.addEventListener('mousedown', handleClickOutside);
     document.addEventListener('keydown', handleEscapeKey);
 
-    // Clean up event listeners
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
       document.removeEventListener('keydown', handleEscapeKey);
@@ -198,7 +142,7 @@ const MeilisearchInstantSearch: FC = () => {
 
   return (
     <InstantSearch
-      searchClient={searchClient}
+      searchClient={searchClient!}
       indexName='bettergov'
       initialUiState={{
         bettergov: {
@@ -248,5 +192,27 @@ const MeilisearchInstantSearch: FC = () => {
     </InstantSearch>
   );
 };
+
+const SearchDisabledNotice: FC = () => (
+  <div className='rounded-lg bg-gray-900/70 backdrop-blur-sm border border-white/10 p-5'>
+    <p className='text-gray-100 font-medium'>
+      Search is temporarily unavailable.
+    </p>
+    <p className='text-sm text-gray-300 mt-1'>
+      Browse{' '}
+      <Link to='/services' className='text-primary-300 underline'>
+        government services
+      </Link>{' '}
+      or the{' '}
+      <Link to='/sitemap' className='text-primary-300 underline'>
+        site map
+      </Link>{' '}
+      instead.
+    </p>
+  </div>
+);
+
+const MeilisearchInstantSearch: FC = () =>
+  searchClient ? <MeiliSearchActive /> : <SearchDisabledNotice />;
 
 export default MeilisearchInstantSearch;
