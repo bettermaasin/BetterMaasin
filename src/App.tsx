@@ -85,7 +85,6 @@ import FloodControlProjectsTable from './pages/statistics/flood-control-projects
 import FloodControlProjectsMap from './pages/statistics/flood-control-projects/map';
 
 // Services Pages
-import WebsitesDirectory from './pages/services/websites';
 
 // Sitemap Page
 import SitemapPage from './pages/sitemap';
@@ -174,10 +173,7 @@ function App() {
               />
 
               {/* Services Routes */}
-              <Route
-                path='/services/websites'
-                element={<WebsitesDirectory />}
-              />
+              <Route path='/services/websites' element={<Services />} />
 
               {/* Travel Routes */}
               <Route path='/travel'>

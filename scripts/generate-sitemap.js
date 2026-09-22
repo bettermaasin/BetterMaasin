@@ -107,14 +107,8 @@ function loadData() {
     const diplomatic = JSON.parse(fs.readFileSync(diplomaticPath, 'utf8'));
     const executive = JSON.parse(fs.readFileSync(executivePath, 'utf8'));
 
-    // Populate services children from categories
-    const servicesNav = mainNavigation.find(nav => nav.label === 'Services');
-    if (servicesNav) {
-      servicesNav.children = serviceCategories.categories.map(category => ({
-        label: category.category,
-        href: `/services?category=${category.slug}`,
-      }));
-    }
+    // Services is under research / coming soon, so its category children are
+    // intentionally left out of the sitemap until the directory is ready.
 
     return {
       mainNavigation,
@@ -279,7 +273,7 @@ function generateSiteUrls(mainNavigation, governmentData) {
     { url: `${siteUrl}/`, priority: '1.0', changefreq: 'daily' },
     { url: `${siteUrl}/about`, priority: '0.8', changefreq: 'monthly' },
     { url: `${siteUrl}/search`, priority: '0.9', changefreq: 'weekly' },
-    { url: `${siteUrl}/services`, priority: '0.9', changefreq: 'weekly' },
+    { url: `${siteUrl}/services`, priority: '0.3', changefreq: 'monthly' },
     { url: `${siteUrl}/sitemap`, priority: '0.5', changefreq: 'monthly' },
   ];
 
@@ -330,8 +324,8 @@ function generateSiteUrls(mainNavigation, governmentData) {
         priority = '0.9';
         changefreq = 'monthly';
       } else if (section.label === 'Services') {
-        priority = '0.9';
-        changefreq = 'weekly';
+        priority = '0.3';
+        changefreq = 'monthly';
       } else if (section.label === 'Government') {
         priority = '0.8';
         changefreq = 'monthly';

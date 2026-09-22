@@ -107,14 +107,8 @@ function loadData() {
     const diplomatic = JSON.parse(fs.readFileSync(diplomaticPath, 'utf8'));
     const executive = JSON.parse(fs.readFileSync(executivePath, 'utf8'));
 
-    // Populate services children from categories
-    const servicesNav = mainNavigation.find(nav => nav.label === 'Services');
-    if (servicesNav) {
-      servicesNav.children = serviceCategories.categories.map(category => ({
-        label: category.category,
-        href: `/services?category=${category.slug}`,
-      }));
-    }
+    // Services is under research / coming soon, so category children are
+    // intentionally left out until the directory is ready.
 
     return {
       mainNavigation,
@@ -351,21 +345,10 @@ function generateSitemap(mainNavigation, governmentData) {
 }
 
 // Function to generate services directory
-function generateServicesDirectory(serviceCategories) {
-  const servicesList = [];
-
-  serviceCategories.categories.forEach(category => {
-    servicesList.push(
-      `- ${category.category} (${siteUrl}/services?category=${category.slug})`
-    );
-    category.subcategories.forEach(subcat => {
-      servicesList.push(
-        `  - ${subcat.name} (${siteUrl}/services?category=${category.slug}&subcategory=${subcat.slug})`
-      );
-    });
-  });
-
-  return servicesList;
+function generateServicesDirectory() {
+  return [
+    'The government services directory is currently under research. It is not final and is not yet available.',
+  ];
 }
 
 // Main function to generate llms.txt content
@@ -380,7 +363,7 @@ function generateLlmsContent(
     'A comprehensive portal for Philippine government services, information, and resources';
 
   const sitemap = generateSitemap(mainNavigation, governmentData);
-  const servicesDirectory = generateServicesDirectory(serviceCategories);
+  const servicesDirectory = generateServicesDirectory();
   const governmentDirectory = generateGovernmentDirectory(governmentData);
 
   return `# ${siteName}
@@ -407,7 +390,6 @@ BetterGov.ph provides detailed information about all branches of the Philippine 
 ${governmentDirectory.join('\n')}
 
 ### Services Directory
-Our comprehensive services are organized into the following categories:
 ${servicesDirectory.join('\n')}
 
 ### Philippines Information

@@ -77,6 +77,18 @@
     "and": "and",
     "privacyLink": "Privacy Policy"
   },
+  "comingSoon": {
+    "badge": "Under Research",
+    "title": "Services Directory – Coming Soon",
+    "description": "We're still gathering and validating data for this section. It is not final, and we'd rather hold it back than publish something that looks finished when it isn't.",
+    "heading": "Government Services Directory",
+    "noteTitle": "Why is this not live yet?",
+    "noteBody": "This portal is a direct fork of BetterGov's open-source codebase. The services section needs more data gathering and validation before we can present it. The current draft is a general national listing, not original Maasin-specific data, and we don't want readers to mistake it for a finished directory.",
+    "devNotice": "Note: BetterMaasin.org is currently a development build, not a live site. Everything here is a work in progress.",
+    "whatsNext": "In the meantime, you can explore the rest of the portal.",
+    "backHome": "Back to Home",
+    "contactHelp": "Help with Research"
+  },
   "data": {
     "title": "Real-Time Data at Your Fingertips",
     "description": "Access up-to-date information on Maasin's weather conditions and the currency foreign exchange rates.",

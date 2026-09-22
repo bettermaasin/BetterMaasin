@@ -1,71 +1,11 @@
 import { FC } from 'react';
+import { ConstructionIcon } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import MeilisearchInstantSearch from '../search/MeilisearchInstantSearch';
 import { Link } from 'react-router-dom';
-import serviceCategories from '../../data/service_categories.json';
-
-interface Subcategory {
-  name: string;
-  slug: string;
-}
-
-interface Category {
-  category: string;
-  slug: string;
-  subcategories: Subcategory[];
-}
 
 const Hero: FC = () => {
   const { t } = useTranslation('common');
-
-  // Find categories and subcategories by their names to get slugs
-  const findCategorySlug = (categoryName: string) => {
-    return (
-      (serviceCategories.categories as Category[]).find(
-        cat => cat.category === categoryName
-      )?.slug || ''
-    );
-  };
-
-  const findSubcategorySlug = (
-    categoryName: string,
-    subcategoryName: string
-  ) => {
-    const category = (serviceCategories.categories as Category[]).find(
-      cat => cat.category === categoryName
-    );
-    return (
-      category?.subcategories.find(sub => sub.name === subcategoryName)?.slug ||
-      ''
-    );
-  };
-
-  const popularServices = [
-    {
-      label: t('hero.nationalId'),
-      href: `/services?category=${findCategorySlug(
-        'Certificates and IDs'
-      )}&subcategory=${findSubcategorySlug('Certificates and IDs', 'ID')}`,
-    },
-    {
-      label: t('hero.birthCertificate'),
-      href: `/services?category=${findCategorySlug(
-        'Certificates and IDs'
-      )}&subcategory=${findSubcategorySlug(
-        'Certificates and IDs',
-        'Certificates'
-      )}`,
-    },
-    {
-      label: t('hero.businessRegistration'),
-      href: `/services?category=${findCategorySlug(
-        'Business and Trade'
-      )}&subcategory=${findSubcategorySlug(
-        'Business and Trade',
-        'Business Registration, Certificates and Compliance'
-      )}`,
-    },
-  ];
 
   return (
     <div className='bg-linear-to-r from-primary-600 to-primary-700 text-white py-12 md:py-24'>
@@ -85,16 +25,14 @@ const Hero: FC = () => {
             <div className='mb-8'>
               <MeilisearchInstantSearch />
             </div>
-            <div className='mt-4 flex flex-wrap gap-2'>
-              {popularServices.map(service => (
-                <Link
-                  key={service.label}
-                  className='bg-white/10 text-white border-white/20 hover:bg-white/20 py-2 px-4 rounded-xl text-sm'
-                  to={service.href}
-                >
-                  {service.label}
-                </Link>
-              ))}
+            <div className='mt-4'>
+              <Link
+                to='/services'
+                className='inline-flex items-center gap-2 bg-amber-400/20 text-amber-100 border border-amber-300/40 hover:bg-amber-400/30 py-2 px-4 rounded-xl text-sm transition-colors'
+              >
+                <ConstructionIcon className='h-4 w-4' aria-hidden='true' />
+                {t('comingSoon.badge')}
+              </Link>
             </div>
           </div>
 
@@ -103,106 +41,22 @@ const Hero: FC = () => {
             <h2 className='text-2xl font-semibold mb-4'>
               {t('services.title')}
             </h2>
-            <div className='grid grid-cols-2 gap-4'>
-              <Link
-                to={`/services?category=${findCategorySlug(
-                  'Certificates and IDs'
-                )}`}
-                className='bg-white/10 hover:bg-white/20 rounded-lg p-4 transition-all duration-200 flex flex-col items-center text-center'
-              >
-                <div className='bg-primary-500 p-3 rounded-full mb-3'>
-                  <svg
-                    className='h-6 w-6 text-white'
-                    viewBox='0 0 24 24'
-                    fill='none'
-                    stroke='currentColor'
-                    strokeWidth='2'
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                  >
-                    <path d='M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2'></path>
-                    <circle cx='12' cy='7' r='4'></circle>
-                  </svg>
-                </div>
-                <span className='font-medium'>Citizenship & ID</span>
-              </Link>
-              <Link
-                to={`/services?category=${findCategorySlug(
-                  'Business and Trade'
-                )}`}
-                className='bg-white/10 hover:bg-white/20 rounded-lg p-4 transition-all duration-200 flex flex-col items-center text-center'
-              >
-                <div className='bg-primary-500 p-3 rounded-full mb-3'>
-                  <svg
-                    className='h-6 w-6 text-white'
-                    viewBox='0 0 24 24'
-                    fill='none'
-                    stroke='currentColor'
-                    strokeWidth='2'
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                  >
-                    <rect
-                      x='2'
-                      y='7'
-                      width='20'
-                      height='14'
-                      rx='2'
-                      ry='2'
-                    ></rect>
-                    <path d='M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16'></path>
-                  </svg>
-                </div>
-                <span className='font-medium'>Business</span>
-              </Link>
-              <Link
-                to={`/services?category=${findCategorySlug('Education')}`}
-                className='bg-white/10 hover:bg-white/20 rounded-lg p-4 transition-all duration-200 flex flex-col items-center text-center'
-              >
-                <div className='bg-primary-500 p-3 rounded-full mb-3'>
-                  <svg
-                    className='h-6 w-6 text-white'
-                    viewBox='0 0 24 24'
-                    fill='none'
-                    stroke='currentColor'
-                    strokeWidth='2'
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                  >
-                    <path d='M22 10v6M2 10l10-5 10 5-10 5z'></path>
-                    <path d='M6 12v5c0 2 2 3 6 3s6-1 6-3v-5'></path>
-                  </svg>
-                </div>
-                <span className='font-medium'>Education</span>
-              </Link>
-              <Link
-                to={`/services?category=${findCategorySlug('Health')}`}
-                className='bg-white/10 hover:bg-white/20 rounded-lg p-4 transition-all duration-500 flex flex-col items-center text-center'
-              >
-                <div className='bg-primary-500 p-3 rounded-full mb-3'>
-                  <svg
-                    className='h-6 w-6 text-white'
-                    viewBox='0 0 24 24'
-                    fill='none'
-                    stroke='currentColor'
-                    strokeWidth='2'
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                  >
-                    <path d='M22 12h-4l-3 9L9 3l-3 9H2'></path>
-                  </svg>
-                </div>
-                <span className='font-medium'>Health</span>
-              </Link>
-            </div>
-            <div className='mt-4 flex'>
-              <Link
-                className='bg-white/10 text-white hover:bg-white/20 transition-all duration-500 w-full rounded-lg p-4 text-center'
-                to='/services'
-              >
-                View All Services
-              </Link>
-            </div>
+            <Link
+              to='/services'
+              className='flex items-start gap-3 bg-white/10 hover:bg-white/20 rounded-lg p-4 transition-all duration-200'
+            >
+              <div className='bg-amber-400/20 text-amber-100 p-3 rounded-full shrink-0'>
+                <ConstructionIcon className='h-6 w-6' aria-hidden='true' />
+              </div>
+              <span className='flex-1'>
+                <span className='block font-medium text-left'>
+                  {t('comingSoon.heading')}
+                </span>
+                <span className='block text-sm text-blue-100 mt-1 text-left'>
+                  {t('comingSoon.description')}
+                </span>
+              </span>
+            </Link>
           </div>
         </div>
       </div>

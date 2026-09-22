@@ -18,7 +18,9 @@ export const mainNavigation: NavigationItem[] = [
     href: '/services',
     children: (serviceCategories.categories as Category[]).map(category => ({
       label: category.category,
-      href: `/services?category=${category.slug}`,
+      href: '#',
+      badge: 'Soon',
+      description: 'Under research — coming soon',
     })),
   },
   {
@@ -91,9 +93,6 @@ export const footerNavigation = {
     {
       title: 'Services',
       links: [
-        { label: 'All Services', href: '/services' },
-        { label: 'Service Directory', href: '/services' },
-        { label: 'Websites', href: '/services/websites' },
         { label: 'Hotlines', href: '/hotlines' },
         { label: 'Holidays', href: '/holidays' },
       ],

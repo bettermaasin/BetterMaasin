@@ -25,6 +25,18 @@
   "footer": {
     "copyright": "2025 BetterGov.ph - Ang tanang sulod kay public domain gawas kung lahi ang gisulti."
   },
+  "comingSoon": {
+    "badge": "Ubos sa Pagpanukiduki",
+    "title": "Direktoryo sa mga Serbisyo – Pahinungod",
+    "description": "Nagpangolekta pa mi ug nag-validate sa datos para niining seksyona. Dili pa kini pinal, ug mas gusto namong i-postpone kaysa ipakita nga morag nahuman na bisan dili.",
+    "heading": "Direktoryo sa mga Serbisyo sa Kagamhanan",
+    "noteTitle": "Ngano dili pa kini live?",
+    "noteBody": "Kini nga portal kay direktang fork sa open-source codebase sa BetterGov. Ang seksyon sa mga serbisyo kinahanglan og dugang pagpangolekta ug pag-validate sa datos sa dili pa namo kini ipakita. Ang kasamtangang draft kay usa ka general nga nasudnong lista, dili orihinal nga datos nga espesipiko sa Maasin, ug dili namo gusto nga masaypan kini sa mga magbabasa nga pinal nga direktoryo.",
+    "devNotice": "Pahinumdom: Ang BetterMaasin.org kasamtangang development build, dili usa ka live nga site. Ang tibuok nga gibutang diri kay gipadayon pa nga proyekto.",
+    "whatsNext": "Samtang, mahimo nimong tan-awon ang uban nga bahin sa portal.",
+    "backHome": "Balik sa Home",
+    "contactHelp": "Tabang sa Panukiduki"
+  },
   "navbar": {
     "philippines": "Pilipinas",
     "services": "Mga Serbisyo",

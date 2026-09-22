@@ -176,78 +176,14 @@ const SitemapPage: FC = () => {
       ],
     },
     {
-      title: 'Services',
+      title: 'Services (Coming Soon)',
       icon: <FileText className='h-5 w-5' />,
       links: [
         {
           title: 'All Services',
           url: '/services',
-          description: 'Browse all government services',
-        },
-        {
-          title: 'Government Websites Directory',
-          url: '/services/websites',
-          description: 'Directory of official government websites',
-        },
-        {
-          title: 'Business & Trade',
-          url: '/services?category=business-trade',
-          description: 'Business registration, permits, and trade services',
-        },
-        {
-          title: 'Certificates & IDs',
-          url: '/services?category=certificates-ids',
-          description: 'Birth certificates, IDs, and other documents',
-        },
-        {
-          title: 'Contributions',
-          url: '/services?category=contributions',
-          description: 'SSS, PhilHealth, and other contribution services',
-        },
-        {
-          title: 'Disaster & Weather',
-          url: '/services?category=disaster-weather',
-          description: 'Disaster preparedness and weather information',
-        },
-        {
-          title: 'Education',
-          url: '/services?category=education',
-          description: 'Educational services and scholarships',
-        },
-        {
-          title: 'Employment',
-          url: '/services?category=employment',
-          description: 'Job search and employment services',
-        },
-        {
-          title: 'Health',
-          url: '/services?category=health',
-          description: 'Health services and medical assistance',
-        },
-        {
-          title: 'Housing',
-          url: '/services?category=housing',
-          description: 'Housing loans and property services',
-        },
-        {
-          title: 'Passport & Travel',
-          url: '/services?category=passport-travel',
-          description: 'Passport application and travel documents',
-        },
-        {
-          title: 'Social Services',
-          url: '/services?category=social-services',
-          description: 'Social welfare and assistance programs',
-        },
-        {
-          title: 'Tax',
-          url: '/services?category=tax',
-          description: 'Tax filing and payment services',
-        },
-        {
-          title: 'Transport & Driving',
-          url: '/services?category=transport-driving',
-          description: "Driver's license and transportation services",
+          description:
+            'Government services directory — under research, coming soon',
         },
       ],
     },

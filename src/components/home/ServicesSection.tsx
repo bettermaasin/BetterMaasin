@@ -1,113 +1,38 @@
 import { FC } from 'react';
-import * as LucideIcons from 'lucide-react';
-import { Card, CardContent } from '../ui/Card';
-import serviceCategories from '../../data/service_categories.json';
+import { ConstructionIcon } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-
-interface Subcategory {
-  name: string;
-  slug: string;
-}
-
-interface Category {
-  category: string;
-  slug: string;
-  subcategories: Subcategory[];
-}
+import Button from '../ui/Button';
 
 const ServicesSection: FC = () => {
   const { t } = useTranslation('common');
 
-  const getIcon = (category: string) => {
-    const iconMap: { [key: string]: keyof typeof LucideIcons } = {
-      'Business and Trade': 'Building2',
-      'Certificates and IDs': 'FileCheck',
-      Contributions: 'Wallet',
-      'Disaster and Weather': 'Cloud',
-      Education: 'GraduationCap',
-      Employment: 'Briefcase',
-      Health: 'Heart',
-      Housing: 'Home',
-      'Passport and Travel': 'Plane',
-      'Social Services': 'Users',
-      Tax: 'Receipt',
-      'Transport and Driving': 'Car',
-    };
-
-    const Icon = LucideIcons[iconMap[category] || 'FileText'];
-    return Icon ? <Icon className='h-6 w-6' /> : null;
-  };
-
-  // Show only first 12 categories
-  const displayedCategories = serviceCategories.categories.slice(
-    0,
-    12
-  ) as Category[];
-
   return (
     <section className='py-12 bg-white'>
       <div className='container mx-auto px-4'>
-        <div className='text-center mb-12'>
-          <h2 className='text-2xl md:text-3xl font-bold text-gray-900 mb-4'>
-            {t('services.governmentServices')}
-          </h2>
-          <p className='text-gray-800 max-w-2xl mx-auto'>
-            {t('services.description')}
+        <div className='max-w-2xl mx-auto rounded-xl border border-amber-200 bg-amber-50 p-6 md:p-8 text-center'>
+          <div className='inline-flex items-center justify-center w-14 h-14 rounded-full bg-amber-100 text-amber-700 mb-4'>
+            <ConstructionIcon className='h-7 w-7' aria-hidden='true' />
+          </div>
+          <p className='inline-flex items-center rounded-full bg-amber-100 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-amber-700'>
+            {t('comingSoon.badge')}
           </p>
-        </div>
-
-        <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6'>
-          {displayedCategories.map(category => (
-            <Card
-              key={category.slug}
-              hoverable
-              className='border-t-4 border-primary-500'
-            >
-              <CardContent className='flex flex-col h-full p-6'>
-                <div className='flex gap-2'>
-                  <div className='bg-primary-100 text-primary-600 p-3 rounded-md mb-4 self-start'>
-                    {getIcon(category.category)}
-                  </div>
-
-                  <h3 className='text-lg font-semibold mb-4 text-gray-900'>
-                    {category.category}
-                  </h3>
-                </div>
-
-                <ul className='space-y-2 mb-6 grow'>
-                  {category.subcategories.slice(0, 3).map(subcategory => (
-                    <li key={subcategory.slug}>
-                      <Link
-                        to={`/services?category=${category.slug}&subcategory=${subcategory.slug}`}
-                        className='text-gray-800 hover:text-primary-600 transition-colors text-md flex items-center'
-                      >
-                        <span className='w-1.5 h-1.5 bg-gray-300 rounded-full mr-2'></span>
-                        {subcategory.name}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-
-                <Link
-                  to={`/services?category=${category.slug}`}
-                  className='mt-auto text-primary-600 hover:text-primary-700 font-medium transition-colors inline-flex items-center'
-                >
-                  {t('services.viewAllCategory')} {category.category}
-                  <LucideIcons.ArrowRight className='ml-1 h-4 w-4' />
-                </Link>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-
-        <div className='text-center mt-8'>
-          <Link
-            to='/services'
-            className='inline-flex items-center justify-center rounded-md font-medium transition-colors px-6 py-3 bg-primary-500 text-white hover:bg-primary-600 focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 shadow-xs'
-          >
-            {t('services.viewAll')}
-          </Link>
+          <h2 className='mt-3 text-2xl md:text-3xl font-bold text-gray-900'>
+            {t('comingSoon.heading')}
+          </h2>
+          <p className='mt-3 text-sm md:text-base leading-relaxed text-gray-700'>
+            {t('comingSoon.noteTitle')}
+          </p>
+          <p className='mt-2 text-sm md:text-base leading-relaxed text-amber-800'>
+            {t('comingSoon.noteBody')}
+          </p>
+          <div className='mt-6'>
+            <Link to='/services'>
+              <Button className='bg-primary-600 text-white rounded-lg px-6 py-2'>
+                {t('navbar.services')}
+              </Button>
+            </Link>
+          </div>
         </div>
       </div>
     </section>

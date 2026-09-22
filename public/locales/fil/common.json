@@ -18,6 +18,18 @@
   "footer": {
     "copyright": "2025 BetterGov.ph - Lahat ng nilalaman ay public domain maliban kung iba ang nakasaad."
   },
+  "comingSoon": {
+    "badge": "Sa Ilalim ng Pananaliksik",
+    "title": "Directory ng mga Serbisyo – Paparating",
+    "description": "Nangangalap pa kami at nagba-validate ng datos para sa seksyong ito. Hindi pa ito pinal, at mas gugustuhin naming ipagpaliban ito kaysa ipalabas na mukhang tapos na kahit hindi pa.",
+    "heading": "Directory ng mga Serbisyo ng Pamahalaan",
+    "noteTitle": "Bakit hindi pa ito live?",
+    "noteBody": "Ang portal na ito ay direktang fork ng open-source codebase ng BetterGov. Ang seksyon ng mga serbisyo ay nangangailangan ng mas maraming pangangalap at balidasyon ng datos bago namin ito maipakita. Ang kasalukuyang draft ay pangkalahatang pambansang listahan, hindi orihinal na data na partikular sa Maasin, at ayaw naming mapagkamalang pinal na direktoryo ito ng mga mambabasa.",
+    "devNotice": "Paalala: Ang BetterMaasin.org ay kasalukuyang development build, hindi isang live na site. Lahat dito ay ginagawa pa lang.",
+    "whatsNext": "Samantala, maaari mong tuklasin ang iba pang bahagi ng portal.",
+    "backHome": "Bumalik sa Home",
+    "contactHelp": "Tumulong sa Pananaliksik"
+  },
   "navbar": {
     "philippines": "Pilipinas",
     "services": "Mga Serbisyo",
